@@ -24,7 +24,7 @@
             </StackPanel>
 
         </Grid>
-        <Grid Width="2" Margin="0,40,0,0">
+        <Grid Width="1280" Margin="0,40,0,0">
             <Label Content="SKYRENT" Foreground="#DDC1C1C1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="30" Margin="0,20,0,0" FontFamily="Montserrat Thin"/>
         </Grid>
     </Grid>
