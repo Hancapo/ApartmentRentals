@@ -14,8 +14,8 @@
             </StackPanel>
 
         </Grid>
-        <Grid x:Name="ContentGrid" Width="1280" Height="680" VerticalAlignment="Bottom">
+        <Frame x:Name="Main" NavigationUIVisibility="Hidden" Height="680" VerticalAlignment="Bottom">
             
-        </Grid>
+        </Frame>
     </Grid>
 </Window>
