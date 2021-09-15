@@ -23,5 +23,28 @@ namespace DepartamentoApp
         {
             InitializeComponent();
         }
+
+        private void Main_Loaded(object sender, RoutedEventArgs e)
+        {
+            Main.NavigationService.Navigate(new LoginPage());
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void gMainTab_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                DragMove();
+            }
+        }
     }
 }
