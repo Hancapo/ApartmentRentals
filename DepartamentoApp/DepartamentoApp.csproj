@@ -8,8 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="blurry.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="blurry.png" />
   </ItemGroup>
 
 </Project>

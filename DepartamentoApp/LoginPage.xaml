@@ -9,6 +9,19 @@
       Title="" Background="#FF272727">
 
     <Grid>
-        <Label Content="SKYRENT" Foreground="#DDFFFFFF" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="50" Margin="0,20,0,0" FontFamily="Montserrat SemiBold"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="/blurry.png"/>
+        </Grid.Background>
+        <Label Content="Bievenido a Skyrent" Foreground="#DDFFFFFF" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="50" Margin="0,70,0,0" FontFamily="Montserrat SemiBold"/>
+        <Label Content="Iniciar Sesión" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="35" Margin="0,170,0,0" FontFamily="Montserrat SemiBold"/>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="Auto" Margin="0,70,0,0">
+            <Label Content="Usuario" Foreground="#DDE2E2E2" FontSize="14" FontFamily="Montserrat SemiBold" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+            <TextBox Height="30" Background="#FF2E2E2E" x:Name="tbUsuario" Margin="0,10,0,0"/>
+            <Label Content="Contraseña" Foreground="#DDE2E2E2" FontSize="14" FontFamily="Montserrat SemiBold" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+            <TextBox Height="30" Background="#FF2E2E2E" x:Name="tbContrasena" Margin="0,10,0,0" MaxLines="1"/>
+            <Button Content="Ingresar" Margin="0,30,0,0" x:Name="BtnIngresar" Cursor="Hand"/>
+            <Button Content="¿No tienes cuenta?" Margin="0,10,0,0" x:Name="BtnCuenta"/>
+        </StackPanel>
+        
     </Grid>
 </Page>

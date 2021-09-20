@@ -17,18 +17,19 @@ namespace DepartamentoApp
     /// <summary>
     /// Lógica de interacción para Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class GeneralWindow : Window
     {
-        public Window1()
+        public GeneralWindow()
         {
             InitializeComponent();
         }
 
         private void Main_Loaded(object sender, RoutedEventArgs e)
         {
-            Main.NavigationService.Navigate(new LoginPage());
+            LoginPage lp = new();
+            Main.NavigationService.Navigate(lp);
         }
-
+         
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
