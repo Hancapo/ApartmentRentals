@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Diagnostics;
 using Oracle.ManagedDataAccess.Client;
 
 namespace SkyrentConnect
@@ -8,7 +9,7 @@ namespace SkyrentConnect
     {
 
         private readonly string user = "C##SKYRENT";
-        private readonly string pwd = "12456";
+        private readonly string pwd = "123456";
         private readonly string db = "23.251.159.66:1521/xe";
 
         public(bool, OracleCommand, OracleConnection) CheckOracleConnection()
@@ -45,29 +46,29 @@ namespace SkyrentConnect
             return tb;
         }
 
-        public bool RunOracleExecuteScalar(string sqlcommand)
+        public object RunOracleExecuteScalar(string sqlcommand)
         {
-            bool canRun = false;
+            object newobj = null;
             if (CheckOracleConnection().Item1)
             {
                 OracleCommand cmd = CheckOracleConnection().Item2;
-                cmd.CommandText = sqlcommand;
                 try
                 {
-                    cmd.ExecuteScalar();
-                    canRun = true;
+                    cmd.CommandText = sqlcommand;
 
+                    newobj = cmd.ExecuteScalar();
                     cmd.Dispose();
                 }
-                catch (Exception)
+                catch (InvalidOperationException ioe)
                 {
-                    canRun = false;
+
+                    return newobj;
 
                 }
 
             }
 
-            return canRun;
+            return newobj;
         }
 
         public OracleDataReader RunOracleExecuteReader(string sqlcommand)

@@ -6,22 +6,26 @@
       xmlns:local="clr-namespace:DepartamentoApp"
       mc:Ignorable="d" 
       d:DesignHeight="680" d:DesignWidth="1280"
-      Title="" Background="#FF272727">
+      Title="">
+    <Page.Background>
+        <ImageBrush ImageSource="/blurry.png"/>
+    </Page.Background>
 
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/blurry.png"/>
-        </Grid.Background>
+        <Button x:Name="BtnTest" Content="Probar Conexión" Width="160" Height="50" VerticalAlignment="Bottom" Click="BtnTest_Click" Margin="0,0,20,20" HorizontalAlignment="Right"/>
         <Label Content="Bievenido a Skyrent" Foreground="#DDFFFFFF" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="50" Margin="0,70,0,0" FontFamily="Montserrat SemiBold"/>
-        <Label Content="Iniciar Sesión" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="35" Margin="0,170,0,0" FontFamily="Montserrat SemiBold"/>
+        <Label Content="Iniciar Sesión" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="35" Margin="0,160,0,0" FontFamily="Montserrat SemiBold"/>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="Auto" Margin="0,70,0,0">
-            <Label Content="Usuario" Foreground="#DDE2E2E2" FontSize="14" FontFamily="Montserrat SemiBold" HorizontalAlignment="Center" Margin="0,10,0,0"/>
-            <TextBox Height="30" Background="#FF2E2E2E" x:Name="tbUsuario" Margin="0,10,0,0"/>
-            <Label Content="Contraseña" Foreground="#DDE2E2E2" FontSize="14" FontFamily="Montserrat SemiBold" HorizontalAlignment="Center" Margin="0,10,0,0"/>
-            <TextBox Height="30" Background="#FF2E2E2E" x:Name="tbContrasena" Margin="0,10,0,0" MaxLines="1"/>
-            <Button Content="Ingresar" Margin="0,30,0,0" x:Name="BtnIngresar" Cursor="Hand"/>
-            <Button Content="¿No tienes cuenta?" Margin="0,10,0,0" x:Name="BtnCuenta"/>
+            <Label Content="Usuario" Foreground="#DDE2E2E2" FontSize="16" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Bold"/>
+            <TextBox Height="30" Background="#FF2E2E2E" x:Name="tbUsuario" Margin="0,10,0,0" Cursor="IBeam" Foreground="White" HorizontalContentAlignment="Center"/>
+            <Label Content="Contraseña" Foreground="#DDE2E2E2" FontSize="15" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+            <PasswordBox Height="30" Background="#FF2E2E2E" FontSize="15" FontFamily="Segoe UI" Margin="0,10,0,0" x:Name="pbPassword" Foreground="White" Cursor="IBeam"/>
+            <Button Content="Ingresar" Margin="0,30,0,0" x:Name="BtnIngresar" Cursor="Hand" FontWeight="Bold" Click="BtnIngresar_Click"/>
+            <Button Content="¿No tienes cuenta?" Margin="0,10,0,0" x:Name="BtnCuenta" FontWeight="Bold"/>
+
         </StackPanel>
         
+
     </Grid>
+
 </Page>

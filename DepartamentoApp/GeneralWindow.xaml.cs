@@ -22,6 +22,7 @@ namespace DepartamentoApp
         public GeneralWindow()
         {
             InitializeComponent();
+            
         }
 
         private void Main_Loaded(object sender, RoutedEventArgs e)

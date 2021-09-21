@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SkyrentBusiness\SkyrentBusiness.csproj" />
+    <ProjectReference Include="..\SkyrentConnect\SkyrentConnect.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="blurry.png" />
   </ItemGroup>
 
