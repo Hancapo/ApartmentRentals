@@ -5,10 +5,34 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DepartamentoApp"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="RegisterPage">
+      d:DesignHeight="680" d:DesignWidth="1280"
+      Title="">
 
     <Grid>
-        
+        <Label Content="Crear cuenta" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="35" FontFamily="Montserrat SemiBold" Margin="0,-400,0,0"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="0,-106,0,0">
+                <Label Content="RUT" FontSize="16" FontWeight="Bold" Foreground="White" />
+                <TextBox Width="300" Background="#FF3C3C3C" x:Name="TbRUT"/>
+                <Label Content="Nombre de usuario" FontSize="16" FontWeight="Bold" Foreground="White" />
+                <TextBox Width="300" Background="#FF3C3C3C" x:Name="tbNombreUsuario"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="20,0,0,0">
+                <Label Content="Nombres" FontSize="16" FontWeight="Bold" Foreground="White" />
+                <TextBox Width="300" Background="#FF3C3C3C" x:Name="TbNombres"/>
+                <Label Content="Apellido Materno" FontSize="16" FontWeight="Bold" Foreground="White" />
+                <TextBox Width="300" Background="#FF3C3C3C" x:Name="TbApellidoM"/>
+                <Label Content="Contraseña" FontSize="16" FontWeight="Bold" Foreground="White" />
+                <PasswordBox Width="300" Background="#FF3C3C3C" x:Name="PbPassword"/>
+                <Button Content="Crear cuenta" Margin="0,20,0,0" x:Name="BtnCreateAccount"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="20,-106,0,0">
+                <Label Content="Comuna" FontSize="16" FontWeight="Bold" Foreground="White" />
+                <ComboBox Width="300" Background="#FF3C3C3C" x:Name="CbComunas"/>
+                <Label Content="Apellido Paterno" FontSize="16" FontWeight="Bold" Foreground="White" />
+                <TextBox Width="300" Background="#FF3C3C3C" x:Name="TbApellidoP"/>
+            </StackPanel>
+        </StackPanel>
+
     </Grid>
 </Page>

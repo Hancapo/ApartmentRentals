@@ -2,6 +2,7 @@
 using System.Data;
 using Oracle.ManagedDataAccess.Client;
 using SkyrentConnect;
+using SkyrentObjects;
 
 
 namespace SkyrentBusiness
@@ -33,6 +34,15 @@ namespace SkyrentBusiness
 
             return (IsConnected, UserType, AccountExists);
 
+        }
+
+        public bool CrearUsuario(Cliente clie)
+        {
+            string CreateUserCommand = string.Format("INSERT INTO USUARIO (idusuario, password_2, nombreusuario, tipo_usuario_idtipo_usario) " +
+                "VALUES ('POR DEFINIR', '{0}', '{1}', '2')", clie.NombreUsuario, clie.ContrasenaUsuario);
+            osc.RunOracleNonQuery(CreateUserCommand);
+
+            return false;
         }
 
 
