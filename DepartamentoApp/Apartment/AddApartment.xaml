@@ -1,0 +1,16 @@
+﻿<Page x:Class="DepartamentoApp.Apartment.AddApartment"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DepartamentoApp.Apartment"
+      mc:Ignorable="d" 
+      d:DesignHeight="680" d:DesignWidth="1280"
+      Title="AddApartment">
+
+    <Grid>
+        <Label Content="Familia Item" FontSize="16" FontWeight="Bold" Foreground="White" Margin="1015,255,145,391" />
+        <ComboBox x:Name="familiaItemCB" Loaded="familiaItemCB_Loaded" HorizontalAlignment="Left" Margin="1015,294,0,0" VerticalAlignment="Top" Width="120"/>
+
+    </Grid>
+</Page>
