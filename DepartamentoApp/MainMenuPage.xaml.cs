@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DepartamentoApp.Apartment;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,8 @@ namespace DepartamentoApp
         {
             InitializeComponent();
             SetUserType(UserType);
+            AddApartment ap = new();
+            InicioFrame.NavigationService.Navigate(ap);
         }
 
 

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SkyrentBusiness;
+using SkyrentBusiness.ApartmentBusiness;
 
 namespace DepartamentoApp.Apartment
 {
@@ -27,7 +29,9 @@ namespace DepartamentoApp.Apartment
 
         private void familiaItemCB_Loaded(object sender, RoutedEventArgs e)
         {
-
+            ApartmentBusiness auxAB = new();
+            var auxLlenado = auxAB.returnFamiliaItems();
+            familiaItemCB.ItemsSource = auxLlenado.Select(m => m.DESCRIPCION).ToList();
         }
     }
 }
