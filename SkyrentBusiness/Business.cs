@@ -14,18 +14,18 @@ namespace SkyrentBusiness
 
         public (bool, int, bool) LoginProc(string usuario, string contrasena)
         {
-            int UserType = 32767;
+            int UserType = 0x7FFF;
             bool IsConnected;
             bool AccountExists;
 
-            if (osc.RunOracleExecuteScalar(string.Format("SELECT tipo_usuario_idtipo_usuario FROM USUARIO WHERE (password_2 = '{0}' AND nombreusuario = '{1}')", contrasena, usuario)) == null)
+            if (osc.RunOracleExecuteScalar(string.Format("SELECT tipo_usuario_idtipo_usuario FROM USUARIO WHERE (usuariopassword = '{0}' AND nombreusuario = '{1}')", contrasena, usuario)) == null)
             {
                 IsConnected = true;
                 AccountExists = false;
             }
             else
             {
-                UserType = Convert.ToInt32(osc.RunOracleExecuteScalar(string.Format("SELECT tipo_usuario_idtipo_usuario FROM USUARIO WHERE (password_2 = '{0}' AND nombreusuario = '{1}')", contrasena, usuario)));
+                UserType = Convert.ToInt32(osc.RunOracleExecuteScalar(string.Format("SELECT tipo_usuario_idtipo_usuario FROM USUARIO WHERE (usuariopassword = '{0}' AND nombreusuario = '{1}')", contrasena, usuario)));
                 IsConnected = true;
                 AccountExists = true;
 
@@ -36,13 +36,16 @@ namespace SkyrentBusiness
 
         }
 
-        public bool CreateUser(Cliente clie)
+        public int CreateUser(Cliente clie)
         {
-            bool isCreated;
+
+            //0 - User couldn't be created.
+            //1 - User has been created sucessfully.
+            //2 - User already exists.
 
             string CreateUserCommand = string.Format("INSERT INTO USUARIO (idusuario, password_2, nombreusuario, tipo_usuario_idtipo_usario) " +
                 "VALUES ('{0}', '{1}', '{2}', '{3}')", CalculateID("idusuario", "usuario"), clie.ContrasenaUsuario, clie.NombreUsuario, 2);
-            string SearchUsersCommand = string.Format("SELECT COUNT(rutcliente) FROM CLIENTE WHERE rutcliente = '{0}'",  clie.RutCliente);
+            string SearchUsersCommand = string.Format("SELECT COUNT(rutcliente) FROM CLIENTE WHERE rutcliente = '{0}'", clie.RutCliente);
 
 
 
@@ -54,19 +57,22 @@ namespace SkyrentBusiness
                 try
                 {
                     osc.RunOracleNonQuery(CreateUserCommand);
-                    isCreated = true;
+                    return 1;
                 }
                 catch (Exception)
                 {
-                    isCreated = false;
+                    return 0;
                 }
+            }
+            else
+            {
+                return 2;
             }
 
 
-            
-            
 
-            return false;
+
+
         }
 
         public int CalculateID(string IdColumnName, string TableName)
