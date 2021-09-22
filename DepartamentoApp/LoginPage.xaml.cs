@@ -36,13 +36,13 @@ namespace DepartamentoApp
 
             if (!(string.IsNullOrEmpty(tbUsuario.Text) && string.IsNullOrEmpty(pbPassword.Password)))
             {
-                if (bsnss.IniciarSesion(tbUsuario.Text, pbPassword.Password).Item1)
+                if (bsnss.LoginProc(tbUsuario.Text, pbPassword.Password).Item1)
                 {
 
-                    if (bsnss.IniciarSesion(tbUsuario.Text, pbPassword.Password).Item3)
+                    if (bsnss.LoginProc(tbUsuario.Text, pbPassword.Password).Item3)
                     {
-                        bool Connected = bsnss.IniciarSesion(tbUsuario.Text, pbPassword.Password).Item1;
-                        int UserType = bsnss.IniciarSesion(tbUsuario.Text, pbPassword.Password).Item2;
+                        bool Connected = bsnss.LoginProc(tbUsuario.Text, pbPassword.Password).Item1;
+                        int UserType = bsnss.LoginProc(tbUsuario.Text, pbPassword.Password).Item2;
 
                         MessageBox.Show(string.Format("Inicio de sesión exitoso, bienvenido {0}", tbUsuario.Text), "Información", MessageBoxButton.OK, MessageBoxImage.Information);
 

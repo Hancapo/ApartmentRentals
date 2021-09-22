@@ -8,7 +8,7 @@ namespace SkyrentConnect
     public class OracleSkyCon
     {
 
-        private readonly string user = "C##SKYRENT";
+        private readonly string user = "C##VICENTE";
         private readonly string pwd = "123456";
         private readonly string db = "23.251.159.66:1521/xe";
 
@@ -62,7 +62,7 @@ namespace SkyrentConnect
                 catch (InvalidOperationException ioe)
                 {
 
-                    return newobj;
+                    return newobj = null;
 
                 }
 
