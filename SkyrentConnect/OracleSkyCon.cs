@@ -62,7 +62,7 @@ namespace SkyrentConnect
                 catch (InvalidOperationException ioe)
                 {
 
-                    return newobj = null;
+                    return newobj;
 
                 }
 

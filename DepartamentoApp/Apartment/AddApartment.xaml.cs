@@ -30,7 +30,7 @@ namespace DepartamentoApp.Apartment
         private void familiaItemCB_Loaded(object sender, RoutedEventArgs e)
         {
             ApartmentBusiness auxAB = new();
-            var auxLlenado = auxAB.returnFamiliaItems();
+            var auxLlenado = auxAB.ReturnFamiliaItems();
             familiaItemCB.ItemsSource = auxLlenado.Select(m => m.DESCRIPCION).ToList();
         }
     }

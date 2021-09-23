@@ -1,9 +1,10 @@
-﻿<Page x:Class="DepartamentoApp.LoginPage"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DepartamentoApp"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="DepartamentoApp.LoginPage"
       mc:Ignorable="d" 
       d:DesignHeight="680" d:DesignWidth="1280"
       Title="">
@@ -21,10 +22,10 @@
             <Label Content="Contraseña" Foreground="#DDE2E2E2" FontSize="15" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Bold" HorizontalContentAlignment="Center"/>
             <PasswordBox Height="30" Background="#FF2E2E2E" FontSize="15" FontFamily="Segoe UI" Margin="0,10,0,0" x:Name="pbPassword" Foreground="White" Cursor="IBeam"/>
             <Button Content="Ingresar" Margin="0,30,0,0" x:Name="BtnIngresar" Cursor="Hand" FontWeight="Bold" Click="BtnIngresar_Click"/>
-            <Button Content="¿No tienes cuenta?" Margin="0,10,0,0" x:Name="BtnCuenta" FontWeight="Bold"/>
-
+            <Button Content="¿No tienes cuenta?" Margin="0,10,0,0" x:Name="BtnCuenta" FontWeight="Bold" Click="BtnCuenta_Click"/>
+            
         </StackPanel>
-        
+
 
     </Grid>
 

@@ -12,14 +12,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BusyIndicator" Version="1.7.0" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.1.0" />
     <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.3" />
+    <PackageReference Include="Virzak.Extended.Wpf.Toolkit" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SkyrentBusiness\SkyrentBusiness.csproj" />
     <ProjectReference Include="..\SkyrentConnect\SkyrentConnect.csproj" />
+    <ProjectReference Include="..\SkyrentObjects\SkyrentObjects.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,38 +1,51 @@
 ﻿<Page x:Class="DepartamentoApp.RegisterPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DepartamentoApp"
       mc:Ignorable="d" 
       d:DesignHeight="680" d:DesignWidth="1280"
-      Title="">
+      Title="" Loaded="Page_Loaded">
 
     <Grid>
+        
+        <Grid.Background>
+            <ImageBrush ImageSource="/blurry.png"/>
+        </Grid.Background>
         <Label Content="Crear cuenta" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="35" FontFamily="Montserrat SemiBold" Margin="0,-400,0,0"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="0,-106,0,0">
                 <Label Content="RUT" FontSize="16" FontWeight="Bold" Foreground="White" />
-                <TextBox Width="300" Background="#FF3C3C3C" x:Name="TbRUT"/>
+                <xctk:MaskedTextBox x:Name="TbRUT" Height="24.96" Background="#FF3C3C3C" BorderBrush="#89000000" CaretBrush="#FF673AB7" Mask="A>A,>A>A>A,>A>A>A->A" RestrictToAscii="True" />
                 <Label Content="Nombre de usuario" FontSize="16" FontWeight="Bold" Foreground="White" />
-                <TextBox Width="300" Background="#FF3C3C3C" x:Name="tbNombreUsuario"/>
+                <TextBox Width="300" Background="#FF3C3C3C" x:Name="tbNombreUsuario" CaretBrush="{x:Null}" BorderBrush="#89000000"/>
+                <Label Content="Contraseña" FontSize="16" FontWeight="Bold" Foreground="White" />
+                <PasswordBox Width="300" Background="#FF3C3C3C" x:Name="PbPassword"/>
+                
             </StackPanel>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="20,0,0,0">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="20,-54,0,0">
                 <Label Content="Nombres" FontSize="16" FontWeight="Bold" Foreground="White" />
                 <TextBox Width="300" Background="#FF3C3C3C" x:Name="TbNombres"/>
                 <Label Content="Apellido Materno" FontSize="16" FontWeight="Bold" Foreground="White" />
                 <TextBox Width="300" Background="#FF3C3C3C" x:Name="TbApellidoM"/>
-                <Label Content="Contraseña" FontSize="16" FontWeight="Bold" Foreground="White" />
-                <PasswordBox Width="300" Background="#FF3C3C3C" x:Name="PbPassword"/>
-                <Button Content="Crear cuenta" Margin="0,20,0,0" x:Name="BtnCreateAccount"/>
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="20,-106,0,0">
-                <Label Content="Comuna" FontSize="16" FontWeight="Bold" Foreground="White" />
-                <ComboBox Width="300" Background="#FF3C3C3C" x:Name="CbComunas"/>
                 <Label Content="Apellido Paterno" FontSize="16" FontWeight="Bold" Foreground="White" />
                 <TextBox Width="300" Background="#FF3C3C3C" x:Name="TbApellidoP"/>
-            </StackPanel>
-        </StackPanel>
+                <Button Content="Crear cuenta" Margin="0,20,0,0" x:Name="BtnCreateAccount" Cursor="Hand" Click="BtnCreateAccount_Click"/>
 
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="20,-106,0,0">
+                <Label Content="Región" FontSize="16" FontWeight="Bold" Foreground="White" />
+                <ComboBox Width="300" Background="#FF3C3C3C" x:Name="CbRegion" SelectionChanged="CbRegion_SelectionChanged"/>
+                <Label Content="Ciudad" FontSize="16" FontWeight="Bold" Foreground="White" />
+                <ComboBox Width="300" Background="#FF3C3C3C" x:Name="CbCiudad" SelectionChanged="CbCiudad_SelectionChanged"/>
+                <Label Content="Comuna" FontSize="16" FontWeight="Bold" Foreground="White" />
+                <ComboBox Width="300" Background="#FF3C3C3C" x:Name="CbComuna"/>
+                
+            </StackPanel>
+            
+        </StackPanel>
+        <Button Content="Volver" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" x:Name="BtnVolver" Click="BtnVolver_Click"/>
     </Grid>
 </Page>

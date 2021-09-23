@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SkyrentBusiness;
 using SkyrentConnect;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace DepartamentoApp
 {
@@ -22,9 +25,8 @@ namespace DepartamentoApp
     /// </summary>
     public partial class LoginPage : Page
     {
-        private Business bsnss = new();
+        private CommonBusiness bsnss = new();
         private OracleSkyCon osc = new();
-
         public LoginPage()
         {
             InitializeComponent();
@@ -32,23 +34,38 @@ namespace DepartamentoApp
 
         private void BtnIngresar_Click(object sender, RoutedEventArgs e)
         {
-            
 
-            if (!(string.IsNullOrEmpty(tbUsuario.Text) && string.IsNullOrEmpty(pbPassword.Password)))
+            Ingresar(tbUsuario.Text, pbPassword.Password);
+        }
+
+        private void BtnTest_Click(object sender, RoutedEventArgs e)
+        {
+            if (osc.CheckOracleConnection().Item1)
             {
-                if (bsnss.LoginProc(tbUsuario.Text, pbPassword.Password).Item1)
+                MessageBox.Show("Se ha podido conectar con la base de datos", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            else
+            {
+                MessageBox.Show("No se ha podido conectar con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+        }
+
+        public void Ingresar(string usr, string pwd)
+        {
+
+            if (!(string.IsNullOrEmpty(usr) && string.IsNullOrEmpty(pwd)))
+            {
+                if (bsnss.LoginProc(usr, pwd).Item1)
                 {
 
-                    if (bsnss.LoginProc(tbUsuario.Text, pbPassword.Password).Item3)
+                    if (bsnss.LoginProc(usr, pbPassword.Password).Item3)
                     {
-                        bool Connected = bsnss.LoginProc(tbUsuario.Text, pbPassword.Password).Item1;
-                        int UserType = bsnss.LoginProc(tbUsuario.Text, pbPassword.Password).Item2;
+                        bool Connected = bsnss.LoginProc(usr, pwd).Item1;
+                        int UserType = bsnss.LoginProc(usr, pwd).Item2;
 
-                        MessageBox.Show(string.Format("Inicio de sesión exitoso, bienvenido {0}", tbUsuario.Text), "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-
-
-
-
+                        MessageBox.Show(string.Format("Inicio de sesión exitoso, bienvenido {0}", usr), "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         switch (UserType)
                         {
                             case 1:
@@ -87,21 +104,14 @@ namespace DepartamentoApp
                 MessageBox.Show("Ingrese un usuario y contraseña para iniciar sesión.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
+
+
         }
 
-        private void BtnTest_Click(object sender, RoutedEventArgs e)
+        private void BtnCuenta_Click(object sender, RoutedEventArgs e)
         {
-            if (osc.CheckOracleConnection().Item1)
-            {
-                MessageBox.Show("Se ha podido conectar con la base de datos", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            }
-            else
-            {
-                MessageBox.Show("No se ha podido conectar con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
+            RegisterPage rp = new();
+            NavigationService.Navigate(rp);
         }
-
     }
 }
