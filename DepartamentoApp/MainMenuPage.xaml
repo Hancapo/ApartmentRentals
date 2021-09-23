@@ -15,8 +15,8 @@
             <TabItem Header="Inicio" Height="60" Width="120" x:Name="TabItemInicio" Loaded="TabItemInicio_Loaded">
                 <Frame x:Name="InicioFrame"/>
             </TabItem>
-            <TabItem Header="Cliente" Height="60" Width="120" x:Name="TabItemCliente">
-                <Grid Background="#FF58FF27" Height="680" Width="1160" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TabItem Header="Cliente" Height="60" Width="120" x:Name="TabItemCliente" Loaded="TabItemCliente_Loaded">
+                <Frame x:Name="ClienteFrame"/>
             </TabItem>
             <TabItem Header="Departamentos" Height="60" Width="120" x:Name="TabItemDeparta" Loaded="TabItemDeparta_Loaded">
                 <Frame x:Name="ApartmentFrame"/>

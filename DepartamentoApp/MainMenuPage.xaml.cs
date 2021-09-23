@@ -65,5 +65,11 @@ namespace DepartamentoApp
             AddApartment AddA = new();
             ApartmentFrame.NavigationService.Navigate(AddA);
         }
+
+        private void TabItemCliente_Loaded(object sender, RoutedEventArgs e)
+        {
+            ClientePage cp = new();
+            ClienteFrame.NavigationService.Navigate(cp);
+        }
     }
 }

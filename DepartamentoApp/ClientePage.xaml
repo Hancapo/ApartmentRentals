@@ -1,0 +1,25 @@
+﻿<Page x:Class="DepartamentoApp.ClientePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DepartamentoApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="680" d:DesignWidth="1160"
+      Title="">
+
+    <Grid x:Name="GridVerCliente" Background="#FF404040" Loaded="GridVerCliente_Loaded">
+        <TabControl>
+            <TabItem Header="Ver Clientes">
+                <Grid Background="#FF252525">
+                    <DataGrid x:Name="DgClienteGrid" AutoGenerateColumns="True" Width="900" Height="500" Background="#FF171717" Foreground="#DDFFFFFF"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="WIP">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Page>
