@@ -21,6 +21,7 @@ namespace DepartamentoApp
     /// </summary>
     public partial class MainMenuPage : Page
     {
+        private int UserType;
         public MainMenuPage(int UserType)
         {
             InitializeComponent();
@@ -32,6 +33,7 @@ namespace DepartamentoApp
 
         public void SetUserType(int UsrType)
         {
+            UserType = UsrType;
             switch (UsrType)
             {
                 case 1:
@@ -62,14 +64,24 @@ namespace DepartamentoApp
 
         private void TabItemDeparta_Loaded(object sender, RoutedEventArgs e)
         {
-            AddApartment AddA = new();
+            ListApartmentPage AddA = new();
             ApartmentFrame.NavigationService.Navigate(AddA);
         }
 
         private void TabItemCliente_Loaded(object sender, RoutedEventArgs e)
         {
-            ClientePage cp = new();
-            ClienteFrame.NavigationService.Navigate(cp);
+            ClientePage cp = new(UserType);
+            AdminFrame.NavigationService.Navigate(cp);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TabItemInicio_FocusableChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            MessageBox.Show("let's go");
         }
     }
 }

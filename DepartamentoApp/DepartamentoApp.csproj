@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="802579.png" />
     <None Remove="blurry.png" />
+    <None Remove="wallpapersden.com_iceberg-minimalist_1336x768.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,7 +19,6 @@
     <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.3" />
-    <PackageReference Include="Virzak.Extended.Wpf.Toolkit" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,7 +28,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="802579.png" />
     <Resource Include="blurry.png" />
+    <Resource Include="wallpapersden.com_iceberg-minimalist_1336x768.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Apartment\Images\" />
   </ItemGroup>
 
 </Project>

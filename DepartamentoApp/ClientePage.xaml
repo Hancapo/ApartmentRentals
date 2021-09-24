@@ -4,20 +4,28 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DepartamentoApp"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="680" d:DesignWidth="1160"
-      Title="">
+      Title="" Loaded="Page_Loaded">
 
-    <Grid x:Name="GridVerCliente" Background="#FF404040" Loaded="GridVerCliente_Loaded">
-        <TabControl>
-            <TabItem Header="Ver Clientes">
-                <Grid Background="#FF252525">
-                    <DataGrid x:Name="DgClienteGrid" AutoGenerateColumns="True" Width="900" Height="500" Background="#FF171717" Foreground="#DDFFFFFF"/>
+    <Grid x:Name="GridVerCliente" Loaded="GridVerCliente_Loaded">
+        <TabControl Background="{x:Null}">
+            <TabItem Header="Clientes">
+                <Grid>
+                    <DataGrid x:Name="DgClienteGrid" AutoGenerateColumns="True" Width="900" Height="500"/>
 
                 </Grid>
             </TabItem>
-            <TabItem Header="WIP">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Ítems">
+                <Grid>
+                    <DataGrid x:Name="DgItemsGrid" AutoGenerateColumns="True" Width="900" Height="500"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Tarifas">
+                <Grid>
+                    <DataGrid x:Name="DgTarifasGrid" AutoGenerateColumns="True" Width="900" Height="500"/>
+                </Grid>
             </TabItem>
         </TabControl>
 

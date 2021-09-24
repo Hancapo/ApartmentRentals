@@ -152,5 +152,31 @@ namespace SkyrentBusiness
 
         }
 
+
+        public List<Departamento> GetDepartamentoList()
+        {
+            List<Departamento> DepLista = new();
+
+            string sqlcommand = "SELECT t.monto_noche AS \"PrecioNoche\", c.descripcion AS \"Comuna\", d.direccion AS \"Direccion\", d.descripcion as \"Descripcion\", d.titulodepart AS \"Titulo\" FROM DEPARTAMENTO d INNER JOIN COMUNA c ON d.comuna_idcomuna = c.idcomuna INNER JOIN TARIFA t ON d.tarifa_idtarifa = t.idtarifa";
+            foreach (DataRow dr in osc.OracleToDataTable(sqlcommand).Rows)
+            {
+                Departamento dede = new() {
+                    TarifaDep = "$" + Convert.ToInt32(dr["PrecioNoche"]).ToString("N0") + " por noche",
+                    ComunaDep = dr["Comuna"].ToString(),
+                    DireccionDep = dr["Direccion"].ToString(),
+                    DescripcionDep = dr["Descripcion"].ToString(),
+                    FotoSmall = null,
+                    FotoBig = null,
+                    TituloDepartamento = dr["Titulo"].ToString()
+                    
+                };
+
+                DepLista.Add(dede);
+            }
+
+
+            return DepLista;
+        }
+
     }
 }
