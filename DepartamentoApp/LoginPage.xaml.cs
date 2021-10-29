@@ -1,22 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using SkyrentBusiness;
 using SkyrentConnect;
-using System.ComponentModel;
-using System.Threading;
-using System.Windows.Threading;
 
 namespace DepartamentoApp
 {
@@ -25,8 +11,8 @@ namespace DepartamentoApp
     /// </summary>
     public partial class LoginPage : Page
     {
-        private CommonBusiness bsnss = new();
-        private OracleSkyCon osc = new();
+        private readonly CommonBusiness bsnss = new();
+        private readonly OracleSkyCon osc = new();
         public LoginPage()
         {
             InitializeComponent();
@@ -62,7 +48,6 @@ namespace DepartamentoApp
 
                     if (bsnss.LoginProc(usr, pbPassword.Password).Item3)
                     {
-                        bool Connected = bsnss.LoginProc(usr, pwd).Item1;
                         int UserType = bsnss.LoginProc(usr, pwd).Item2;
 
                         MessageBox.Show(string.Format("Inicio de sesión exitoso, bienvenido {0}", usr), "Información", MessageBoxButton.OK, MessageBoxImage.Information);

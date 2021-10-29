@@ -41,7 +41,7 @@
                     <Label Content="Ingresar" Margin="0,-2,0,0" FontWeight="Bold"/>
                 </StackPanel>
             </Button>
-            <Button Margin="0,10,0,0" x:Name="BtnCuenta" FontWeight="Bold" Click="BtnCuenta_Click" Height="40">
+            <Button Margin="0,10,0,0" x:Name="BtnCuenta" FontWeight="Bold" Click="BtnCuenta_Click" Height="40" Visibility="Hidden">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="{materialDesign:PackIcon Kind=CreateOutline}"/>
                     <Label Content="Crear cuenta" Margin="0,-2,0,0" FontWeight="Bold"/>
