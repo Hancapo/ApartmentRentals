@@ -24,7 +24,7 @@
                                 <Label Content="{Binding ComunaDep}" Margin="20,0,20,0" FontWeight="Bold"/>
                                 <Label Content="{Binding DireccionDep}" Margin="20,0,20,0" FontWeight="Bold"/>
                                 <Label Content="{Binding TarifaDep}" Margin="20,0,20,0" FontWeight="Bold"/>
-                                <Button Content="Entrar" Margin="0,-15,0,0" Foreground="White"/>
+                                <Button Content="Entrar" Margin="0,-15,0,0" Foreground="White" x:Name="BtnDepartmentEnter" Click="BtnDepartmentEnter_Click"/>
                             </StackPanel>
                         </StackPanel>
                     </materialDesign:Card>

@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using SkyrentBusiness;
 using SkyrentConnect;
 using SkyrentObjects;
+using MaterialDesignColors;
+using SkyrentObjects;
 
 namespace DepartamentoApp.Apartment
 {
@@ -34,6 +36,12 @@ namespace DepartamentoApp.Apartment
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             ListaDepartamentos.ItemsSource = cbb.GetDepartamentoList();
+        }
+
+        private void BtnDepartmentEnter_Click(object sender, RoutedEventArgs e)
+        {
+            var idDep = (((Button)sender).DataContext as Departamento).IdDepartamento;
+            MessageBox.Show(idDep.ToString());
         }
     }
 }
