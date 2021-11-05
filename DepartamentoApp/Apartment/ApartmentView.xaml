@@ -1,0 +1,55 @@
+﻿<Page x:Class="DepartamentoApp.ApartmentView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:local="clr-namespace:DepartamentoApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="680" d:DesignWidth="1160"
+      Title="">
+
+    <Grid>
+        <Button x:Name="btnSaveChanges" Width="130" Content="Guardar cambios" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="386,19,0,0" Cursor="Hand" FontSize="12" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+        <Button x:Name="btnBack" Width="75" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,30,0" Cursor="Hand" Content="Volver" FontSize="12" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Click="btnBack_Click"/>
+        <CheckBox x:Name="cbEditMode" Content="Modo edición" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="1100" Height="600" Orientation="Vertical">
+
+            <StackPanel HorizontalAlignment="Center" Width="1050" Height="300" Margin="0,25,0,0" Orientation="Horizontal">
+                <Image x:Name="ImBig" Width="200" Height="200" HorizontalAlignment="Left" Margin="50,0,0,0" Source="/Apartment/1.jpg"/>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="50,0,0,0">
+                        <TextBlock x:Name="TTitulo" Text="Vista preciosa al mar" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="14" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                        <TextBlock x:Name="TDescripcion" Width="600" MaxWidth="600" Height="150" MaxHeight="150" TextWrapping="Wrap" Text="Garantizamos una casa muy acogedora, con una vista maravillosa al mar y una tranquilidad impagable que hace que sean unas relajadas vacaciones." FontSize="14" HorizontalAlignment="Left" Margin="50,10,50,0" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Label Content="Comuna" VerticalAlignment="Center" Margin="100,0,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                        <TextBox x:Name="TbComuna" Text="La Florida" IsReadOnly="True" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                        <Label Content="Noche" VerticalAlignment="Center" Margin="100,0,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                        <TextBox x:Name="CbTarifa" Text="$49.990" IsReadOnly="True" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Cursor="IBeam"/>
+                        <Label Content="Dirección" VerticalAlignment="Center" Margin="100,0,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                        <TextBox x:Name="tbDireccion" Text="Avenida Papu Lince 3845" IsReadOnly="True" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+
+                    </StackPanel>
+                </StackPanel>
+
+
+
+
+            </StackPanel>
+            <StackPanel Height="270" Orientation="Horizontal">
+                <StackPanel Width="550" Orientation="Vertical" >
+                    <Label Content="Inventario" HorizontalAlignment="Center" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                    <DataGrid Width="500" Height="230" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                </StackPanel>
+                <StackPanel Width="550">
+                    <Label Content="Calendario" HorizontalAlignment="Center" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                    <Viewbox Width="150">
+                        <Calendar DisplayMode="Month" SelectionMode="SingleRange" />
+                    </Viewbox>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

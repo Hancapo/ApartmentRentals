@@ -26,8 +26,8 @@ namespace DepartamentoApp
         {
             InitializeComponent();
             SetUserType(UserType);
-            AddApartment ap = new();
-            InicioFrame.NavigationService.Navigate(ap);
+            //AddApartment ap = new();
+            //InicioFrame.NavigationService.Navigate(ap);
         }
 
 

@@ -59,7 +59,7 @@ namespace SkyrentConnect
                     newobj = cmd.ExecuteScalar();
                     cmd.Dispose();
                 }
-                catch (InvalidOperationException ioe)
+                catch (InvalidOperationException)
                 {
 
                     return newobj;

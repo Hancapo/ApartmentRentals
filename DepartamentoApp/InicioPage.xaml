@@ -12,10 +12,10 @@
 
     <Grid>
         <Label Content="Novedades" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="60" Margin="0,0,0,0"/>
-        <TextBlock FontWeight="Bold" Foreground="#FF060606" TextWrapping="WrapWithOverflow" Width="1000" FontSize="20" Margin="0,120,0,0">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.,</TextBlock>
+        <TextBlock Foreground="White" FontWeight="Bold" TextWrapping="WrapWithOverflow" Width="1000"  FontSize="20" Margin="0,120,0,0">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.,</TextBlock>
         <StackPanel Orientation="Horizontal">
             <Image Source="/blurry.png" Height="300" VerticalAlignment="Center" Margin="80,100,0,0"/>
-            <TextBlock FontSize="16" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Width="500" Margin="30,0,0,0" Text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."/>
+            <TextBlock FontSize="16" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Width="500" Margin="30,0,0,0" Text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."/>
         </StackPanel>
     </Grid>
 </Page>

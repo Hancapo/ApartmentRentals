@@ -10,7 +10,7 @@ namespace SkyrentBusiness
     public class CommonBusiness
     {
 
-        private OracleSkyCon osc = new();
+        private readonly OracleSkyCon osc = new();
 
         public (bool, int, bool) LoginProc(string usuario, string contrasena)
         {
@@ -83,22 +83,14 @@ namespace SkyrentBusiness
 
         }
 
-        public int CalculateID(string IdColumnName, string TableName)
+        public int CalculateID(string IdColumnName, string TableName) 
         {
 
-            string LookUpForIDCommand = string.Format("SELECT MAX({0})+1 FROM {1}", IdColumnName, TableName);
+            string LookUpForIDCommand = $"SELECT MAX({IdColumnName})+1 FROM {TableName}";
             int CountID = Convert.ToInt32(osc.RunOracleExecuteScalar(string.Format("SELECT COUNT({0}) FROM {1}", IdColumnName, TableName)));
 
 
-            if (CountID <= 0)
-            {
-                return 1;
-            }
-            else
-            {
-                return Convert.ToInt32(osc.RunOracleExecuteScalar(LookUpForIDCommand));
-
-            }
+            return CountID <= 0 ? 1 : Convert.ToInt32(osc.RunOracleExecuteScalar(LookUpForIDCommand));
 
         }
 
@@ -152,31 +144,6 @@ namespace SkyrentBusiness
         }
 
 
-        public List<Departamento> GetDepartamentoList()
-        {
-            List<Departamento> DepLista = new();
-
-            string sqlcommand = "SELECT d.iddepartamento AS \"IdDepartamento\", t.monto_noche AS \"PrecioNoche\", c.descripcion AS \"Comuna\", d.direccion AS \"Direccion\", d.descripcion as \"Descripcion\", d.titulodepart AS \"Titulo\" FROM DEPARTAMENTO d INNER JOIN COMUNA c ON d.comuna_idcomuna = c.idcomuna INNER JOIN TARIFA t ON d.tarifa_idtarifa = t.idtarifa";
-            foreach (DataRow dr in osc.OracleToDataTable(sqlcommand).Rows)
-            {
-                Departamento dede = new() {
-                    TarifaDep = "$" + Convert.ToInt32(dr["PrecioNoche"]).ToString("N0") + " por noche",
-                    ComunaDep = dr["Comuna"].ToString(),
-                    DireccionDep = dr["Direccion"].ToString(),
-                    DescripcionDep = dr["Descripcion"].ToString(),
-                    FotoSmall = null,
-                    FotoBig = null,
-                    TituloDepartamento = dr["Titulo"].ToString(),
-                    IdDepartamento = Convert.ToInt32(dr["IdDepartamento"])
-                    
-                };
-
-                DepLista.Add(dede);
-            }
-
-
-            return DepLista;
-        }
 
     }
 }

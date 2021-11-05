@@ -11,18 +11,18 @@
 
     <Grid x:Name="GridVerCliente" Loaded="GridVerCliente_Loaded">
         <TabControl Background="{x:Null}">
-            <TabItem Header="Clientes">
+            <TabItem Header="Clientes" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal">
                 <Grid>
                     <DataGrid x:Name="DgClienteGrid" AutoGenerateColumns="True" Width="900" Height="500"/>
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Ítems">
+            <TabItem Header="Ítems" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal">
                 <Grid>
                     <DataGrid x:Name="DgItemsGrid" AutoGenerateColumns="True" Width="900" Height="500"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Tarifas">
+            <TabItem Header="Tarifas" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal">
                 <Grid>
                     <DataGrid x:Name="DgTarifasGrid" AutoGenerateColumns="True" Width="900" Height="500"/>
                 </Grid>

@@ -50,19 +50,19 @@ namespace DepartamentoApp
                     {
                         int UserType = bsnss.LoginProc(usr, pwd).Item2;
 
-                        MessageBox.Show(string.Format("Inicio de sesión exitoso, bienvenido {0}", usr), "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        //MessageBox.Show(string.Format("Inicio de sesión exitoso, bienvenido {0}", usr), "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         switch (UserType)
                         {
                             case 1:
                                 MainMenuPage MmpAdmin = new(UserType);
                                 NavigationService.Navigate(MmpAdmin);
-                                MessageBox.Show("Tipo de Usuario: Admin", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                                //MessageBox.Show("Tipo de Usuario: Admin", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                                 break;
                             case 2:
                                 MainMenuPage MmpCustomer = new(UserType);
 
                                 NavigationService.Navigate(MmpCustomer);
-                                MessageBox.Show("Tipo de Usuario: Cliente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                                //MessageBox.Show("Tipo de Usuario: Cliente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                                 break;
 
                             default:

@@ -8,16 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Apartment\Images\**" />
+    <EmbeddedResource Remove="Apartment\Images\**" />
+    <None Remove="Apartment\Images\**" />
+    <Page Remove="Apartment\Images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="802579.png" />
+    <None Remove="Apartment\1.jpg" />
+    <None Remove="Apartment\1_small.jpg" />
     <None Remove="blurry.png" />
     <None Remove="wallpapersden.com_iceberg-minimalist_1336x768.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.1.0" />
-    <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.3" />
+    <PackageReference Include="MaterialDesignColors" Version="2.0.3" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,12 +37,10 @@
 
   <ItemGroup>
     <Resource Include="802579.png" />
+    <Resource Include="Apartment\1.jpg" />
+    <Resource Include="Apartment\1_small.jpg" />
     <Resource Include="blurry.png" />
     <Resource Include="wallpapersden.com_iceberg-minimalist_1336x768.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Apartment\Images\" />
   </ItemGroup>
 
 </Project>

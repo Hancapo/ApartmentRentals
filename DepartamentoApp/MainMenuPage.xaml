@@ -24,7 +24,7 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{materialDesign:PackIcon Kind=Home}" Foreground="#DD000000"/>
-                        <Label Content="Inicio" Foreground="#DD000000"/>
+                        <Label Content="Inicio" Foreground="#DD000000" FontSize="11"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Frame x:Name="InicioFrame"/>
@@ -33,7 +33,7 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{materialDesign:PackIcon Kind=City}" Foreground="#DD000000"/>
-                        <Label Content="Departamento" Foreground="#DD000000"/>
+                        <Label Content="Departamentos" Foreground="#DD000000" FontSize="11"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Frame x:Name="ApartmentFrame"/>
@@ -42,7 +42,7 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{materialDesign:PackIcon Kind=Account}" Foreground="#DD000000"/>
-                        <Label Content="Cliente" Foreground="#DD000000"/>
+                        <Label Content="Cliente" Foreground="#DD000000" FontSize="11"/>
                     </StackPanel>
                 </TabItem.Header>
             </TabItem>
@@ -50,7 +50,7 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{materialDesign:PackIcon Kind=ApplicationCog}" Foreground="#DD000000"/>
-                        <Label Content="Administrar" Foreground="#DD000000"/>
+                        <Label Content="Administrar" Foreground="#DD000000" FontSize="11"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Frame x:Name="AdminFrame"/>

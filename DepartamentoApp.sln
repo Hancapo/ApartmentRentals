@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkyrentConnect", "SkyrentCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkyrentBusiness", "SkyrentBusiness\SkyrentBusiness.csproj", "{92D66B59-0382-432A-9A02-B3C9802A3C9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyrentObjects", "SkyrentObjects\SkyrentObjects.csproj", "{A7C16FF8-496C-4695-9FA9-B09485E901A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkyrentObjects", "SkyrentObjects\SkyrentObjects.csproj", "{A7C16FF8-496C-4695-9FA9-B09485E901A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,23 +14,23 @@
                 <DataTemplate>
                     <materialDesign:Card>
                         <StackPanel Orientation="Vertical">
-                            <Label Content="{Binding TituloDepartamento}" HorizontalAlignment="Left" Margin="50,20,0,0" FontSize="20" FontWeight="Bold"/>
+                            <Label Content="{Binding TituloDepartamento}" HorizontalAlignment="Left" Margin="50,20,0,0" FontSize="20" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="750">
-                                <Image Source="/blurry.png" Height="40" HorizontalAlignment="Left" Margin="20,20,20,20" Stretch="Fill"/>
-                                <TextBlock Width="600" Text="{Binding DescripcionDep}" Margin="0,20,20,20" TextAlignment="Center" TextWrapping="WrapWithOverflow" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                                <Image Source="{Binding FotoSmall}" Height="128" HorizontalAlignment="Left" Margin="20,20,20,20" Stretch="Fill"/>
+                                <TextBlock Width="600" MaxWidth="500" Text="{Binding DescripcionDep}" Margin="0,20,20,20" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
 
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Width="Auto" Height="40" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center">
-                                <Label Content="{Binding ComunaDep}" Margin="20,0,20,0" FontWeight="Bold"/>
-                                <Label Content="{Binding DireccionDep}" Margin="20,0,20,0" FontWeight="Bold"/>
-                                <Label Content="{Binding TarifaDep}" Margin="20,0,20,0" FontWeight="Bold"/>
-                                <Button Content="Entrar" Margin="0,-15,0,0" Foreground="White" x:Name="BtnDepartmentEnter" Click="BtnDepartmentEnter_Click"/>
+                                <Label Content="{Binding ComunaDep}" ContentStringFormat="Comuna: {0}" Margin="20,0,20,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                                <Label Content="{Binding DireccionDep}" ContentStringFormat="Dirección: {0}" Margin="20,0,20,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                                <Label Content="{Binding tarifaDep}" Language="es-CL" ContentStringFormat="{}Noche: ${0:N0}" Margin="20,0,20,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                                <Button Content="Entrar" Margin="0,-15,0,0" Foreground="White" x:Name="BtnDepartmentEnter" Click="BtnDepartmentEnter_Click" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
                             </StackPanel>
                         </StackPanel>
                     </materialDesign:Card>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            
+
 
 
         </ListView>
