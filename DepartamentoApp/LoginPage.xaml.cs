@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
 using SkyrentBusiness;
 using SkyrentConnect;
@@ -97,6 +98,25 @@ namespace DepartamentoApp
         {
             RegisterPage rp = new();
             NavigationService.Navigate(rp);
+        }
+
+
+        private void tbUsuario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                Ingresar(tbUsuario.Text, pbPassword.Password);
+
+            }
+        }
+
+        private void pbPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                Ingresar(tbUsuario.Text, pbPassword.Password);
+
+            }
         }
     }
 }

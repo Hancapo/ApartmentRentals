@@ -30,10 +30,16 @@ namespace DepartamentoApp.Apartment
 
             Departamento depa = ((Button)sender).DataContext as Departamento;
 
-            ApartmentView av = new(depa);
-            NavigationService.Navigate(av);
+            ApartmentView AvView = new(depa, false);
+            NavigationService.Navigate(AvView);
 
             
+        }
+
+        private void btnAddApart_Click(object sender, RoutedEventArgs e)
+        {
+            ApartmentView AvCreation = new(null, true);
+            NavigationService.Navigate(AvCreation);
         }
     }
 }

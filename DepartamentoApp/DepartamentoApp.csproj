@@ -2,9 +2,11 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
+    <UseWindowsForms>False</UseWindowsForms>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <ApplicationIcon>SkyrentIco.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,8 +20,14 @@
     <None Remove="802579.png" />
     <None Remove="Apartment\1.jpg" />
     <None Remove="Apartment\1_small.jpg" />
+    <None Remove="Apartment\emptyimage.jpg" />
+    <None Remove="Apartment\warning.png" />
     <None Remove="blurry.png" />
     <None Remove="wallpapersden.com_iceberg-minimalist_1336x768.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="SkyrentIco.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +47,8 @@
     <Resource Include="802579.png" />
     <Resource Include="Apartment\1.jpg" />
     <Resource Include="Apartment\1_small.jpg" />
+    <Resource Include="Apartment\emptyimage.jpg" />
+    <Resource Include="Apartment\warning.png" />
     <Resource Include="blurry.png" />
     <Resource Include="wallpapersden.com_iceberg-minimalist_1336x768.jpg" />
   </ItemGroup>

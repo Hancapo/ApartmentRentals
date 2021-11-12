@@ -10,7 +10,7 @@ namespace SkyrentConnect
 
         private readonly string user = "C##VICENTE";
         private readonly string pwd = "123456";
-        private readonly string db = "23.251.159.66:1521/xe";
+        private readonly string db = "23.251.159.66/xe";
 
         public(bool, OracleCommand, OracleConnection) CheckOracleConnection()
         {

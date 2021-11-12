@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DepartamentoApp"
         mc:Ignorable="d"
-        Title="" Height="720" Width="1280" Background="{x:Null}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None">
+        Title="Skyrent" Height="720" Width="1280" Background="{x:Null}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None">
     <Grid HorizontalAlignment="Center">
         <Grid x:Name="gMainTab" Width="1280" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center" MouseDown="gMainTab_MouseDown">
             <Grid.Background>

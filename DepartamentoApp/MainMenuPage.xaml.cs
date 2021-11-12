@@ -81,7 +81,7 @@ namespace DepartamentoApp
 
         private void TabItemInicio_FocusableChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            MessageBox.Show("let's go");
+            //MessageBox.Show("let's go");
         }
     }
 }

@@ -13,32 +13,33 @@
     </Page.Background>
 
     <Grid>
-        <Button x:Name="BtnTest" Width="170" Height="50" VerticalAlignment="Bottom" Click="BtnTest_Click" Margin="0,0,20,20" HorizontalAlignment="Right" Foreground="White">
+        <Button x:Name="BtnTest" Width="170" Height="50" VerticalAlignment="Bottom" Click="BtnTest_Click" Margin="0,0,20,20" HorizontalAlignment="Right" Foreground="White" FontFamily="Montserrat SemiBold">
             <StackPanel Orientation="Horizontal">
                 <Label Content="{materialDesign:PackIcon Kind=Database}"/>
                 <Label Content="Probar conexión"/>
             </StackPanel>
         </Button>
+        
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Bienvenido a Skyrent" Foreground="#DD4F4F4F" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="50" Margin="0,70,0,0" FontFamily="Montserrat SemiBold"/>
-            <Label Content="{materialDesign:PackIcon Kind=CityVariant, Size=60}" VerticalAlignment="Top" Margin="5,62,0,0" Foreground="#DD4F4F4F"/>
+            <Label Content="Skyrent" Foreground="#DD000000" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="50" Margin="0,70,0,0" FontFamily="Montserrat SemiBold"/>
+            <Label Content="{materialDesign:PackIcon Kind=CityVariant, Size=60}" VerticalAlignment="Top" Margin="5,62,0,0" Foreground="#DD664D75"/>
         </StackPanel>
-        <Label Content="Iniciar Sesión" Foreground="#FF303030" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="40" Margin="0,160,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+        <Label Content="Iniciar Sesión" Foreground="#FF676767" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="30" Margin="0,180,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="Auto" Margin="0,70,0,0">
             <StackPanel Orientation="Horizontal">
                 <Label Content="{materialDesign:PackIcon Kind=User}" HorizontalAlignment="Center" Height="25" Margin="0,13,0,0" Foreground="#FF3E3E3E"/>
-                <Label Content="Usuario" Foreground="#FF3E3E3E" FontSize="16" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Bold"/>
+                <Label Content="Usuario" Foreground="#FF3E3E3E" FontSize="16" HorizontalAlignment="Center" FontFamily="Montserrat SemiBold" Margin="0,13,0,0" FontWeight="Bold"/>
             </StackPanel>
-            <TextBox Height="30" Background="#CC4F4F4F" x:Name="tbUsuario" Margin="0,10,0,0" Cursor="IBeam" Foreground="White" HorizontalContentAlignment="Center"/>
+            <TextBox Height="30" Background="#CC4F4F4F" x:Name="tbUsuario" Margin="0,10,0,0" Cursor="IBeam" Foreground="White" HorizontalContentAlignment="Center" KeyDown="tbUsuario_KeyDown"/>
             <StackPanel Orientation="Horizontal">
                 <Label Content="{materialDesign:PackIcon Kind=Password}" HorizontalAlignment="Center" Height="25" Margin="0,13,0,0" Foreground="#FF3E3E3E"/>
-                <Label Content="Contraseña" FontWeight="Bold" FontSize="16" Margin="0,10,0,0" HorizontalAlignment="Center" Foreground="#FF3E3E3E"/>
+                <Label Content="Contraseña" FontWeight="Bold" FontSize="16" Margin="0,15,0,0" HorizontalAlignment="Center" Foreground="#FF3E3E3E" FontFamily="Montserrat ExtraLight"/>
             </StackPanel>
-            <PasswordBox Height="30" Background="#CC4F4F4F" FontSize="15" FontFamily="Segoe UI" Margin="0,10,0,0" x:Name="pbPassword" Foreground="White" Cursor="IBeam" HorizontalContentAlignment="Center"/>
-            <Button Margin="0,30,0,0" x:Name="BtnIngresar" Cursor="Hand" FontWeight="Bold" Click="BtnIngresar_Click" Height="40">
+            <PasswordBox Height="30" Background="#CC4F4F4F" FontSize="15" FontFamily="Segoe UI" Margin="0,10,0,0" x:Name="pbPassword" Foreground="White" Cursor="IBeam" HorizontalContentAlignment="Center" KeyDown="pbPassword_KeyDown"/>
+            <Button Margin="0,30,0,0" x:Name="BtnIngresar" Cursor="Hand" FontWeight="Bold" Click="BtnIngresar_Click" Height="40" FontFamily="Montserrat SemiBold">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="{materialDesign:PackIcon Kind=Login}"/>
-                    <Label Content="Ingresar" Margin="0,-2,0,0" FontWeight="Bold"/>
+                    <Label Content="Ingresar" Margin="0,0,0,0" FontWeight="Bold" Height="24" />
                 </StackPanel>
             </Button>
             <Button Margin="0,10,0,0" x:Name="BtnCuenta" FontWeight="Bold" Click="BtnCuenta_Click" Height="40" Visibility="Hidden">

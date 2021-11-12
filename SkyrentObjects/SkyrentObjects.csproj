@@ -1,8 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <ApplicationIcon>SkyrentIco.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="SkyrentIco.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SkyrentConnect\SkyrentConnect.csproj" />

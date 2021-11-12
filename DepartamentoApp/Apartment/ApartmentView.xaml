@@ -10,26 +10,48 @@
       Title="">
 
     <Grid>
-        <Button x:Name="btnSaveChanges" Width="130" Content="Guardar cambios" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="386,19,0,0" Cursor="Hand" FontSize="12" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-        <Button x:Name="btnBack" Width="75" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,30,0" Cursor="Hand" Content="Volver" FontSize="12" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Click="btnBack_Click"/>
-        <CheckBox x:Name="cbEditMode" Content="Modo edición" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-
+        <Button Visibility="Hidden" x:Name="btnSaveChanges" Width="150" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="387,16,0,0" Cursor="Hand" FontSize="12" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Click="btnSaveChanges_Click">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="lbTextoCambios" Content="Guardar cambios"/>
+                    <Label x:Name="lbCambiosIcon" Content="{materialDesign:PackIcon Kind=ContentSaveAll}"/>
+                </StackPanel>
+                
+            </Button.Content>
+        </Button>
+        <Button x:Name="btnBack" Width="auto" Height="auto" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,30,0" Cursor="Hand" Content="{materialDesign:PackIcon Kind=ArrowBack}" FontSize="12" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Click="btnBack_Click"/>
+        <Button x:Name="cbEditMode" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,16,-120,0" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" ClickMode="Release" Click="cbEditMode_Click" Background="#FF6B1D15">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Modo edición"/>
+                    <Label Content="{materialDesign:PackIcon Kind=Pencil}"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <Button Content="Eliminar" x:Name="btnDelete" VerticalAlignment="Top" Margin="0,16,-430,0" Width="100"  Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" BorderBrush="Black" Click="btnDelete_Click" >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF9C0202"/>
+                    <GradientStop Color="#FFF3CA0C" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="1100" Height="600" Orientation="Vertical">
 
             <StackPanel HorizontalAlignment="Center" Width="1050" Height="300" Margin="0,25,0,0" Orientation="Horizontal">
-                <Image x:Name="ImBig" Width="200" Height="200" HorizontalAlignment="Left" Margin="50,0,0,0" Source="/Apartment/1.jpg"/>
+                <Image x:Name="ImBig" Width="200" Height="200" Margin="50,0,0,0" VerticalAlignment="Center" IsEnabled="False" MouseLeftButtonDown="ImBig_MouseLeftButtonDown"/>
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="50,0,0,0">
-                        <TextBlock x:Name="TTitulo" Text="Vista preciosa al mar" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="14" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                        <TextBlock x:Name="TDescripcion" Width="600" MaxWidth="600" Height="150" MaxHeight="150" TextWrapping="Wrap" Text="Garantizamos una casa muy acogedora, con una vista maravillosa al mar y una tranquilidad impagable que hace que sean unas relajadas vacaciones." FontSize="14" HorizontalAlignment="Left" Margin="50,10,50,0" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                        <TextBox x:Name="TTitulo" MaxWidth="300" Text="Vista preciosa al mar" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="14" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam"/>
+                        <TextBox x:Name="TDescripcion" Width="600" MaxWidth="600" Height="150" MaxHeight="150" TextWrapping="Wrap" Text="Garantizamos una casa muy acogedora, con una vista maravillosa al mar y una tranquilidad impagable que hace que sean unas relajadas vacaciones." FontSize="14" HorizontalAlignment="Left" Margin="50,10,50,0" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <Label Content="Comuna" VerticalAlignment="Center" Margin="100,0,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                        <TextBox x:Name="TbComuna" Text="La Florida" IsReadOnly="True" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                        <Label Content="Noche" VerticalAlignment="Center" Margin="100,0,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                        <TextBox x:Name="CbTarifa" Text="$49.990" IsReadOnly="True" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Cursor="IBeam"/>
-                        <Label Content="Dirección" VerticalAlignment="Center" Margin="100,0,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                        <TextBox x:Name="tbDireccion" Text="Avenida Papu Lince 3845" IsReadOnly="True" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                        <Label Content="Comuna" VerticalAlignment="Center" Margin="60,0,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                        <TextBox x:Name="TbComuna" HorizontalContentAlignment="Center" Width="120" Text="La Florida" IsReadOnly="True" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam" Background="#FF000F4E" MouseDoubleClick="TbComuna_MouseDoubleClick"/>
+                        <Label Content="Noche" VerticalAlignment="Center" Margin="60,0,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                        <ComboBox Language="es-CL" ItemStringFormat="{}${0:N0}"  Width="120" HorizontalContentAlignment="Center" x:Name="CbTarifa" Text="$49.990" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Cursor="IBeam" IsEnabled="False"/>
+                        <Label Content="Dirección" VerticalAlignment="Center" Margin="60,0,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                        <TextBox HorizontalContentAlignment="Center" Width="160" x:Name="tbDireccion" Text="Avenida Papu Lince 3845" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam"/>
 
                     </StackPanel>
                 </StackPanel>
@@ -38,16 +60,37 @@
 
 
             </StackPanel>
-            <StackPanel Height="270" Orientation="Horizontal">
+            <StackPanel x:Name="SpMiscControls" Height="270" Orientation="Horizontal" >
                 <StackPanel Width="550" Orientation="Vertical" >
                     <Label Content="Inventario" HorizontalAlignment="Center" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                    <DataGrid Width="500" Height="230" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                    <DataGrid x:Name="dgInventario" Width="500" Height="230" IsReadOnly="True" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
                 </StackPanel>
-                <StackPanel Width="550">
-                    <Label Content="Calendario" HorizontalAlignment="Center" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                    <Viewbox Width="150">
-                        <Calendar DisplayMode="Month" SelectionMode="SingleRange" />
-                    </Viewbox>
+                <StackPanel Width="550" Orientation="Horizontal">
+                    <StackPanel>
+                        <Label x:Name="lbCalend" Content="Calendario" HorizontalAlignment="Center" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                        <Viewbox Width="160" HorizontalAlignment="Center" Margin="50,0,50,0">
+                            <Calendar x:Name="Ccalendario" DisplayMode="Month" SelectionMode="SingleRange" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                        </Viewbox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label x:Name="lbReserva" Content="Reservas" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" HorizontalAlignment="Center"/>
+                        <ListView x:Name="xListReservas" Width="280" Height="250" d:ItemsSource="{d:SampleData ItemCount=110}" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" ScrollViewer.CanContentScroll="false" >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel x:Name="PanelDates" Orientation="Horizontal" >
+                                        <Label Content="{Binding FechaInicio}" ContentStringFormat="{}{0:MM/dd/yyyy}"/>
+                                        <Label Content=" - "/>
+                                        <Label Content="{Binding FechaFin}" ContentStringFormat="{}{0:MM/dd/yyyy}"/>
+                                        <Button x:Name="btnGoDate" Background="{x:Null}" BorderBrush="{x:Null}" Click="btnGoDate_Click" Cursor="Hand">
+                                            <Label Content="{materialDesign:PackIcon Kind=Clock}" Margin="0,-10,0,0"/>
+                                        </Button>
+                                    </StackPanel>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
