@@ -11,10 +11,12 @@ namespace SkyrentBusiness
     public class CommonBusiness
     {
 
-        private readonly OracleSkyCon osc = new();
+        public static OracleSkyCon osc = new();
+        
 
         public (bool, int, bool) LoginProc(string usuario, string contrasena)
         {
+            
             int UserType = 0x7FFF + 0xAC;
             bool IsConnected;
             bool AccountExists;
@@ -248,7 +250,7 @@ namespace SkyrentBusiness
         public bool InsertApartment(string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart, OracleSkyCon oraclecon)
         {
 
-            OracleCommand cmd = new("INSERT INTO DEPARTAMENTO (IdDepartamento, Tarifa_IdTarifa, Comuna_IdComuna, Direccion, Descripcion, FotoBig, TituloDepart) VALUES (:1, :2, :3, :4, :5, :6, :7)", oraclecon.CheckOracleConnection().Item3);
+            OracleCommand cmd = new("INSERT INTO DEPARTAMENTO (IdDepartamento, Tarifa_IdTarifa, Comuna_IdComuna, Direccion, Descripcion, FotoBig, TituloDepart) VALUES (:1, :2, :3, :4, :5, :6, :7)", oraclecon.OracleConnection);
             cmd.Parameters.Add("1", OracleDbType.Varchar2, CalculateID("IDDEPARTAMENTO","DEPARTAMENTO"), ParameterDirection.Input);
             cmd.Parameters.Add("2", OracleDbType.Varchar2, GetTarifaIdFromTarifaPrice(Convert.ToInt32(tarifa)), ParameterDirection.Input);
             cmd.Parameters.Add("3", OracleDbType.Varchar2, idcomuna, ParameterDirection.Input);
@@ -271,7 +273,7 @@ namespace SkyrentBusiness
 
         public bool UpdateApartment(int IDDEPARTAMENTO, string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart, OracleSkyCon xaxa)
         {
-            OracleCommand cmd = new("UPDATE DEPARTAMENTO SET Tarifa_IdTarifa = :1, Comuna_IdComuna = :2, Direccion = :3 , Descripcion = :4, FotoBig =:5, TituloDepart =:6 WHERE IDDEPARTAMENTO = " + IDDEPARTAMENTO.ToString(), xaxa.CheckOracleConnection().Item3);
+            OracleCommand cmd = new("UPDATE DEPARTAMENTO SET Tarifa_IdTarifa = :1, Comuna_IdComuna = :2, Direccion = :3 , Descripcion = :4, FotoBig =:5, TituloDepart =:6 WHERE IDDEPARTAMENTO = " + IDDEPARTAMENTO.ToString(), xaxa.OracleConnection);
             cmd.Parameters.Add("1", OracleDbType.Varchar2, GetTarifaIdFromTarifaPrice(Convert.ToInt32(tarifa)), ParameterDirection.Input);
             cmd.Parameters.Add("2", OracleDbType.Varchar2, idcomuna, ParameterDirection.Input);
             cmd.Parameters.Add("3", OracleDbType.Varchar2, direccion, ParameterDirection.Input);

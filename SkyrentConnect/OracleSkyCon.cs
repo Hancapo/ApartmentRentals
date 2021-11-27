@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Diagnostics;
 using Oracle.ManagedDataAccess.Client;
 
 namespace SkyrentConnect
@@ -8,37 +7,50 @@ namespace SkyrentConnect
     public class OracleSkyCon
     {
 
-        private readonly string user = "C##VICENTE";
-        private readonly string pwd = "123456";
-        private readonly string db = "23.251.159.66/xe";
+        static string user = "C##VICENTE";
+        static string pwd = "123456";
+        static string db = "23.251.159.66/xe";
 
-        public(bool, OracleCommand, OracleConnection) CheckOracleConnection()
+        static OracleConnection oracleConnection = new("User Id=" + user + ";Password=" + pwd + ";Data Source=" + db + ";");
+        static OracleCommand oracleCommand = oracleConnection.CreateCommand();
+
+        public OracleConnection OracleConnection { get => oracleConnection; set => oracleConnection = value; }
+        public OracleCommand OracleCommand { get => oracleCommand; set => oracleCommand = value; }
+
+
+
+
+        public bool CheckDatabase()
         {
-            string conStringUser = "User Id=" + user + ";Password=" + pwd + ";Data Source=" + db + ";";
 
-            bool isConnected;
-            OracleConnection con = new(conStringUser);
-            OracleCommand cmd = con.CreateCommand();
-            try
+            if (OracleConnection.State == ConnectionState.Open)
             {
-                con.Open();
-                isConnected = true;
+                return true;
             }
-            catch (Exception)
+            else
             {
-                isConnected = false;
+                try
+                {
+                    OracleConnection.Open();
+                    return true;
+                }
+                catch (Exception)
+                {
+
+                    return false;
+                }
             }
-            return (isConnected, cmd, con);
+
+            
         }
-
         public DataTable OracleToDataTable(string sqlcommand)
         {
+            
             DataTable tb = new();
-            if (CheckOracleConnection().Item1)
+            if (CheckDatabase())
             {
                 OracleDataReader reader = RunOracleExecuteReader(sqlcommand);
                 tb.Load(reader);
-                CheckOracleConnection().Item3.Close();
                 return tb;
 
             }
@@ -49,15 +61,13 @@ namespace SkyrentConnect
         public object RunOracleExecuteScalar(string sqlcommand)
         {
             object newobj = null;
-            if (CheckOracleConnection().Item1)
+            if (CheckDatabase())
             {
-                OracleCommand cmd = CheckOracleConnection().Item2;
                 try
                 {
-                    cmd.CommandText = sqlcommand;
+                    OracleCommand.CommandText = sqlcommand;
 
-                    newobj = cmd.ExecuteScalar();
-                    cmd.Dispose();
+                    newobj = OracleCommand.ExecuteScalar();
                 }
                 catch (InvalidOperationException)
                 {
@@ -66,6 +76,7 @@ namespace SkyrentConnect
 
                 }
 
+
             }
 
             return newobj;
@@ -73,12 +84,12 @@ namespace SkyrentConnect
 
         public OracleDataReader RunOracleExecuteReader(string sqlcommand)
         {
-            if (CheckOracleConnection().Item1)
+            if (CheckDatabase())
             {
-                OracleCommand cmd = CheckOracleConnection().Item2;
-                cmd.CommandText = sqlcommand;
-                OracleDataReader odr = cmd.ExecuteReader();
+                OracleCommand.CommandText = sqlcommand;
+                OracleDataReader odr = OracleCommand.ExecuteReader();
                 return odr;
+
             }
 
             return null;
@@ -86,15 +97,21 @@ namespace SkyrentConnect
 
         public void RunOracleNonQuery(string sqlcommand)
         {
-            if (CheckOracleConnection().Item1)
+            if (CheckDatabase())
             {
-                OracleCommand cmd = CheckOracleConnection().Item2;
-                cmd.CommandText = sqlcommand;
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
+
+                OracleCommand.CommandText = sqlcommand;
+                OracleCommand.ExecuteNonQuery();
 
             }
+
+
         }
 
+
     }
-}
+
+        
+
+    }
+

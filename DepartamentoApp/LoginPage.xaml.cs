@@ -27,7 +27,7 @@ namespace DepartamentoApp
 
         private void BtnTest_Click(object sender, RoutedEventArgs e)
         {
-            if (osc.CheckOracleConnection().Item1)
+            if (osc.CheckDatabase())
             {
                 MessageBox.Show("Se ha podido conectar con la base de datos", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
 
