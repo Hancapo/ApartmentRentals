@@ -20,10 +20,7 @@ namespace SkyrentObjects
         public string IdTarifaDep { get; set; }
 
         //private int TarifaDep;
-        public int tarifaDep
-        {
-            get {return Convert.ToInt32(osc.RunOracleExecuteScalar($"SELECT MONTO_NOCHE FROM TARIFA WHERE IDTARIFA = '{IdTarifaDep}'"));}
-        }
+        public int TarifaDep => Convert.ToInt32(osc.RunOracleExecuteScalar($"SELECT MONTO_NOCHE FROM TARIFA WHERE IDTARIFA = '{IdTarifaDep}'"));
         public int IdComunaDep { get; set; }
         public string ComunaDep { get; set; }
         public string DireccionDep { get; set; }

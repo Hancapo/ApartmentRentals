@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -22,7 +23,7 @@ namespace DepartamentoApp
         private void BtnIngresar_Click(object sender, RoutedEventArgs e)
         {
 
-            Ingresar(tbUsuario.Text, pbPassword.Password);
+           Ingresar(tbUsuario.Text, pbPassword.Password);
         }
 
         private void BtnTest_Click(object sender, RoutedEventArgs e)
@@ -41,7 +42,6 @@ namespace DepartamentoApp
 
         public void Ingresar(string usr, string pwd)
         {
-
             if (!(string.IsNullOrEmpty(usr) && string.IsNullOrEmpty(pwd)))
             {
                 if (bsnss.LoginProc(usr, pwd).Item1)
@@ -92,12 +92,13 @@ namespace DepartamentoApp
             }
 
 
+
         }
 
         private void BtnCuenta_Click(object sender, RoutedEventArgs e)
         {
-            RegisterPage rp = new();
-            NavigationService.Navigate(rp);
+            //RegisterPage rp = new();
+            //NavigationService.Navigate(rp);
         }
 
 

@@ -2,9 +2,8 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:DepartamentoApp"
       mc:Ignorable="d" 
       d:DesignHeight="680" d:DesignWidth="1280"
       Title="MainMenuPage" Background="#FF2E2E2E" Loaded="Page_Loaded">
@@ -19,8 +18,8 @@
             
 
         </Button>
-        <TabControl TabStripPlacement="Left" x:Name="TabControlMenuX" Background="{x:Null}">
-            <TabItem Height="60" Width="120" x:Name="TabItemInicio" Loaded="TabItemInicio_Loaded" Background="#FFE5E5E5" FocusableChanged="TabItemInicio_FocusableChanged">
+        <TabControl Style="{StaticResource MaterialDesignTabControl}" TabStripPlacement="Left" x:Name="TabControlMenuX" >
+            <TabItem Height="120" Width="60" x:Name="TabItemInicio" Loaded="TabItemInicio_Loaded" FocusableChanged="TabItemInicio_FocusableChanged">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{materialDesign:PackIcon Kind=Home}" Foreground="#DD000000"/>
@@ -29,7 +28,7 @@
                 </TabItem.Header>
                 <Frame x:Name="InicioFrame"/>
             </TabItem>
-            <TabItem Height="60" Width="120" x:Name="TabItemDeparta" Loaded="TabItemDeparta_Loaded">
+            <TabItem Height="120" Width="60" x:Name="TabItemDeparta" Loaded="TabItemDeparta_Loaded" >
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{materialDesign:PackIcon Kind=City}" Foreground="#DD000000"/>
@@ -38,7 +37,7 @@
                 </TabItem.Header>
                 <Frame x:Name="ApartmentFrame"/>
             </TabItem>
-            <TabItem Height="60" Width="120" x:Name="TabItemCliente" Loaded="TabItemCliente_Loaded">
+            <TabItem Height="120" Width="60" x:Name="TabItemCliente" Loaded="TabItemCliente_Loaded">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{materialDesign:PackIcon Kind=Account}" Foreground="#DD000000"/>
@@ -46,7 +45,7 @@
                     </StackPanel>
                 </TabItem.Header>
             </TabItem>
-            <TabItem Height="60" Width="120" x:Name="TabItemAdministrar">
+            <TabItem Height="120" Width="60" x:Name="TabItemAdministrar">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{materialDesign:PackIcon Kind=ApplicationCog}" Foreground="#DD000000"/>

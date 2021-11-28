@@ -11,7 +11,7 @@ namespace SkyrentBusiness
     public class CommonBusiness
     {
 
-        public static OracleSkyCon osc = new();
+        public OracleSkyCon osc = new();
         
 
         public (bool, int, bool) LoginProc(string usuario, string contrasena)

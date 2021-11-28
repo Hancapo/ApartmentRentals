@@ -5,12 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DepartamentoApp"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:controls="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
       mc:Ignorable="d" 
       d:DesignHeight="680" d:DesignWidth="1160"
       Title="" Loaded="Page_Loaded">
 
     <Grid x:Name="GridVerCliente" Loaded="GridVerCliente_Loaded">
-        <TabControl Background="{x:Null}">
+        <TabControl Style="{StaticResource MaterialDesignTabControl}" Background="{x:Null}">
             <TabItem Header="Clientes" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal">
                 <Grid>
                     <DataGrid x:Name="DgClienteGrid" AutoGenerateColumns="True" Width="900" Height="500"/>
