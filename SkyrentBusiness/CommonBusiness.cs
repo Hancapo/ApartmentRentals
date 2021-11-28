@@ -135,7 +135,7 @@ namespace SkyrentBusiness
             return RegionLista;
         }
 
-        public List<Ciudad> GetCiudadList(string CodeRegion)
+        public List<Ciudad> GetCiudadListFromRegion(string CodeRegion)
         {
             List<Ciudad> CiudadLista = new();
             string sqlcommand = $"SELECT DESCRIPCION, IDCIUDAD FROM CIUDAD WHERE REGION_IDREGION = '{CodeRegion}'";
@@ -150,7 +150,7 @@ namespace SkyrentBusiness
             return CiudadLista;
         }               
 
-        public List<Comuna> GetComunaList(string Ciudad)
+        public List<Comuna> GetComunaListFromCiudad(string Ciudad)
         {
             List<Comuna> RegionLista = new();
             string sqlcommand = $"SELECT comuna.descripcion, comuna.idcomuna FROM CIUDAD INNER JOIN COMUNA ON ciudad.idciudad = comuna.ciudad_idciudad WHERE ciudad.descripcion = '{Ciudad}'";
@@ -247,10 +247,10 @@ namespace SkyrentBusiness
             
         }
 
-        public bool InsertApartment(string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart, OracleSkyCon oraclecon)
+        public bool InsertApartment(string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart)
         {
 
-            OracleCommand cmd = new("INSERT INTO DEPARTAMENTO (IdDepartamento, Tarifa_IdTarifa, Comuna_IdComuna, Direccion, Descripcion, FotoBig, TituloDepart) VALUES (:1, :2, :3, :4, :5, :6, :7)", oraclecon.OracleConnection);
+            OracleCommand cmd = new("INSERT INTO DEPARTAMENTO (IdDepartamento, Tarifa_IdTarifa, Comuna_IdComuna, Direccion, Descripcion, FotoBig, TituloDepart) VALUES (:1, :2, :3, :4, :5, :6, :7)", osc.OracleConnection);
             cmd.Parameters.Add("1", OracleDbType.Varchar2, CalculateID("IDDEPARTAMENTO","DEPARTAMENTO"), ParameterDirection.Input);
             cmd.Parameters.Add("2", OracleDbType.Varchar2, GetTarifaIdFromTarifaPrice(Convert.ToInt32(tarifa)), ParameterDirection.Input);
             cmd.Parameters.Add("3", OracleDbType.Varchar2, idcomuna, ParameterDirection.Input);
@@ -271,15 +271,36 @@ namespace SkyrentBusiness
             }
         }
 
-        public bool UpdateApartment(int IDDEPARTAMENTO, string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart, OracleSkyCon xaxa)
+        public bool UpdateApartment(int IDDEPARTAMENTO, string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart)
         {
-            OracleCommand cmd = new("UPDATE DEPARTAMENTO SET Tarifa_IdTarifa = :1, Comuna_IdComuna = :2, Direccion = :3 , Descripcion = :4, FotoBig =:5, TituloDepart =:6 WHERE IDDEPARTAMENTO = " + IDDEPARTAMENTO.ToString(), xaxa.OracleConnection);
+            OracleCommand cmd = new("UPDATE DEPARTAMENTO SET Tarifa_IdTarifa = :1, Comuna_IdComuna = :2, Direccion = :3 , Descripcion = :4, FotoBig =:5, TituloDepart =:6 WHERE IDDEPARTAMENTO = " + IDDEPARTAMENTO.ToString(), osc.OracleConnection);
             cmd.Parameters.Add("1", OracleDbType.Varchar2, GetTarifaIdFromTarifaPrice(Convert.ToInt32(tarifa)), ParameterDirection.Input);
             cmd.Parameters.Add("2", OracleDbType.Varchar2, idcomuna, ParameterDirection.Input);
             cmd.Parameters.Add("3", OracleDbType.Varchar2, direccion, ParameterDirection.Input);
             cmd.Parameters.Add("4", OracleDbType.Varchar2, descripcion, ParameterDirection.Input);
             cmd.Parameters.Add("5", OracleDbType.Blob, fotoBig, ParameterDirection.Input);
             cmd.Parameters.Add("6", OracleDbType.Varchar2, TituloApart, ParameterDirection.Input);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+
+            }
+        }
+
+        public bool UpdateApartmentWithoutIM(int IDDEPARTAMENTO, string tarifa, string idcomuna, string direccion, string descripcion, string TituloApart)
+        {
+            OracleCommand cmd = new("UPDATE DEPARTAMENTO SET Tarifa_IdTarifa = :1, Comuna_IdComuna = :2, Direccion = :3 , Descripcion = :4, TituloDepart =:5 WHERE IDDEPARTAMENTO = " + IDDEPARTAMENTO.ToString(), osc.OracleConnection);
+            cmd.Parameters.Add("1", OracleDbType.Varchar2, GetTarifaIdFromTarifaPrice(Convert.ToInt32(tarifa)), ParameterDirection.Input);
+            cmd.Parameters.Add("2", OracleDbType.Varchar2, idcomuna, ParameterDirection.Input);
+            cmd.Parameters.Add("3", OracleDbType.Varchar2, direccion, ParameterDirection.Input);
+            cmd.Parameters.Add("4", OracleDbType.Varchar2, descripcion, ParameterDirection.Input);
+            cmd.Parameters.Add("5", OracleDbType.Varchar2, TituloApart, ParameterDirection.Input);
 
             try
             {

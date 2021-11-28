@@ -18,38 +18,38 @@
             
 
         </Button>
-        <TabControl Style="{StaticResource MaterialDesignTabControl}" TabStripPlacement="Left" x:Name="TabControlMenuX" >
-            <TabItem Height="120" Width="60" x:Name="TabItemInicio" Loaded="TabItemInicio_Loaded" FocusableChanged="TabItemInicio_FocusableChanged">
+        <TabControl TabStripPlacement="Left" x:Name="TabControlMenuX" Background="{x:Null}" Style="{StaticResource MaterialDesignNavigatilRailTabControl}" >
+            <TabItem Height="60" Width="120" x:Name="TabItemInicio" Loaded="TabItemInicio_Loaded" FocusableChanged="TabItemInicio_FocusableChanged">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="{materialDesign:PackIcon Kind=Home}" Foreground="#DD000000"/>
-                        <Label Content="Inicio" Foreground="#DD000000" FontSize="11"/>
+                        <Label Content="{materialDesign:PackIcon Kind=Home}"/>
+                        <Label Content="Inicio" FontSize="11" FontStyle="Normal" FontFamily="Montserrat ExtraLight" VerticalContentAlignment="Center"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Frame x:Name="InicioFrame"/>
             </TabItem>
-            <TabItem Height="120" Width="60" x:Name="TabItemDeparta" Loaded="TabItemDeparta_Loaded" >
+            <TabItem Height="60" Width="120" x:Name="TabItemDeparta" Loaded="TabItemDeparta_Loaded" >
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="{materialDesign:PackIcon Kind=City}" Foreground="#DD000000"/>
-                        <Label Content="Departamentos" Foreground="#DD000000" FontSize="11"/>
+                        <Label Content="{materialDesign:PackIcon Kind=City}"/>
+                        <Label Content="Departamentos" FontSize="11" FontStyle="Normal" FontFamily="Montserrat ExtraLight" VerticalContentAlignment="Center"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Frame x:Name="ApartmentFrame"/>
             </TabItem>
-            <TabItem Height="120" Width="60" x:Name="TabItemCliente" Loaded="TabItemCliente_Loaded">
+            <TabItem Height="60" Width="120" x:Name="TabItemCliente" Loaded="TabItemCliente_Loaded">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="{materialDesign:PackIcon Kind=Account}" Foreground="#DD000000"/>
-                        <Label Content="Cliente" Foreground="#DD000000" FontSize="11"/>
+                        <Label Content="{materialDesign:PackIcon Kind=Account}"/>
+                        <Label Content="Cliente" FontSize="11" FontStyle="Normal" FontFamily="Montserrat ExtraLight" VerticalContentAlignment="Center"/>
                     </StackPanel>
                 </TabItem.Header>
             </TabItem>
-            <TabItem Height="120" Width="60" x:Name="TabItemAdministrar">
+            <TabItem Height="60" Width="120" x:Name="TabItemAdministrar">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="{materialDesign:PackIcon Kind=ApplicationCog}" Foreground="#DD000000"/>
-                        <Label Content="Administrar" Foreground="#DD000000" FontSize="11"/>
+                        <Label Content="{materialDesign:PackIcon Kind=ApplicationCog}"/>
+                        <Label Content="Administrar" FontSize="11"  FontStyle="Normal" FontFamily="Montserrat ExtraLight" VerticalContentAlignment="Center"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Frame x:Name="AdminFrame"/>

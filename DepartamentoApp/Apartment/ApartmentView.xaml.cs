@@ -1,18 +1,17 @@
-﻿using Microsoft.Win32;
-using SkyrentObjects;
+﻿using SkyrentObjects;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using SkyrentBusiness;
 using DepartamentoApp.Apartment;
-using System.IO;
-using System.Drawing;
 using System.Globalization;
 using SkyrentConnect;
-using System.Windows.Data;
+using MessageBox = System.Windows.MessageBox;
+using Button = System.Windows.Controls.Button;
 
 namespace DepartamentoApp
 {
@@ -24,10 +23,12 @@ namespace DepartamentoApp
         CommonBusiness NegocioComun = new();
         SkyUtilities su = new();
         bool editMode = false;
+        bool ImageChanged = false;
         Departamento dep_;
         bool creationMode;
         string fileName;
-        OracleSkyCon osc = new();
+        
+
 
         public ApartmentView(Departamento dep, bool CreationMode)
         {
@@ -61,7 +62,7 @@ namespace DepartamentoApp
                 TTitulo.Text = "Título";
                 TDescripcion.Text = "Descripción";
                 TbComuna.Text = String.Empty;
-                tbDireccion.Text = "";
+                tbDireccion.Text = String.Empty;
                 CbTarifa.SelectedItem = null;
                 CbTarifa.ItemsSource = NegocioComun.GetTarifaList();
 
@@ -117,16 +118,17 @@ namespace DepartamentoApp
             OpenFileDialog ofd = new();
             ofd.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG;*.JPEG)|*.BMP;*.JPG;*.GIF;*.PNG;*.JPEG";
 
-            if ((bool)ofd.ShowDialog())
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
                 fileName = ofd.FileName;
                 ImBig.Source = new BitmapImage(new Uri(fileName));
+                ImageChanged = true;
             }
         }
 
         private void cbEditMode_Click(object sender, RoutedEventArgs e)
         {
-
+            
             if (editMode == false)
             {
                 if (MessageBox.Show("¿Activar modo edición?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
@@ -214,6 +216,7 @@ namespace DepartamentoApp
 
         private void btnSaveChanges_Click(object sender, RoutedEventArgs e)
         {
+            bool isModified = false;
             if (editMode)
             {
 
@@ -230,8 +233,15 @@ namespace DepartamentoApp
                     //    su.Save(bitmap, Path.Join(Environment.CurrentDirectory, "currentimage"));
                     //}
 
+                    if (ImageChanged)
+                    {
+                        isModified = NegocioComun.UpdateApartment(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Text).ToString(), tbDireccion.Text, TDescripcion.Text, su.ImagePathToBytes(fileName), TTitulo.Text);
 
-                    bool isModified = NegocioComun.UpdateApartment(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Text).ToString(), tbDireccion.Text, TDescripcion.Text, su.ImagePathToBytes(fileName), TTitulo.Text, osc);
+                    }
+                    else
+                    {
+                        isModified = NegocioComun.UpdateApartmentWithoutIM(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Text).ToString(), tbDireccion.Text, TDescripcion.Text, TTitulo.Text);
+                    }
 
 
                     if (isModified)
@@ -264,7 +274,7 @@ namespace DepartamentoApp
                     {
                         int currency = int.Parse(CbTarifa.Text, NumberStyles.Currency);
 
-                        bool isAdded = NegocioComun.InsertApartment(currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Text).ToString(), tbDireccion.Text, TDescripcion.Text, su.ImagePathToBytes(fileName), TTitulo.Text, osc);
+                        bool isAdded = NegocioComun.InsertApartment(currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Text).ToString(), tbDireccion.Text, TDescripcion.Text, su.ImagePathToBytes(fileName), TTitulo.Text);
 
 
                         if (isAdded)

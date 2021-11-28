@@ -5,6 +5,8 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 using SkyrentBusiness;
 using SkyrentConnect;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MessageBox = System.Windows.MessageBox;
 
 namespace DepartamentoApp
 {
@@ -102,7 +104,7 @@ namespace DepartamentoApp
         }
 
 
-        private void tbUsuario_KeyDown(object sender, KeyEventArgs e)
+        private void tbUsuario_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {

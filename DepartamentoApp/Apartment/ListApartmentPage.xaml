@@ -23,7 +23,7 @@
                             <StackPanel Orientation="Horizontal" Width="Auto" Height="40" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center">
                                 <Label Content="{Binding ComunaDep}" ContentStringFormat="Comuna: {0}" Margin="20,0,20,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
                                 <Label Content="{Binding DireccionDep}" ContentStringFormat="Dirección: {0}" Margin="20,0,20,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                                <Label Content="{Binding tarifaDep}" Language="es-CL" ContentStringFormat="{}Noche: ${0:N0}" Margin="20,0,20,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                                <Label Content="{Binding TarifaDep}" Language="es-CL" ContentStringFormat="{}Noche: ${0:N0}" Margin="20,0,20,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
                                 <Button Content="Entrar" Margin="0,-15,0,0" Foreground="White" x:Name="BtnDepartmentEnter" Click="BtnDepartmentEnter_Click" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
                             </StackPanel>
                         </StackPanel>

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Application = System.Windows.Application;
+using ComboBox = System.Windows.Controls.ComboBox;
 
 namespace DepartamentoApp.Apartment
 {
@@ -47,14 +49,14 @@ namespace DepartamentoApp.Apartment
 
                 //Comuna List
                 string CiudadFromComuna = cbb.GetCiudadByComuna(comuna);
-                cbComuna.ItemsSource = cbb.GetComunaList(CiudadFromComuna).Select(x => x.Descripcion);
+                cbComuna.ItemsSource = cbb.GetComunaListFromCiudad(CiudadFromComuna).Select(x => x.Descripcion);
 
                 //Selected Comuna
                 cbComuna.SelectedIndex = cbComuna.Items.IndexOf(comuna);
 
                 //Ciudad List
                 string RegionIdFromCiudad = cbb.GetRegionIdByCiudad(CiudadFromComuna);
-                cbCiudad.ItemsSource = cbb.GetCiudadList(RegionIdFromCiudad).Select(x => x.NameCiudad);
+                cbCiudad.ItemsSource = cbb.GetCiudadListFromRegion(RegionIdFromCiudad).Select(x => x.NameCiudad);
 
                 //Selected Ciudad
                 cbCiudad.SelectedIndex = cbCiudad.Items.IndexOf(CiudadFromComuna);
@@ -90,7 +92,7 @@ namespace DepartamentoApp.Apartment
                 cbCiudad.ItemsSource = null;
                 cbCiudad.SelectedIndex = -1;
                 cbComuna.SelectedIndex = -1;
-                cbCiudad.ItemsSource = cbb.GetCiudadList(RegionCode).Select(x => x.NameCiudad);
+                cbCiudad.ItemsSource = cbb.GetCiudadListFromRegion(RegionCode).Select(x => x.NameCiudad);
                 
             }
             else
@@ -98,7 +100,7 @@ namespace DepartamentoApp.Apartment
                 string RegionCode = cbb.GetRegionList()[cbRegion.SelectedIndex].NumeroRegion;
 
                 cbCiudad.IsEnabled = true;
-                cbCiudad.ItemsSource = cbb.GetCiudadList(RegionCode).Select(x => x.NameCiudad);
+                cbCiudad.ItemsSource = cbb.GetCiudadListFromRegion(RegionCode).Select(x => x.NameCiudad);
             }
 
         }
@@ -109,20 +111,20 @@ namespace DepartamentoApp.Apartment
             if (editMode && cbCiudad.SelectedIndex != -1)
             {
                 string NombreCiudad = (sender as ComboBox).SelectedItem as string;
-                cbComuna.ItemsSource = cbb.GetComunaList(NombreCiudad).Select(x => x.Descripcion);
+                cbComuna.ItemsSource = cbb.GetComunaListFromCiudad(NombreCiudad).Select(x => x.Descripcion);
             }
 
             if ((editMode && cbCiudad.SelectedIndex == -1) && cbRegion.SelectedIndex != -1)
             {
                 string RegionCode = cbb.GetRegionList()[cbRegion.SelectedIndex].NumeroRegion;
-                cbCiudad.ItemsSource = cbb.GetCiudadList(RegionCode).Select(x => x.NameCiudad);
+                cbCiudad.ItemsSource = cbb.GetCiudadListFromRegion(RegionCode).Select(x => x.NameCiudad);
             }
 
             if (!editMode)
             {
                 cbComuna.IsEnabled = true;
                 string ciudad = (sender as ComboBox).SelectedItem as string;
-                cbComuna.ItemsSource = cbb.GetComunaList(ciudad).Select(x => x.Descripcion);
+                cbComuna.ItemsSource = cbb.GetComunaListFromCiudad(ciudad).Select(x => x.Descripcion);
             }
         }
 

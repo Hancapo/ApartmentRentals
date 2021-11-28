@@ -47,7 +47,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Label Content="Comuna" VerticalAlignment="Center" Margin="60,0,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                        <TextBox x:Name="TbComuna" HorizontalContentAlignment="Center" Width="120" Text="La Florida" IsReadOnly="True" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam" Background="#FF000F4E" MouseDoubleClick="TbComuna_MouseDoubleClick"/>
+                        <TextBox ToolTip="Comuna pro" ToolTipService.ShowOnDisabled="True" x:Name="TbComuna" HorizontalContentAlignment="Center" Width="120" Text="La Florida" IsReadOnly="True" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam" Background="#FF000F4E" MouseDoubleClick="TbComuna_MouseDoubleClick"/>
                         <Label Content="Noche" VerticalAlignment="Center" Margin="60,0,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
                         <ComboBox Language="es-CL" ItemStringFormat="{}${0:N0}"  Width="120" HorizontalContentAlignment="Center" x:Name="CbTarifa" Text="$49.990" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Cursor="IBeam" IsEnabled="False"/>
                         <Label Content="Dirección" VerticalAlignment="Center" Margin="60,0,0,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>

@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using SkyrentBusiness;
 using SkyrentObjects;
+using Button = System.Windows.Controls.Button;
 
 namespace DepartamentoApp.Apartment
 {

@@ -18,7 +18,7 @@ namespace DepartamentoApp
             var ms = new MemoryStream(array);
             var image = new BitmapImage();
             image.BeginInit();
-            image.CacheOption = BitmapCacheOption.OnLoad; // Cache
+            image.CacheOption = BitmapCacheOption.OnDemand; // Cache
             image.StreamSource = ms;
             image.EndInit();
             return image;
