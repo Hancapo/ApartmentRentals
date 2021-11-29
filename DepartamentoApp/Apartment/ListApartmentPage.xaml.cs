@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using SkyrentBusiness;
 using SkyrentObjects;
 using Button = System.Windows.Controls.Button;
+using MaterialDesignThemes.Wpf;
 
 namespace DepartamentoApp.Apartment
 {
@@ -41,6 +42,13 @@ namespace DepartamentoApp.Apartment
         {
             ApartmentView AvCreation = new(null, true);
             NavigationService.Navigate(AvCreation);
+        }
+
+        private void DepartamentoCard_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Departamento depa = ((Card)sender).DataContext as Departamento;
+            ApartmentView AvView = new(depa, false);
+            NavigationService.Navigate(AvView);
         }
     }
 }

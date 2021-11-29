@@ -9,30 +9,49 @@
       Title="ListApartmentPage" Loaded="Page_Loaded">
 
     <Grid>
-        <Button x:Name="btnAddApart" Width="250" Height="50" Foreground="White" Content="Introducir nuevo departamento" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" Click="btnAddApart_Click"/>
-        <ListView Style="{StaticResource MaterialDesignCardsListBox}" x:Name="ListaDepartamentos" HorizontalContentAlignment="Center" ScrollViewer.CanContentScroll="false" Height="500" Width="850" HorizontalAlignment="Center" d:ItemsSource="{d:SampleData ItemCount=11}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <materialDesign:Card>
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                            <Label Content="{Binding TituloDepartamento}" HorizontalAlignment="Left" Margin="50,20,0,0" FontSize="20" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="750">
-                                <Image Source="{Binding FotoBig}" Height="128" Width="128" HorizontalAlignment="Left" Margin="20,20,20,20" Stretch="Fill"/>
-                                <TextBlock Width="600" MaxWidth="500" Text="{Binding DescripcionDep}" Margin="0,20,20,20" TextAlignment="Justify" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Width="Auto" Height="40" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center">
-                                <Label Content="{Binding ComunaDep}" ContentStringFormat="Comuna: {0}" Margin="20,0,20,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                                <Label Content="{Binding DireccionDep}" ContentStringFormat="Dirección: {0}" Margin="20,0,20,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                                <Label Content="{Binding TarifaDep}" Language="es-CL" ContentStringFormat="{}Noche: ${0:N0}" Margin="20,0,20,0" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                                <Button Content="Entrar" Margin="0,-15,0,0" Foreground="White" x:Name="BtnDepartmentEnter" Click="BtnDepartmentEnter_Click" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </materialDesign:Card>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <Button Width="250" Content="Agregar departamento" Foreground="{StaticResource MaterialDesignDarkForeground}"/>
+        <Grid Grid.Row="1">
+            <ListView d:ItemsSource="{d:SampleData ItemCount=10}" HorizontalAlignment="Center" Height="550" ScrollViewer.CanContentScroll="False" x:Name="ListaDepartamentos">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card x:Name="DepartamentoCard" Height="290" Width="800" Style="{StaticResource MaterialDesignStepIconContentControl}" MouseDoubleClick="DepartamentoCard_MouseDoubleClick">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="4*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Stretch="UniformToFill" Height="150" Width="150" Source="{Binding FotoBig}"/>
+                                    <TextBlock Margin="20" TextAlignment="Justify" TextWrapping="Wrap" Grid.Column="1" Text="{Binding DescripcionDep}"/>
 
+                                </Grid>
+                                <Label Content="{Binding TituloDepartamento}" FontSize="30" VerticalAlignment="Bottom" Margin="10,0,0,5"/>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!-- Parte de abajo -->
+                                    <Label Grid.Column="0" Content="{Binding ComunaDep}"  ContentStringFormat="Comuna: {0}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Label Grid.Column="1" Content="{Binding DireccionDep}" ContentStringFormat="Dirección: {0}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Label Grid.Column="2" Content="{Binding TarifaDep}" Language="es-CL" ContentStringFormat="{}Noche: ${0:N0}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Grid>
+                        </materialDesign:Card>
 
-
-        </ListView>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </Grid>
 </Page>
