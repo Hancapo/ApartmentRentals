@@ -22,9 +22,7 @@
     <None Remove="Apartment\1.jpg" />
     <None Remove="Apartment\1_small.jpg" />
     <None Remove="Apartment\emptyimage.jpg" />
-    <None Remove="Apartment\warning.png" />
     <None Remove="blurry.png" />
-    <None Remove="wallpapersden.com_iceberg-minimalist_1336x768.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,9 +47,7 @@
     <Resource Include="Apartment\1.jpg" />
     <Resource Include="Apartment\1_small.jpg" />
     <Resource Include="Apartment\emptyimage.jpg" />
-    <Resource Include="Apartment\warning.png" />
     <Resource Include="blurry.png" />
-    <Resource Include="wallpapersden.com_iceberg-minimalist_1336x768.jpg" />
   </ItemGroup>
 
 </Project>

@@ -15,13 +15,21 @@ namespace DepartamentoApp
 
         public BitmapImage ToImage(byte[] array)
         {
-            var ms = new MemoryStream(array);
-            var image = new BitmapImage();
-            image.BeginInit();
-            image.CacheOption = BitmapCacheOption.OnDemand; // Cache
-            image.StreamSource = ms;
-            image.EndInit();
-            return image;
+            try
+            {
+                var ms = new MemoryStream(array);
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnDemand; // Cache
+                image.StreamSource = ms;
+                image.EndInit();
+                return image;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
 
 
@@ -32,18 +40,28 @@ namespace DepartamentoApp
             string sqlcommand = "SELECT d.iddepartamento AS \"IdDepartamento\", d.fotobig AS \"FotoBig\", d.tarifa_idtarifa AS \"TarifaID\", t.monto_noche AS \"PrecioNoche\", c.descripcion AS \"Comuna\", d.comuna_idcomuna AS \"IdComuna\", d.direccion AS \"Direccion\", d.descripcion as \"Descripcion\", d.titulodepart AS \"Titulo\" FROM DEPARTAMENTO d INNER JOIN COMUNA c ON d.comuna_idcomuna = c.idcomuna INNER JOIN TARIFA t ON d.tarifa_idtarifa = t.idtarifa";
             foreach (DataRow dr in osc.OracleToDataTable(sqlcommand).Rows)
             {
-                Departamento dede = new()
-                {
-                    IdTarifaDep = dr["TarifaID"].ToString(),
-                    //TarifaDep = "$" + Convert.ToInt32(dr["PrecioNoche"]).ToString("N0") + " por noche",
-                    ComunaDep = dr["Comuna"].ToString(),
-                    DireccionDep = dr["Direccion"].ToString(),
-                    DescripcionDep = dr["Descripcion"].ToString(),
-                    FotoBig = ToImage((byte[])dr["FotoBig"]),
-                    TituloDepartamento = dr["Titulo"].ToString(),
-                    IdDepartamento = Convert.ToInt32(dr["IdDepartamento"])
 
-                };
+
+                Departamento dede = new();
+
+
+                dede.IdTarifaDep = dr["TarifaID"].ToString();
+                dede.ComunaDep = dr["Comuna"].ToString();
+                dede.DireccionDep = dr["Direccion"].ToString();
+                dede.DescripcionDep = dr["Descripcion"].ToString();
+                try
+                {
+                    //Tries to load the image
+                    dede.FotoBig = ToImage((byte[])dr["FotoBig"]);
+
+                }
+                catch (Exception)
+                {
+                    //Fails to load the image
+                    dede.FotoBig = new BitmapImage(new Uri(@"/DepartamentoApp;component/Apartment/emptyimage.jpg", UriKind.Relative));
+                }
+                dede.TituloDepartamento = dr["Titulo"].ToString();
+                dede.IdDepartamento = Convert.ToInt32(dr["IdDepartamento"]);
 
                 DepLista.Add(dede);
             }

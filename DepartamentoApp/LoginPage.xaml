@@ -14,7 +14,7 @@
     </Page.Background>
 
     <Grid>
-        <Button x:Name="BtnTest" Width="170" Height="50" VerticalAlignment="Bottom" Click="BtnTest_Click" Margin="0,0,20,20" HorizontalAlignment="Right" Foreground="White" FontFamily="Montserrat SemiBold">
+        <Button x:Name="BtnTest" Width="170" Height="50" VerticalAlignment="Bottom" Click="BtnTest_Click" Margin="0,0,20,20" HorizontalAlignment="Right" Foreground="White" FontFamily="Montserrat SemiBold" Cursor="Hand">
             <StackPanel Orientation="Horizontal">
                 <Label Content="{materialDesign:PackIcon Kind=Database}"/>
                 <Label Content="Probar conexión"/>

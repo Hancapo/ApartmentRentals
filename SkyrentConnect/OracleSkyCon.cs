@@ -9,7 +9,7 @@ namespace SkyrentConnect
 
         static string user = "C##VICENTE";
         static string pwd = "123456";
-        static string db = "23.251.159.66/xe";
+        static string db = "localhost/xe";
 
         static OracleConnection oracleConnection = new("User Id=" + user + ";Password=" + pwd + ";Data Source=" + db + ";");
         static OracleCommand oracleCommand = oracleConnection.CreateCommand();
