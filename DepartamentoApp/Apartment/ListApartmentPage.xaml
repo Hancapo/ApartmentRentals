@@ -13,13 +13,31 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btnAdd" Width="250" Content="Registrar departamento" Foreground="{StaticResource MaterialDesignDarkForeground}" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Click="btnAdd_Click"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Ordenar por" FontFamily="{StaticResource MaterialDesignFont}" VerticalAlignment="Center"/>
+            <ComboBox Foreground="{StaticResource MaterialDesignDarkForeground}" x:Name="cbFilterTypes" Width="150" Height="30" Margin="20" SelectionChanged="cbFilterTypes_SelectionChanged"/>
+            <Button Margin="20" x:Name="btnAdd" Width="50" Content="{materialDesign:PackIcon Kind=AddCircle}" Foreground="{StaticResource MaterialDesignDarkForeground}" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Click="btnAdd_Click"/>
+        </StackPanel>
+
         <Grid Grid.Row="1">
             <ListView d:ItemsSource="{d:SampleData ItemCount=10}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="550" ScrollViewer.CanContentScroll="False" x:Name="ListaDepartamentos">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <materialDesign:Card x:Name="DepartamentoCard" Height="290" Width="800" Style="{StaticResource MaterialDesignStepIconContentControl}" MouseDoubleClick="DepartamentoCard_MouseDoubleClick">
-                            <Grid>
+                        <materialDesign:Card x:Name="DepartamentoCard" Height="290" Width="800" Style="{StaticResource MaterialDesignStepIconContentControl}" MouseDoubleClick="DepartamentoCard_MouseDoubleClick" MouseEnter="DepartamentoCard_MouseEnter">
+                            <materialDesign:Card.ToolTip>
+                                <ToolTip Placement="MousePoint">
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Detalles departamento</TextBlock>
+                                        <TextBlock Text="{Binding IdDepartamento, StringFormat={}ID: {0}}"/>
+                                        <Border BorderBrush="{StaticResource MaterialDesignDarkBackground}" BorderThickness="0,1,0,0" Margin="0,8" />
+                                        <WrapPanel>
+                                            <Label Content="{materialDesign:PackIcon Kind=InformationCircleOutline}" Foreground="Black"/>
+                                            <TextBlock FontStyle="Italic">Doble clic para más información</TextBlock>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </ToolTip>
+                            </materialDesign:Card.ToolTip>
+                                <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="4*"/>
@@ -41,6 +59,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
+
                                     <!-- Parte de abajo -->
                                     <Label Grid.Column="0" Content="{Binding ComunaDep}"  ContentStringFormat="Comuna: {0}" HorizontalAlignment="Left" Margin="22,0,0,0" VerticalAlignment="Center"/>
                                     <Label Grid.Column="1" Content="{Binding DireccionDep}" ContentStringFormat="Dirección: {0}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>

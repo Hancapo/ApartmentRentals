@@ -28,7 +28,7 @@ namespace SkyrentObjects
         public BitmapImage FotoBig { get; set; }
         public string TituloDepartamento { get; set; }
 
-
+        public bool Disponibilidad { get; set; }
 
     }
 }

@@ -4,6 +4,8 @@ using SkyrentBusiness;
 using SkyrentObjects;
 using Button = System.Windows.Controls.Button;
 using MaterialDesignThemes.Wpf;
+using System.Linq;
+using ToolTip = System.Windows.Controls.ToolTip;
 
 namespace DepartamentoApp.Apartment
 {
@@ -18,6 +20,7 @@ namespace DepartamentoApp.Apartment
         public ListApartmentPage() 
         {
             InitializeComponent();
+            cbFilterTypes.ItemsSource = new List<string>() { "Tarifa","ID"};
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -36,6 +39,27 @@ namespace DepartamentoApp.Apartment
         {
             ApartmentView AvCreation = new(null, true);
             NavigationService.Navigate(AvCreation);
+        }
+
+        private void cbFilterTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            switch (cbFilterTypes.SelectedIndex)
+            {
+                case 0:
+                    ListaDepartamentos.ItemsSource = su.GetDepartamentoList().OrderBy(x => x.TarifaDep);
+                    break;
+                case 1:
+                    ListaDepartamentos.ItemsSource = su.GetDepartamentoList().OrderBy(x => x.IdDepartamento);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void DepartamentoCard_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            
         }
     }
 }
