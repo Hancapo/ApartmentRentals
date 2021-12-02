@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace SkyrentObjects
 {
-    public class ItemFamilia
+    public class Item
     {
+
+
         public string NombreItem { get; set; }
 
         public int Cantidad { get; set; }

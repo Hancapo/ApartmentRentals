@@ -1,15 +1,26 @@
 ﻿using System;
 using System.Data;
 using Oracle.ManagedDataAccess.Client;
+using System.IO;
 
 namespace SkyrentConnect
 {
     public class OracleSkyCon
     {
+        static public (string, string, string) LoadCredentials()
+        {
+            string filepath = "config.ini";
+            string _user = File.ReadAllLines(filepath)[0].Split('=')[1].Trim(); 
+            string _pwd = File.ReadAllLines(filepath)[1].Split('=')[1].Trim(); 
+            string _db = File.ReadAllLines(filepath)[2].Split('=')[1].Trim();
 
-        static string user = "C##VICENTE";
-        static string pwd = "123456";
-        static string db = "localhost/xe";
+
+            return (_user, _pwd, _db);
+        }
+
+        static string user = LoadCredentials().Item1;
+        static string pwd = LoadCredentials().Item2;
+        static string db = LoadCredentials().Item3;
 
         static OracleConnection oracleConnection = new("User Id=" + user + ";Password=" + pwd + ";Data Source=" + db + ";");
         static OracleCommand oracleCommand = oracleConnection.CreateCommand();

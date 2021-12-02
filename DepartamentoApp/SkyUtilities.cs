@@ -10,8 +10,8 @@ namespace DepartamentoApp
 {
     public class SkyUtilities
     {
-        private readonly OracleSkyCon osc = new();
-
+        private OracleSkyCon osc = new();
+        
 
         public BitmapImage ToImage(byte[] array)
         {
@@ -32,12 +32,11 @@ namespace DepartamentoApp
             
         }
 
-
         public List<Departamento> GetDepartamentoList()
         {
             List<Departamento> DepLista = new();
 
-            string sqlcommand = "SELECT d.iddepartamento AS \"IdDepartamento\", d.fotobig AS \"FotoBig\", d.tarifa_idtarifa AS \"TarifaID\", t.monto_noche AS \"PrecioNoche\", c.descripcion AS \"Comuna\", d.comuna_idcomuna AS \"IdComuna\", d.direccion AS \"Direccion\", d.descripcion as \"Descripcion\", d.titulodepart AS \"Titulo\" FROM DEPARTAMENTO d INNER JOIN COMUNA c ON d.comuna_idcomuna = c.idcomuna INNER JOIN TARIFA t ON d.tarifa_idtarifa = t.idtarifa";
+            string sqlcommand = "SELECT d.iddepartamento AS \"IdDepartamento\", d.fotobig AS \"FotoBig\", d.tarifa_idtarifa AS \"TarifaID\", t.monto_noche AS \"PrecioNoche\", c.nombre AS \"Comuna\", d.comuna_idcomuna AS \"IdComuna\", d.direccion AS \"Direccion\", d.descripcion as \"Descripcion\", d.titulodepart AS \"Titulo\" FROM DEPARTAMENTO d INNER JOIN COMUNA c ON d.comuna_idcomuna = c.idcomuna INNER JOIN TARIFA t ON d.tarifa_idtarifa = t.idtarifa";
             foreach (DataRow dr in osc.OracleToDataTable(sqlcommand).Rows)
             {
 
@@ -45,7 +44,7 @@ namespace DepartamentoApp
                 Departamento dede = new();
 
 
-                dede.IdTarifaDep = dr["TarifaID"].ToString();
+                dede.IdTarifaDep = Convert.ToInt32(dr["TarifaID"]);
                 dede.ComunaDep = dr["Comuna"].ToString();
                 dede.DireccionDep = dr["Direccion"].ToString();
                 dede.DescripcionDep = dr["Descripcion"].ToString();
@@ -66,9 +65,11 @@ namespace DepartamentoApp
                 DepLista.Add(dede);
             }
 
-            
+
             return DepLista;
         }
+
+
 
         public byte[] ImagePathToBytes(string imagepath)
         {

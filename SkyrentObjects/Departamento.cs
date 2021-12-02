@@ -17,7 +17,7 @@ namespace SkyrentObjects
 
         public int IdDepartamento { get; set; }
         
-        public string IdTarifaDep { get; set; }
+        public int IdTarifaDep { get; set; }
 
         //private int TarifaDep;
         public int TarifaDep => Convert.ToInt32(osc.RunOracleExecuteScalar($"SELECT MONTO_NOCHE FROM TARIFA WHERE IDTARIFA = '{IdTarifaDep}'"));

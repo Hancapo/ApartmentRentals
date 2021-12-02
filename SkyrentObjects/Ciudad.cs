@@ -8,7 +8,7 @@ namespace SkyrentObjects
 {
     public class Ciudad
     {
-        public string IdCiudad {get;set;}
+        public int IdCiudad {get;set;}
         public string NameCiudad { get;set;}    
         
     }

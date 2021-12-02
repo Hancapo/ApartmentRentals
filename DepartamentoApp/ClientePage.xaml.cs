@@ -38,9 +38,9 @@ namespace DepartamentoApp
         {
             Visibility = Visibility.Visible;
             DgClienteGrid.ItemsSource = Osc.OracleToDataTable("SELECT c.rutcliente AS \"RUT de Cliente\", " +
-                "us.nombreusuario AS \"Nombre de usuario\", co.descripcion AS \"Nombre de Comuna\",c.nombre AS \"Nombres\",c.apellidop AS \"Apellido Paterno\"," +
+                "us.nombreusuario AS \"Nombre de usuario\", co.nombre AS \"Nombre de Comuna\",c.nombre AS \"Nombres\",c.apellidop AS \"Apellido Paterno\"," +
                 "c.apellidom AS \"Apellido Materno\" FROM COMUNA co INNER JOIN CLIENTE c ON co.idcomuna = c.comuna_idcomuna INNER JOIN USUARIO us ON c.usuario_idusuario = us.idusuario").DefaultView;
-            DgItemsGrid.ItemsSource = Osc.OracleToDataTable("SELECT IDITEM AS \"ID Item\", DESCRIPCION AS \"Nombre\", TO_CHAR(VALOR, '$9G999G999') AS \"Precio\" FROM ITEM").DefaultView;
+            DgItemsGrid.ItemsSource = Osc.OracleToDataTable("SELECT IDITEM AS \"ID Item\", DESCRIPCION AS \"Nombre\", TO_CHAR(VALOR, '$9G999G999') AS \"Precio\", CANTIDAD AS \"Cantidad\" FROM ITEM").DefaultView;
             DgTarifasGrid.ItemsSource = Osc.OracleToDataTable("SELECT IDTARIFA AS \"ID Tarifa\", TO_CHAR(MONTO_NOCHE, '$9G999G999') AS \"Costo Noche\" FROM TARIFA").DefaultView;
         }
     }

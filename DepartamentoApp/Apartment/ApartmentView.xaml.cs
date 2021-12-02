@@ -106,7 +106,7 @@ namespace DepartamentoApp
             ImBig.Source = dd.FotoBig;
             TbComuna.Text = dd.ComunaDep;
             TTitulo.Text = dd.TituloDepartamento;
-            CbTarifa.SelectedIndex = Convert.ToInt32(dd.IdTarifaDep.Replace("TF", "")) - 1;
+            CbTarifa.SelectedIndex = Convert.ToInt32(dd.IdTarifaDep) - 1;
             CbTarifa.ItemsSource = NegocioComun.GetTarifaList();
             TDescripcion.Text = dd.DescripcionDep;
 
@@ -114,6 +114,7 @@ namespace DepartamentoApp
 
         private void ImBig_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+
 
             OpenFileDialog ofd = new();
             ofd.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG;*.JPEG)|*.BMP;*.JPG;*.GIF;*.PNG;*.JPEG";

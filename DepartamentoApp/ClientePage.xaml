@@ -12,20 +12,20 @@
 
     <Grid x:Name="GridVerCliente" Loaded="GridVerCliente_Loaded">
         <TabControl Style="{StaticResource MaterialDesignTabControl}" Background="{x:Null}">
-            <TabItem Header="Clientes" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal">
+            <TabItem Header="Clientes" FontFamily="{StaticResource MaterialDesignFont}" FontWeight="Normal" FontStyle="Normal">
                 <Grid>
-                    <DataGrid x:Name="DgClienteGrid" AutoGenerateColumns="True" Width="900" Height="500"/>
+                    <DataGrid IsReadOnly="True"  x:Name="DgClienteGrid" AutoGenerateColumns="True" Width="Auto" Height="Auto" MaxWidth="900" MaxHeight="500"/>
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Ítems" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal">
+            <TabItem Header="Ítems" FontFamily="{StaticResource MaterialDesignFont}" FontWeight="Normal" FontStyle="Normal">
                 <Grid>
-                    <DataGrid x:Name="DgItemsGrid" AutoGenerateColumns="True" Width="900" Height="500"/>
+                    <DataGrid IsReadOnly="True"  x:Name="DgItemsGrid" AutoGenerateColumns="True" Width="Auto" Height="Auto" MaxWidth="900" MaxHeight="500"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Tarifas" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal">
+            <TabItem Header="Tarifas" FontFamily="{StaticResource MaterialDesignFont}" FontWeight="Normal" FontStyle="Normal">
                 <Grid>
-                    <DataGrid x:Name="DgTarifasGrid" AutoGenerateColumns="True" Width="900" Height="500"/>
+                    <DataGrid IsReadOnly="True" Style="{StaticResource MaterialDesignDataGrid}" x:Name="DgTarifasGrid" AutoGenerateColumns="True" Width="Auto" Height="Auto" MaxWidth="900" MaxHeight="500"/>
                 </Grid>
             </TabItem>
         </TabControl>

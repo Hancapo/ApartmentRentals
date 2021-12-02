@@ -9,6 +9,6 @@ namespace SkyrentObjects
     public class Region
     {
         public string Nombre { get; set; }
-        public string NumeroRegion { get; set; }
+        public string IdRegion { get; set; }
     }
 }

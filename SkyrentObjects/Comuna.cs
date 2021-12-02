@@ -8,8 +8,7 @@ namespace SkyrentObjects
 {
     public class Comuna
     {
-        //Not very sure if I actually need to create this class...
-        public string IDComuna { get; set; }
-        public string Descripcion { get; set; }
+        public int IDComuna { get; set; }
+        public string NombreComuna { get; set; }
     }
 }

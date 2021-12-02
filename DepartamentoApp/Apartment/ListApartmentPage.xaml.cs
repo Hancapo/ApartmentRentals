@@ -25,30 +25,17 @@ namespace DepartamentoApp.Apartment
             ListaDepartamentos.ItemsSource = su.GetDepartamentoList();
         }
 
-        private void BtnDepartmentEnter_Click(object sender, RoutedEventArgs e)
-        {
-            //int idDep = (((Button)sender).DataContext as Departamento).IdDepartamento;
-            //MessageBox.Show(idDep.ToString());
-
-            Departamento depa = ((Button)sender).DataContext as Departamento;
-
-            ApartmentView AvView = new(depa, false);
-            NavigationService.Navigate(AvView);
-
-            
-        }
-
-        private void btnAddApart_Click(object sender, RoutedEventArgs e)
-        {
-            ApartmentView AvCreation = new(null, true);
-            NavigationService.Navigate(AvCreation);
-        }
-
         private void DepartamentoCard_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Departamento depa = ((Card)sender).DataContext as Departamento;
             ApartmentView AvView = new(depa, false);
             NavigationService.Navigate(AvView);
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            ApartmentView AvCreation = new(null, true);
+            NavigationService.Navigate(AvCreation);
         }
     }
 }

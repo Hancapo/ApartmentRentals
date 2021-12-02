@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Windows.Media.Imaging;
 using Oracle.ManagedDataAccess.Client;
 using SkyrentConnect;
 using SkyrentObjects;
@@ -12,7 +13,9 @@ namespace SkyrentBusiness
     {
 
         public OracleSkyCon osc = new();
-        
+
+
+
 
         public (bool, int, bool) LoginProc(string usuario, string contrasena)
         {
@@ -21,14 +24,14 @@ namespace SkyrentBusiness
             bool IsConnected;
             bool AccountExists;
 
-            if (osc.RunOracleExecuteScalar(string.Format("SELECT tipo_usuario_idtipo_usuario FROM USUARIO WHERE (usuariopassword = '{0}' AND nombreusuario = '{1}')", contrasena, usuario)) == null)
+            if (osc.RunOracleExecuteScalar(string.Format("SELECT tipo_usuario_idtipo_usuario FROM USUARIO WHERE (password = '{0}' AND nombreusuario = '{1}')", contrasena, usuario)) == null)
             {
                 IsConnected = true;
                 AccountExists = false;
             }
             else
             {
-                UserType = Convert.ToInt32(osc.RunOracleExecuteScalar(string.Format("SELECT tipo_usuario_idtipo_usuario FROM USUARIO WHERE (usuariopassword = '{0}' AND nombreusuario = '{1}')", contrasena, usuario)));
+                UserType = Convert.ToInt32(osc.RunOracleExecuteScalar(string.Format("SELECT tipo_usuario_idtipo_usuario FROM USUARIO WHERE (password = '{0}' AND nombreusuario = '{1}')", contrasena, usuario)));
                 IsConnected = true;
                 AccountExists = true;
 
@@ -89,9 +92,6 @@ namespace SkyrentBusiness
         public int CalculateID(string IdColumnName, string TableName) 
         {
 
-            //string LookUpForIDCommand = $"SELECT MAX({IdColumnName})+1 FROM {TableName}";
-            //int CountID = Convert.ToInt32(osc.RunOracleExecuteScalar($"SELECT COUNT({IdColumnName}) FROM {TableName}"));
-            //return CountID <= 0 ? 1 : Convert.ToInt32(osc.RunOracleExecuteScalar(LookUpForIDCommand));
 
             List<int> ListaID = new();
             string sqlcommand = $"SELECT {IdColumnName} FROM {TableName}";
@@ -126,8 +126,8 @@ namespace SkyrentBusiness
             foreach (DataRow dr in osc.OracleToDataTable(sqlcommand).Rows)
             {
                 Region r = new();
-                r.Nombre = dr["DESCRIPCION"].ToString();
-                r.NumeroRegion = dr["IDREGION"].ToString();
+                r.Nombre = dr["NOMBRE"].ToString();
+                r.IdRegion = dr["IDREGION"].ToString();
 
                 RegionLista.Add(r);
 
@@ -138,13 +138,13 @@ namespace SkyrentBusiness
         public List<Ciudad> GetCiudadListFromRegion(string CodeRegion)
         {
             List<Ciudad> CiudadLista = new();
-            string sqlcommand = $"SELECT DESCRIPCION, IDCIUDAD FROM CIUDAD WHERE REGION_IDREGION = '{CodeRegion}'";
+            string sqlcommand = $"SELECT NOMBRE, IDCIUDAD FROM CIUDAD WHERE REGION_IDREGION = '{CodeRegion}'";
             foreach (DataRow dr in osc.OracleToDataTable(sqlcommand).Rows)
             {
                 Ciudad ci = new();
 
-                ci.NameCiudad = dr["Descripcion"].ToString();
-                ci.IdCiudad = dr["IdCiudad"].ToString();
+                ci.NameCiudad = dr["Nombre"].ToString();
+                ci.IdCiudad = Convert.ToInt32(dr["IdCiudad"]);
                 CiudadLista.Add(ci);
             }
             return CiudadLista;
@@ -153,13 +153,13 @@ namespace SkyrentBusiness
         public List<Comuna> GetComunaListFromCiudad(string Ciudad)
         {
             List<Comuna> RegionLista = new();
-            string sqlcommand = $"SELECT comuna.descripcion, comuna.idcomuna FROM CIUDAD INNER JOIN COMUNA ON ciudad.idciudad = comuna.ciudad_idciudad WHERE ciudad.descripcion = '{Ciudad}'";
+            string sqlcommand = $"SELECT comuna.nombre, comuna.idcomuna FROM CIUDAD INNER JOIN COMUNA ON ciudad.idciudad = comuna.ciudad_idciudad WHERE ciudad.nombre = '{Ciudad}'";
             foreach (DataRow dr in osc.OracleToDataTable(sqlcommand).Rows)
             {
 
                 Comuna com = new();
-                com.Descripcion = dr["Descripcion"].ToString();
-                com.IDComuna = dr["IDCOMUNA"].ToString();
+                com.NombreComuna = dr["Nombre"].ToString();
+                com.IDComuna = Convert.ToInt32(dr["IDCOMUNA"]);
                 RegionLista.Add(com); ;
 
             }
@@ -169,7 +169,7 @@ namespace SkyrentBusiness
         public int GetIdComunaByName(string NombreComuna)
         {
 
-            string sqlcommand = $"SELECT idcomuna FROM COMUNA WHERE COMUNA.descripcion = '{NombreComuna}'";
+            string sqlcommand = $"SELECT idcomuna FROM COMUNA WHERE COMUNA.nombre = '{NombreComuna}'";
             return Convert.ToInt32(osc.RunOracleExecuteScalar(sqlcommand));
 
         }
@@ -177,7 +177,7 @@ namespace SkyrentBusiness
 
         public string GetCiudadByComuna(string NombreComuna)
         {
-            string sqlcommand = $"SELECT ciudad.descripcion FROM COMUNA INNER JOIN CIUDAD ON ciudad.idciudad = comuna.ciudad_idciudad WHERE comuna.descripcion = '{NombreComuna}'";
+            string sqlcommand = $"SELECT ciudad.nombre FROM COMUNA INNER JOIN CIUDAD ON ciudad.idciudad = comuna.ciudad_idciudad WHERE comuna.nombre = '{NombreComuna}'";
             return osc.RunOracleExecuteScalar(sqlcommand).ToString();
             
         }
@@ -185,40 +185,40 @@ namespace SkyrentBusiness
 
         public string GetRegionIdByCiudad(string NombreCiudad)
         {
-            string sqlcommand = $"SELECT region.idregion FROM CIUDAD INNER JOIN REGION ON region.idregion = ciudad.region_idregion WHERE ciudad.descripcion = '{NombreCiudad}'";
+            string sqlcommand = $"SELECT region.idregion FROM CIUDAD INNER JOIN REGION ON region.idregion = ciudad.region_idregion WHERE ciudad.nombre = '{NombreCiudad}'";
             return osc.RunOracleExecuteScalar(sqlcommand).ToString();
         }
 
         public string GetRegionByCiudad(string NombreCiudad)
         {
-            string sqlcommand = $"SELECT region.descripcion FROM CIUDAD INNER JOIN REGION ON region.idregion = ciudad.region_idregion WHERE ciudad.descripcion = '{NombreCiudad}'";
+            string sqlcommand = $"SELECT region.nombre FROM CIUDAD INNER JOIN REGION ON region.idregion = ciudad.region_idregion WHERE ciudad.nombre = '{NombreCiudad}'";
             return osc.RunOracleExecuteScalar(sqlcommand).ToString();
         }
 
         public List<Region> GetRegionListByCiudad(string NombreCiudad)
         {
             List<Region> RegionLista = new();
-            string sqlcommand = $"SELECT region.descripcion, region.idregion FROM CIUDAD INNER JOIN REGION ON region.idregion = ciudad.region_idregion WHERE ciudad.descripcion = '{NombreCiudad}'";
+            string sqlcommand = $"SELECT region.nombre, region.idregion FROM CIUDAD INNER JOIN REGION ON region.idregion = ciudad.region_idregion WHERE ciudad.nombre = '{NombreCiudad}'";
             foreach (DataRow dataRow in osc.OracleToDataTable(sqlcommand).Rows)
             {
                 Region reg = new();
 
-                reg.NumeroRegion = dataRow["idregion"].ToString();
-                reg.Nombre = dataRow["descripcion"].ToString();
+                reg.IdRegion = dataRow["idregion"].ToString();
+                reg.Nombre = dataRow["nombre"].ToString();
 
                 RegionLista.Add(reg);
             }
             return RegionLista;
         }
 
-        public List<ItemFamilia> GetFamiliaListByDepartamentoID(int DepID)
+        public List<Item> GetFamiliaListByDepartamentoID(int DepID)
         {
-            List<ItemFamilia> familiaItems = new();
+            List<Item> familiaItems = new();
             string sqlcommand = $"SELECT it.DESCRIPCION AS \"Nombre Item\", di.CANTIDAD as \"Cantidad\" FROM DETALLE_INVENTARIO di INNER JOIN ITEM it ON it.iditem = di.item_iditem INNER JOIN INVENTARIO inv ON di.inventario_idinventario = inv.idinventario WHERE inv.departamento_iddepartamento = '{DepID}'";
 
             foreach (DataRow dataRow in osc.OracleToDataTable(sqlcommand).Rows)
             {
-                ItemFamilia fi = new();
+                Item fi = new();
                 fi.NombreItem = dataRow["Nombre Item"].ToString();
                 fi.Cantidad = Convert.ToInt32(dataRow["Cantidad"]);
 
@@ -273,6 +273,8 @@ namespace SkyrentBusiness
 
         public bool UpdateApartment(int IDDEPARTAMENTO, string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart)
         {
+
+
             OracleCommand cmd = new("UPDATE DEPARTAMENTO SET Tarifa_IdTarifa = :1, Comuna_IdComuna = :2, Direccion = :3 , Descripcion = :4, FotoBig =:5, TituloDepart =:6 WHERE IDDEPARTAMENTO = " + IDDEPARTAMENTO.ToString(), osc.OracleConnection);
             cmd.Parameters.Add("1", OracleDbType.Varchar2, GetTarifaIdFromTarifaPrice(Convert.ToInt32(tarifa)), ParameterDirection.Input);
             cmd.Parameters.Add("2", OracleDbType.Varchar2, idcomuna, ParameterDirection.Input);

@@ -49,7 +49,7 @@ namespace DepartamentoApp.Apartment
 
                 //Comuna List
                 string CiudadFromComuna = cbb.GetCiudadByComuna(comuna);
-                cbComuna.ItemsSource = cbb.GetComunaListFromCiudad(CiudadFromComuna).Select(x => x.Descripcion);
+                cbComuna.ItemsSource = cbb.GetComunaListFromCiudad(CiudadFromComuna).Select(x => x.NombreComuna);
 
                 //Selected Comuna
                 cbComuna.SelectedIndex = cbComuna.Items.IndexOf(comuna);
@@ -87,7 +87,7 @@ namespace DepartamentoApp.Apartment
         {
             if (editMode && EditLoad)
             {
-                string RegionCode = cbb.GetRegionList()[cbRegion.SelectedIndex].NumeroRegion;
+                string RegionCode = cbb.GetRegionList()[cbRegion.SelectedIndex].IdRegion;
                 cbComuna.ItemsSource = null;
                 cbCiudad.ItemsSource = null;
                 cbCiudad.SelectedIndex = -1;
@@ -97,7 +97,7 @@ namespace DepartamentoApp.Apartment
             }
             else
             {
-                string RegionCode = cbb.GetRegionList()[cbRegion.SelectedIndex].NumeroRegion;
+                string RegionCode = cbb.GetRegionList()[cbRegion.SelectedIndex].IdRegion;
 
                 cbCiudad.IsEnabled = true;
                 cbCiudad.ItemsSource = cbb.GetCiudadListFromRegion(RegionCode).Select(x => x.NameCiudad);
@@ -111,12 +111,12 @@ namespace DepartamentoApp.Apartment
             if (editMode && cbCiudad.SelectedIndex != -1)
             {
                 string NombreCiudad = (sender as ComboBox).SelectedItem as string;
-                cbComuna.ItemsSource = cbb.GetComunaListFromCiudad(NombreCiudad).Select(x => x.Descripcion);
+                cbComuna.ItemsSource = cbb.GetComunaListFromCiudad(NombreCiudad).Select(x => x.NombreComuna);
             }
 
             if ((editMode && cbCiudad.SelectedIndex == -1) && cbRegion.SelectedIndex != -1)
             {
-                string RegionCode = cbb.GetRegionList()[cbRegion.SelectedIndex].NumeroRegion;
+                string RegionCode = cbb.GetRegionList()[cbRegion.SelectedIndex].IdRegion;
                 cbCiudad.ItemsSource = cbb.GetCiudadListFromRegion(RegionCode).Select(x => x.NameCiudad);
             }
 
@@ -124,7 +124,7 @@ namespace DepartamentoApp.Apartment
             {
                 cbComuna.IsEnabled = true;
                 string ciudad = (sender as ComboBox).SelectedItem as string;
-                cbComuna.ItemsSource = cbb.GetComunaListFromCiudad(ciudad).Select(x => x.Descripcion);
+                cbComuna.ItemsSource = cbb.GetComunaListFromCiudad(ciudad).Select(x => x.NombreComuna);
             }
         }
 
