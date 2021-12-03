@@ -57,7 +57,7 @@ namespace DepartamentoApp
                 catch (Exception)
                 {
                     //Fails to load the image
-                    dede.FotoBig = new BitmapImage(new Uri(@"/DepartamentoApp;component/Apartment/emptyimage.jpg", UriKind.Relative));
+                    dede.FotoBig = new BitmapImage(new Uri(@"/TurismoReal;component/Apartment/emptyimage.jpg", UriKind.Relative));
                 }
                 dede.TituloDepartamento = dr["Titulo"].ToString();
                 dede.IdDepartamento = Convert.ToInt32(dr["IdDepartamento"]);

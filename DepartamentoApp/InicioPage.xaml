@@ -5,17 +5,18 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DepartamentoApp"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       x:Class="DepartamentoApp.InicioPage"
       mc:Ignorable="d" 
       d:DesignHeight="680" d:DesignWidth="1160"
       Title="InicioPage">
 
     <Grid>
-        <Label Content="Novedades" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="60" Margin="0,0,0,0"/>
-        <TextBlock Foreground="White" FontWeight="Bold" TextWrapping="WrapWithOverflow" Width="1000"  FontSize="20" Margin="0,120,0,0">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.,</TextBlock>
-        <StackPanel Orientation="Horizontal">
-            <Image Source="/blurry.png" Height="300" VerticalAlignment="Center" Margin="80,100,0,0"/>
-            <TextBlock FontSize="16" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Width="500" Margin="30,0,0,0" Text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."/>
-        </StackPanel>
+
+        <lvc:CartesianChart Foreground="{StaticResource MaterialDesignDarkForeground}"  x:Name="ChartRegionesDep" Width="1000" Height="250" LegendLocation="Bottom">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Foreground="{StaticResource MaterialDesignDarkForeground}" x:Name="AxisRegionsDep" Title="Cantidad de Departamentos" FontFamily="{StaticResource MaterialDesignFont}" FontSize="10"/>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
     </Grid>
-</Page>
+</Page> 

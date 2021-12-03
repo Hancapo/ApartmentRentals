@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
+using LiveCharts;
+using LiveCharts.Wpf;
+using SkyrentBusiness;
+using SkyrentConnect;
 
 namespace DepartamentoApp
 {
@@ -20,9 +11,30 @@ namespace DepartamentoApp
     /// </summary>
     public partial class InicioPage : Page
     {
+        CommonBusiness cb = new();
         public InicioPage()
         {
             InitializeComponent();
+
+            CargarDatosRegionCantidad();
+            
+
         }
+
+
+        public void CargarDatosRegionCantidad()
+        {
+            ChartValues<int> CantidadPorRegion = new(cb.GetRegionDepGraph().Select(x => x.Cantidad).ToArray());
+
+            SeriesCollection sc = new();
+
+            ColumnSeries cs = new() { Values = new ChartValues<int>(CantidadPorRegion) };
+            sc.Add(cs);
+
+            ChartRegionesDep.Series = sc;
+
+            AxisRegionsDep.Labels = cb.GetRegionDepGraph().Select(x => x.NombreRegion).ToArray();
+        }
+
     }
 }

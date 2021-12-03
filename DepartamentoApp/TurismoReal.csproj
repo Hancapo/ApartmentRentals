@@ -30,9 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignColors" Version="2.0.3" />
+    <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.7" />
+    <PackageReference Include="MaterialDesignColors" Version="2.0.4" />
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.4" />
   </ItemGroup>
 
@@ -46,8 +47,16 @@
     <Resource Include="802579.png" />
     <Resource Include="Apartment\1.jpg" />
     <Resource Include="Apartment\1_small.jpg" />
-    <Resource Include="Apartment\emptyimage.jpg" />
+    <Resource Include="Apartment\emptyimage.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="blurry.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="config.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

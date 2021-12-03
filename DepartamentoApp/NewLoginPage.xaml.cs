@@ -55,20 +55,24 @@ namespace DepartamentoApp
         {
             if (!(string.IsNullOrEmpty(usr) && string.IsNullOrEmpty(pwd)))
             {
-                if (bsnss.LoginProc(usr, pwd).Item1)
+
+                switch (bsnss.LoginProc(usr, pwd))
                 {
-
-                    MainMenuPage MmpAdmin = new();
-                    NavigationService.Navigate(MmpAdmin);
-                               
-
-
-
-                }
-                else
-                {
-                    MessageBox.Show("Inicio de sesión fallido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                    case 0:
+                        MessageBox.Show("La cuenta no existe, inténtelo nuevamente con datos diferentes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                    case 2:
+                        MessageBox.Show("La contraseña es incorrecta, verifique e intente nuevamente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                    case 3:
+                        MessageBox.Show("La cuenta corresponde a un cliente, solo es posible acceder con cuentas de administrador.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                    case 5:
+                        MainMenuPage mainMenuPage = new();
+                        NavigationService.Navigate(mainMenuPage);
+                        break;
+                    default:
+                        break;
                 }
             }
             else
@@ -80,6 +84,7 @@ namespace DepartamentoApp
 
 
         }
+
 
         private void BtnCuenta_Click(object sender, RoutedEventArgs e)
         {

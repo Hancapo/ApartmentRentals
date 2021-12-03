@@ -67,7 +67,7 @@ namespace DepartamentoApp
                 CbTarifa.ItemsSource = NegocioComun.GetTarifaList();
 
                 //Misc settings
-                ImBig.Source = new BitmapImage(new Uri(@"/DepartamentoApp;component/Apartment/emptyimage.jpg", UriKind.Relative));
+                ImBig.Source = new BitmapImage(new Uri(@"/TurismoReal;component/Apartment/emptyimage.jpg", UriKind.Relative));
 
             }
             else

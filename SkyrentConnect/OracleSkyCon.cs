@@ -71,6 +71,7 @@ namespace SkyrentConnect
 
         public object RunOracleExecuteScalar(string sqlcommand)
         {
+            //Devuelve un solo objeto
             object newobj = null;
             if (CheckDatabase())
             {

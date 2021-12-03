@@ -16,7 +16,7 @@ namespace DepartamentoApp
             InitializeComponent();
             if (!File.Exists("config.ini"))
             {
-                MessageBox.Show("No se ha encontrado del archivo de configuración, el programa no puede continuar", "Error fatal", MessageBoxButton.OK);
+                MessageBox.Show("No se ha encontrado del archivo de configuración, el programa no puede continuar", "Error fatal", MessageBoxButton.OK, MessageBoxImage.Error);
                 Application.Current.Shutdown();
             }
             

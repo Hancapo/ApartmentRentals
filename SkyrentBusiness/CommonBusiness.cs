@@ -17,28 +17,53 @@ namespace SkyrentBusiness
 
 
 
-        public (bool, int, bool) LoginProc(string usuario, string contrasena)
+        public int LoginProc(string usuario, string contrasena)
         {
-            
-            int UserType = 0x7FFF + 0xAC;
-            bool IsConnected;
-            bool AccountExists;
+            string AccExistString = $"SELECT IDUSUARIO FROM USUARIO WHERE NOMBREUSUARIO = '{usuario}'";
+            string AccExistsIsCustomer = $"SELECT IDUSUARIO FROM USUARIO WHERE NOMBREUSUARIO = '{usuario}' AND tipo_usuario_idtipo_usuario = 2";
+            string AccExistsIsAdmin = $"SELECT IDUSUARIO FROM USUARIO WHERE NOMBREUSUARIO = '{usuario}' AND tipo_usuario_idtipo_usuario = 1";
+            string AccExistWrongPwd = $"SELECT IDUSUARIO FROM USUARIO WHERE NOMBREUSUARIO = '{usuario}' AND password = '{contrasena}'";
 
-            if (osc.RunOracleExecuteScalar(string.Format("SELECT tipo_usuario_idtipo_usuario FROM USUARIO WHERE (password = '{0}' AND nombreusuario = '{1}')", contrasena, usuario)) == null)
+
+            //0 -> La cuenta no existe.
+            //1 -> La cuenta sí existe.
+            //2 -> La cuenta existe pero la contraseña es incorrecta.
+            //3 -> La cuenta existe pero corresponde a una cuenta de cliente.
+            //4 -> La cuenta existe y corresponde a una cuenta de administrador.
+            //5 -> La cuenta es de administrador y la contraseña es correcta.
+
+            int LoginType;
+
+            if (osc.RunOracleExecuteScalar(AccExistString) == null)
             {
-                IsConnected = true;
-                AccountExists = false;
+                LoginType = 0;
             }
             else
             {
-                UserType = Convert.ToInt32(osc.RunOracleExecuteScalar(string.Format("SELECT tipo_usuario_idtipo_usuario FROM USUARIO WHERE (password = '{0}' AND nombreusuario = '{1}')", contrasena, usuario)));
-                IsConnected = true;
-                AccountExists = true;
+                LoginType = 1;
+                if (osc.RunOracleExecuteScalar(AccExistsIsCustomer) != null)
+                {
+                    LoginType = 3;
+                }
+                else
+                {
+                    if (osc.RunOracleExecuteScalar(AccExistsIsAdmin) != null)
+                    {
+                        LoginType = 4;
 
+                        if (osc.RunOracleExecuteScalar(AccExistWrongPwd) != null)
+                        {
+                            LoginType = 5;
+                        }
+                        else
+                        {
+                            LoginType = 2;
+                        }
+                    }
+                }
             }
 
-
-            return (IsConnected, UserType, AccountExists);
+            return LoginType;
 
         }
 
@@ -214,7 +239,7 @@ namespace SkyrentBusiness
         public List<Item> GetFamiliaListByDepartamentoID(int DepID)
         {
             List<Item> familiaItems = new();
-            string sqlcommand = $"SELECT it.DESCRIPCION AS \"Nombre Item\", di.CANTIDAD as \"Cantidad\" FROM DETALLE_INVENTARIO di INNER JOIN ITEM it ON it.iditem = di.item_iditem INNER JOIN INVENTARIO inv ON di.inventario_idinventario = inv.idinventario WHERE inv.departamento_iddepartamento = '{DepID}'";
+            string sqlcommand = $"SELECT it.DESCRIPCION AS \"Nombre Item\", di.CANTIDAD as \"Cantidad\" FROM DETALLE_INVENTARIO di INNER JOIN ITEM it ON it.iditem = di.item_iditem INNER JOIN INVENTARIO inv ON di.inventario_idinventario = inv.idinventario WHERE inv.departamento_iddepartamento = {DepID}";
 
             foreach (DataRow dataRow in osc.OracleToDataTable(sqlcommand).Rows)
             {
@@ -346,5 +371,23 @@ namespace SkyrentBusiness
 
             return reservers;
         }
+
+        public List<RegionDepGraph> GetRegionDepGraph()
+        {
+            List<RegionDepGraph> regionDepGraphs = new List<RegionDepGraph>();
+
+            string sqlcommand = "SELECT COUNT(dep.IDDEPARTAMENTO) AS \"Cantidad\", reg.nombre AS \"Region\" FROM DEPARTAMENTO dep INNER JOIN COMUNA comu ON comu.idcomuna = dep.comuna_idcomuna INNER JOIN CIUDAD ciu ON ciu.idciudad = comu.ciudad_idciudad INNER JOIN REGION reg ON ciu.region_idregion = reg.idregion GROUP BY reg.nombre";
+
+            foreach (DataRow dataRow in osc.OracleToDataTable(sqlcommand).Rows)
+            {
+                RegionDepGraph rdg = new();
+                rdg.Cantidad = Convert.ToInt32(dataRow["Cantidad"]);
+                rdg.NombreRegion = dataRow["Region"].ToString();
+                
+                regionDepGraphs.Add(rdg);   
+            }
+
+            return regionDepGraphs; 
+        } 
     }
 }
