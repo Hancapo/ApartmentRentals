@@ -15,8 +15,9 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Ordenar por" FontFamily="{StaticResource MaterialDesignFont}" VerticalAlignment="Center"/>
-            <ComboBox Foreground="{StaticResource MaterialDesignDarkForeground}" x:Name="cbFilterTypes" Width="150" Height="30" Margin="20" SelectionChanged="cbFilterTypes_SelectionChanged"/>
-            <Button Margin="20" x:Name="btnAdd" Width="50" Content="{materialDesign:PackIcon Kind=AddCircle}" Foreground="{StaticResource MaterialDesignDarkForeground}" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Click="btnAdd_Click"/>
+            <ComboBox Foreground="{StaticResource MaterialDesignDarkForeground}" x:Name="cbFilterTypes" Width="150" Height="30" Margin="10" SelectionChanged="cbFilterTypes_SelectionChanged"/>
+            <Button Margin="10" Style="{StaticResource MaterialDesignIconButton}" x:Name="btnAdd" Width="50" Content="{materialDesign:PackIcon Kind=AddCircle}" Foreground="{StaticResource MaterialDesignDarkForeground}" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Click="btnAdd_Click"/>
+            <Button Margin="10" Style="{StaticResource MaterialDesignIconButton}" x:Name="btnReload" Width="50" Content="{materialDesign:PackIcon Kind=Reload}" Foreground="{StaticResource MaterialDesignDarkForeground}" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand"/>
         </StackPanel>
 
         <Grid Grid.Row="1">

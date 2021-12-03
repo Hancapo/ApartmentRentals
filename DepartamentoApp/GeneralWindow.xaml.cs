@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace DepartamentoApp
 {
@@ -12,6 +14,11 @@ namespace DepartamentoApp
         public GeneralWindow()
         {
             InitializeComponent();
+            if (!File.Exists("config.ini"))
+            {
+                MessageBox.Show("No se ha encontrado del archivo de configuración, el programa no puede continuar", "Error fatal", MessageBoxButton.OK);
+                Application.Current.Shutdown();
+            }
             
         }
 

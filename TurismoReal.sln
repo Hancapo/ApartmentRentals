@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DepartamentoApp", "DepartamentoApp\DepartamentoApp.csproj", "{85AC967E-9126-4B20-AD70-DF5550C15018}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurismoReal", "DepartamentoApp\TurismoReal.csproj", "{85AC967E-9126-4B20-AD70-DF5550C15018}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkyrentConnect", "SkyrentConnect\SkyrentConnect.csproj", "{8FE7D223-3889-4FF7-9573-E414967535BF}"
 EndProject

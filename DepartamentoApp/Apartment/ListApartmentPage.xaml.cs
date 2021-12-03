@@ -20,7 +20,7 @@ namespace DepartamentoApp.Apartment
         public ListApartmentPage() 
         {
             InitializeComponent();
-            cbFilterTypes.ItemsSource = new List<string>() { "Tarifa","ID"};
+            cbFilterTypes.ItemsSource = new List<string>() { "Tarifa", "ID", "Título" };
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -51,6 +51,9 @@ namespace DepartamentoApp.Apartment
                     break;
                 case 1:
                     ListaDepartamentos.ItemsSource = su.GetDepartamentoList().OrderBy(x => x.IdDepartamento);
+                    break;
+                case 2:
+                    ListaDepartamentos.ItemsSource = su.GetDepartamentoList().OrderBy(x => x.TituloDepartamento);
                     break;
                 default:
                     break;
