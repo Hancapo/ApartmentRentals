@@ -30,5 +30,6 @@ namespace SkyrentObjects
 
         public bool Disponibilidad { get; set; }
 
+        //public string Ciudad => 
     }
 }

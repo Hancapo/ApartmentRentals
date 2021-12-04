@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using SkyrentBusiness;
 using DepartamentoApp.Apartment;
 using System.Globalization;
 using SkyrentConnect;
@@ -59,8 +58,8 @@ namespace DepartamentoApp
                 //Text and Content settings
                 lbTextoCambios.Content = "Agregar";
 
-                TTitulo.Text = "Título";
-                TDescripcion.Text = "Descripción";
+                TTitulo.Text = String.Empty;
+                TDescripcion.Text = String.Empty;
                 TbComuna.Text = String.Empty;
                 tbDireccion.Text = String.Empty;
                 CbTarifa.SelectedItem = null;

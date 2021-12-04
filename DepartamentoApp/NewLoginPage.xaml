@@ -30,10 +30,8 @@
                 <Label Content="¡Bienvenido una vez más!" HorizontalAlignment="Center" FontStyle="Normal" Margin="0,20,0,0" FontFamily="Montserrat Bold" Foreground="#DDC8C8C8" FontWeight="Normal"/>
                 <Label Content="Ingresa en tu cuenta" HorizontalAlignment="Center" FontFamily="Montserrat Light" FontWeight="Normal" FontSize="20"/>
                 <StackPanel Width="300">
-                    <Label Content="Usuario" Margin="0,20,0,0" FontWeight="Bold" Foreground="{StaticResource MaterialDesignDarkForeground}" FontFamily="Montserrat" VerticalAlignment="Bottom"/>
-                    <TextBox x:Name="tbUsuario"  Margin="0,10,0,0" Cursor="IBeam" KeyDown="tbUsuario_KeyDown" Foreground="{StaticResource MaterialDesignDarkForeground}"/>
-                    <Label Content="Contraseña" FontWeight="Bold" Foreground="{StaticResource MaterialDesignDarkForeground}" Margin="0,20,0,0" FontFamily="Montserrat" VerticalAlignment="Bottom"/>
-                    <PasswordBox x:Name="pbPassword" Style="{StaticResource MaterialDesignPasswordBox}" Margin="0,10,0,0" PasswordChar="•" KeyDown="pbPassword_KeyDown"  Foreground="{StaticResource MaterialDesignDarkForeground}"/>
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="15" materialDesign:HintAssist.Hint="Usuario" x:Name="tbUsuario"  Margin="0,10,0,0" Cursor="IBeam" KeyDown="tbUsuario_KeyDown" Foreground="{StaticResource MaterialDesignDarkForeground}"/>
+                    <PasswordBox FontSize="15" materialDesign:HintAssist.Hint="Contraseña" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" x:Name="pbPassword" Margin="0,10,0,0" PasswordChar="•" KeyDown="pbPassword_KeyDown"  Foreground="{StaticResource MaterialDesignDarkForeground}"/>
                     <Button x:Name="BtnIngresar" Content="Iniciar sesión" Foreground="{StaticResource MaterialDesignDarkForeground}" Style="{StaticResource MaterialDesignFlatAccentBgButton}" Margin="20,50,20,20" FontFamily="{StaticResource MaterialDesignFont}" FontStyle="Normal" FontWeight="Normal" Click="BtnIngresar_Click" Cursor="Hand"/>
                 </StackPanel>
                 

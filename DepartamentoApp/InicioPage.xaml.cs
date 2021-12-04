@@ -1,8 +1,8 @@
 ﻿using System.Windows.Controls;
 using LiveCharts;
 using LiveCharts.Wpf;
-using SkyrentBusiness;
 using SkyrentConnect;
+using SkyrentObjects;
 
 namespace DepartamentoApp
 {

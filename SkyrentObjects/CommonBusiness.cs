@@ -4,10 +4,10 @@ using System.Data;
 using System.Windows.Media.Imaging;
 using Oracle.ManagedDataAccess.Client;
 using SkyrentConnect;
-using SkyrentObjects;
+using System.Linq;
 
 
-namespace SkyrentBusiness
+namespace SkyrentObjects
 {
     public class CommonBusiness
     {
@@ -140,7 +140,7 @@ namespace SkyrentBusiness
                 }
             }
 
-            return 0;
+            return ListaID.Max() + 1;
 
         }
 

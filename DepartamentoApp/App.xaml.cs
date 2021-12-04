@@ -14,5 +14,10 @@ namespace DepartamentoApp
     /// </summary>
     public partial class App : Application
     {
+        public List<int> sexo(List<int> amigo)
+        {
+            List<int> vs = amigo;
+            return vs;
+        }
     }
 }

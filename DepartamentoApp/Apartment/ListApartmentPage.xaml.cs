@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using SkyrentBusiness;
 using SkyrentObjects;
 using Button = System.Windows.Controls.Button;
 using MaterialDesignThemes.Wpf;
@@ -63,6 +62,12 @@ namespace DepartamentoApp.Apartment
         private void DepartamentoCard_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             
+        }
+
+        private void btnReload_Click(object sender, RoutedEventArgs e)
+        {
+            cbFilterTypes.SelectedIndex = -1;
+            ListaDepartamentos.ItemsSource = su.GetDepartamentoList();
         }
     }
 }

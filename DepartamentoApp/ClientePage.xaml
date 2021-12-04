@@ -25,7 +25,7 @@
             </TabItem>
             <TabItem Header="Tarifas" FontFamily="{StaticResource MaterialDesignFont}" FontWeight="Normal" FontStyle="Normal">
                 <Grid>
-                    <DataGrid IsReadOnly="True" Style="{StaticResource MaterialDesignDataGrid}" x:Name="DgTarifasGrid" AutoGenerateColumns="True" Width="Auto" Height="Auto" MaxWidth="900" MaxHeight="500"/>
+                    <DataGrid IsReadOnly="True" Style="{StaticResource MaterialDesignDataGrid}" x:Name="DgTarifasGrid" AutoGenerateColumns="True" MaxWidth="900" MaxHeight="500"/>
                 </Grid>
             </TabItem>
         </TabControl>

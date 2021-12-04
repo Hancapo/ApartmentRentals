@@ -1,5 +1,5 @@
-﻿using SkyrentBusiness;
-using SkyrentConnect;
+﻿using SkyrentConnect;
+using SkyrentObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
