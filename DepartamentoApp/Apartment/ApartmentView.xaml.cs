@@ -63,7 +63,7 @@ namespace DepartamentoApp
                 TbComuna.Text = String.Empty;
                 tbDireccion.Text = String.Empty;
                 CbTarifa.SelectedItem = null;
-                CbTarifa.ItemsSource = NegocioComun.GetTarifaList();
+                CbTarifa.ItemsSource = NegocioComun.GetTarifaList().OrderBy(x => x.Monto_Noche).Select(x => x.Monto_Noche).ToList();
 
                 //Misc settings
                 ImBig.Source = new BitmapImage(new Uri(@"/TurismoReal;component/Apartment/emptyimage.jpg", UriKind.Relative));
@@ -106,7 +106,7 @@ namespace DepartamentoApp
             TbComuna.Text = dd.ComunaDep;
             TTitulo.Text = dd.TituloDepartamento;
             CbTarifa.SelectedIndex = Convert.ToInt32(dd.IdTarifaDep) - 1;
-            CbTarifa.ItemsSource = NegocioComun.GetTarifaList();
+            CbTarifa.ItemsSource = NegocioComun.GetTarifaList().OrderBy(x => x.Monto_Noche).Select(x => x.Monto_Noche).ToList();
             TDescripcion.Text = dd.DescripcionDep;
 
         }
@@ -189,7 +189,7 @@ namespace DepartamentoApp
             }
             else
             {
-                btnSaveChanges.Visibility = Visibility.Visible;
+                btnSaveChanges.Visibility = Visibility.Hidden;
                 Ccalendario.Visibility = Visibility.Visible;
                 btnDelete.Visibility = Visibility.Visible;
                 SpMiscControls.Visibility = Visibility.Visible;

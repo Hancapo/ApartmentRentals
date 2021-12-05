@@ -24,11 +24,41 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Tarifas" FontFamily="{StaticResource MaterialDesignFont}" FontWeight="Normal" FontStyle="Normal">
+                
+                
                 <Grid>
-                    <DataGrid IsReadOnly="True" Style="{StaticResource MaterialDesignDataGrid}" x:Name="DgTarifasGrid" AutoGenerateColumns="True" MaxWidth="900" MaxHeight="500"/>
+                    <DataGrid IsReadOnly="True" Grid.Row="1"  Style="{StaticResource MaterialDesignDataGrid}" x:Name="DgTarifasGrid" AutoGenerateColumns="True" MaxWidth="900" MaxHeight="500"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Style="{StaticResource MaterialDesignIconButton}" x:Name="btnCrearTarifa" Content="{materialDesign:PackIcon Kind=AddCircle}" Click="btnCrearTarifa_Click"/>
+                        <Button Style="{StaticResource MaterialDesignIconButton}" x:Name="btnEliminarTarifa" Content="{materialDesign:PackIcon Kind=Delete}" Click="btnEliminarTarifa_Click"/>
+                        <Button Style="{StaticResource MaterialDesignIconButton}" x:Name="btnReloadTarifas" Content="{materialDesign:PackIcon Kind=Reload}" Click="btnReloadTarifas_Click" />
+                        <Button Style="{StaticResource MaterialDesignIconButton}" x:Name="btnEditTarifas" Content="{materialDesign:PackIcon Kind=ModeEdit}" Click="btnEditTarifas_Click" />
+                    </StackPanel>
+                    
+                    <materialDesign:DialogHost Grid.Row="1" x:Name="DHSpamton" IsOpen="False" Width="300" Height="100" MouseDown="DHSpamton_MouseDown">
+                        <materialDesign:DialogHost.Content>
+                            <Grid Background="#FF3C3C3C">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBox x:Name="tbTarifa" Foreground="{StaticResource MaterialDesignDarkForeground}" Width="200" materialDesign:HintAssist.Hint="Tarifa" VerticalContentAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="tbTarifa_TextChanged" Cursor="IBeam"/>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button x:Name="btnSave" Margin="5" Content="Guardar" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnSave_Click"/>
+                                    <Button x:Name="btnCancel" Margin="5" Content="Cancelar" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnCancel_Click"/>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:DialogHost.Content>
+                        
+                    </materialDesign:DialogHost>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="6*"/>
+                    </Grid.RowDefinitions>
                 </Grid>
             </TabItem>
         </TabControl>
 
     </Grid>
+    
 </Page>

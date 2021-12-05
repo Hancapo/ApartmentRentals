@@ -253,13 +253,16 @@ namespace SkyrentObjects
             return familiaItems;
         }
 
-        public List<string> GetTarifaList()
+        public List<Tarifa> GetTarifaList()
         {
-            List<string> TarifaList = new();
-            string sqlcommand = "SELECT MONTO_NOCHE FROM tarifa";
+            List<Tarifa> TarifaList = new();
+            string sqlcommand = "SELECT * FROM tarifa";
             foreach (DataRow dataRow in osc.OracleToDataTable(sqlcommand).Rows)
             {
-                TarifaList.Add(dataRow["MONTO_NOCHE"].ToString());
+                Tarifa t = new();
+                t.Id = Convert.ToInt32(dataRow["IDTARIFA"]);
+                t.Monto_Noche = Convert.ToInt32(dataRow["MONTO_NOCHE"]);
+                TarifaList.Add(t);  
             }
 
             return TarifaList;
@@ -389,5 +392,86 @@ namespace SkyrentObjects
 
             return regionDepGraphs; 
         } 
+
+        public bool CreateTarifa(int Money)
+        {
+            Tarifa t = new() { Monto_Noche = Money, Id = CalculateID("IDTARIFA", "TARIFA")};
+            OracleCommand orc = new("SP_CREARTARIFA", osc.OracleConnection);
+            orc.CommandType = CommandType.StoredProcedure;
+            orc.Parameters.Add("@P_idTarifa", OracleDbType.Int32, t.Id, ParameterDirection.Input);
+            orc.Parameters.Add("@P_montoNoche", OracleDbType.Int32, t.Monto_Noche, ParameterDirection.Input);
+
+
+            try
+            {
+                orc.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteTarifa(int ID_)
+        {
+            OracleCommand orc = new("sp_EliminarTarifa", osc.OracleConnection);
+            orc.CommandType = CommandType.StoredProcedure;
+            orc.Parameters.Add("@p_idtarifa", OracleDbType.Int32, ID_, ParameterDirection.Input);
+
+            try
+            {
+                orc.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool CheckTarifa(int Price)
+        {
+            List<int> ListaPrecios = new();
+
+            string sqlcommand = "SELECT * FROM TARIFA";
+
+
+            foreach (DataRow dataRow in osc.OracleToDataTable(sqlcommand).Rows)
+            {
+                ListaPrecios.Add(Convert.ToInt32(dataRow["MONTO_NOCHE"]));
+            }
+
+
+
+            foreach (var item in ListaPrecios)
+            {
+
+                if (item == Price)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool ModifyTarifa(Tarifa t)
+        {
+            OracleCommand orc = new("sp_actualizaTarifa", osc.OracleConnection);
+            orc.CommandType = CommandType.StoredProcedure;
+            orc.Parameters.Add("@p_idTarifa", OracleDbType.Int32, t.Id, ParameterDirection.Input);
+            orc.Parameters.Add("@P_montoNoche", OracleDbType.Int32, t.Monto_Noche, ParameterDirection.Input);
+
+            try
+            {
+                orc.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

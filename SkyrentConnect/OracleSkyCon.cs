@@ -111,9 +111,9 @@ namespace SkyrentConnect
         {
             if (CheckDatabase())
             {
-
                 OracleCommand.CommandText = sqlcommand;
                 OracleCommand.ExecuteNonQuery();
+
 
             }
 

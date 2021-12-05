@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
       xmlns:local="clr-namespace:DepartamentoApp"
+      Language="es-CL"
       mc:Ignorable="d" 
       d:DesignHeight="680" d:DesignWidth="1160"
       Title="">
@@ -20,7 +21,7 @@
             </Button.Content>
         </Button>
         <Button Style="{StaticResource MaterialDesignIconButton}" x:Name="btnBack" Width="auto" Height="auto" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,30,0" Cursor="Hand" Content="{materialDesign:PackIcon Kind=ArrowBack}" FontSize="12" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Click="btnBack_Click"/>
-        <Button x:Name="cbEditMode" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,16,-120,0" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" ClickMode="Release" Click="cbEditMode_Click" Background="#FF6B1D15">
+        <Button x:Name="cbEditMode" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,16,-120,0" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" ClickMode="Release" Click="cbEditMode_Click" Background="#FF6B1D15" Cursor="Hand">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Modo edición"/>
@@ -59,7 +60,7 @@
                     <StackPanel>
                         <Label x:Name="lbCalend" Content="Calendario" HorizontalAlignment="Center" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
                         <Viewbox Width="160" HorizontalAlignment="Center" Margin="50,0,50,0">
-                            <Calendar x:Name="Ccalendario" DisplayMode="Month" SelectionMode="SingleRange" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                            <Calendar  x:Name="Ccalendario" DisplayMode="Month" Language="es-CL" SelectionMode="SingleRange" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
                         </Viewbox>
                     </StackPanel>
 
@@ -72,8 +73,7 @@
                                         <Label Content="{Binding FechaInicio}" ContentStringFormat="{}{0:MM/dd/yyyy}"/>
                                         <Label Content=" - "/>
                                         <Label Content="{Binding FechaFin}" ContentStringFormat="{}{0:MM/dd/yyyy}"/>
-                                        <Button x:Name="btnGoDate" Background="{x:Null}" BorderBrush="{x:Null}" Click="btnGoDate_Click" Cursor="Hand">
-                                            <Label Content="{materialDesign:PackIcon Kind=Clock}" Margin="0,-10,0,0"/>
+                                        <Button x:Name="btnGoDate" Content="{materialDesign:PackIcon Kind=Clock}" Margin="20,-4,0,0" Style="{StaticResource MaterialDesignIconButton}" Click="btnGoDate_Click" Cursor="Hand" Height="30" Width="30">
                                         </Button>
                                     </StackPanel>
 
