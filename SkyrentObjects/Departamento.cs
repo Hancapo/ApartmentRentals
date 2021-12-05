@@ -14,6 +14,7 @@ namespace SkyrentObjects
     public class Departamento
     {
         public OracleSkyCon osc = new();
+        public CommonBusiness cbb = new();
 
         public int IdDepartamento { get; set; }
         
@@ -30,6 +31,7 @@ namespace SkyrentObjects
 
         public bool Disponibilidad { get; set; }
 
-        //public string Ciudad => 
+        public string Ciudad => cbb.GetCiudadByComuna(ComunaDep);
+        public string Region => cbb.GetRegionByCiudad(Ciudad);
     }
 }

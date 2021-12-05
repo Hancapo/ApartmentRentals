@@ -16,10 +16,10 @@
                     <Label x:Name="lbTextoCambios" Content="Guardar cambios"/>
                     <Label x:Name="lbCambiosIcon" Content="{materialDesign:PackIcon Kind=ContentSaveAll}"/>
                 </StackPanel>
-                
+
             </Button.Content>
         </Button>
-        <Button x:Name="btnBack" Width="auto" Height="auto" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,30,0" Cursor="Hand" Content="{materialDesign:PackIcon Kind=ArrowBack}" FontSize="12" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Click="btnBack_Click"/>
+        <Button Style="{StaticResource MaterialDesignIconButton}" x:Name="btnBack" Width="auto" Height="auto" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,30,0" Cursor="Hand" Content="{materialDesign:PackIcon Kind=ArrowBack}" FontSize="12" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Click="btnBack_Click"/>
         <Button x:Name="cbEditMode" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,16,-120,0" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" ClickMode="Release" Click="cbEditMode_Click" Background="#FF6B1D15">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
@@ -28,27 +28,20 @@
                 </StackPanel>
             </Button.Content>
         </Button>
-        <Button Content="Eliminar" x:Name="btnDelete" VerticalAlignment="Top" Margin="0,16,-430,0" Width="100"  Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" BorderBrush="Black" Click="btnDelete_Click" >
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF9C0202"/>
-                    <GradientStop Color="#FFF3CA0C" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
+        <Button Style="{StaticResource MaterialDesignPaperLightButton}" Content="Eliminar" x:Name="btnDelete" VerticalAlignment="Top" Margin="0,16,-430,0" Width="100"  Foreground="{StaticResource MaterialDesignDarkForeground}" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" BorderBrush="Black" Click="btnDelete_Click" />
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="1100" Height="600" Orientation="Vertical">
 
             <StackPanel HorizontalAlignment="Center" Width="1050" Height="300" Margin="0,25,0,0" Orientation="Horizontal">
                 <Image x:Name="ImBig" Width="200" Height="200" Margin="50,0,0,0" VerticalAlignment="Center" IsEnabled="False" MouseLeftButtonDown="ImBig_MouseLeftButtonDown"/>
                 <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="50,0,0,0">
-                        <TextBox materialDesign:HintAssist.Hint="Título" x:Name="TTitulo" Width="300" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="14" Foreground="{StaticResource MaterialDesignDarkForeground}" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam"/>
-                        <TextBox materialDesign:HintAssist.Hint="Descripción" x:Name="TDescripcion" Width="600" MaxWidth="600" Height="150" MaxHeight="150" TextWrapping="Wrap" FontSize="14" HorizontalAlignment="Left" Margin="50,10,50,0" Foreground="White" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam"/>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                        <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Título" x:Name="TTitulo" Width="300" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="12" Foreground="{StaticResource MaterialDesignDarkForeground}" FontFamily="{StaticResource MaterialDesignFont}" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam"/>
+                        <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Descripción" x:Name="TDescripcion" Width="600" MaxWidth="600" Height="150" MaxHeight="150" TextWrapping="Wrap" FontSize="14" HorizontalAlignment="Left" Margin="50,10,50,0" Foreground="{StaticResource MaterialDesignDarkForeground}" FontFamily="{StaticResource MaterialDesignFont}" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBox materialDesign:HintAssist.Hint="Comuna" Margin="20" ToolTip="Comuna pro" ToolTipService.ShowOnDisabled="True" x:Name="TbComuna" HorizontalContentAlignment="Center" Width="120" IsReadOnly="True" Foreground="{StaticResource MaterialDesignDarkForeground}" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam" Background="#FF000F4E" MouseDoubleClick="TbComuna_MouseDoubleClick"/>
-                        <ComboBox materialDesign:HintAssist.Hint="Tarifa por noche" Margin="20" Language="es-CL" ItemStringFormat="{}${0:N0}"  Width="120" HorizontalContentAlignment="Center" x:Name="CbTarifa" Foreground="{StaticResource MaterialDesignDarkForeground}" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Cursor="IBeam" IsEnabled="False"/>
-                        <TextBox materialDesign:HintAssist.Hint="Dirección" Margin="20" HorizontalContentAlignment="Center" Width="160" x:Name="tbDireccion" Foreground="#FFFFFFFF" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam"/>
+                        <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Comuna" Margin="20" ToolTip="Comuna pro" ToolTipService.ShowOnDisabled="True" x:Name="TbComuna" HorizontalContentAlignment="Center" Width="120" IsReadOnly="True" Foreground="{StaticResource MaterialDesignDarkForeground}" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam" Background="#7F000F4E" MouseDoubleClick="TbComuna_MouseDoubleClick"/>
+                        <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Tarifa por noche" Margin="20" Language="es-CL" ItemStringFormat="{}${0:N0}" Width="150" HorizontalContentAlignment="Center" x:Name="CbTarifa" Foreground="{StaticResource MaterialDesignDarkForeground}" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal" Cursor="IBeam" IsEnabled="False"/>
+                        <TextBox VerticalContentAlignment="Center" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Dirección" Margin="20" HorizontalContentAlignment="Center" Width="220" x:Name="tbDireccion" Foreground="{StaticResource MaterialDesignDarkForeground}" FontFamily="{StaticResource MaterialDesignFont}" FontWeight="Normal" FontStyle="Normal" IsEnabled="False" Cursor="IBeam"/>
 
                     </StackPanel>
                 </StackPanel>
@@ -59,8 +52,8 @@
             </StackPanel>
             <StackPanel x:Name="SpMiscControls" Height="270" Orientation="Horizontal" >
                 <StackPanel Width="550" Orientation="Vertical" >
-                    <Label Content="Inventario" HorizontalAlignment="Center" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
-                    <DataGrid x:Name="dgInventario" Width="500" Height="230" IsReadOnly="True" FontFamily="Bahnschrift SemiLight" FontWeight="Normal" FontStyle="Normal"/>
+                    <Label Content="Inventario" HorizontalAlignment="Center" FontFamily="{StaticResource MaterialDesignFont}" FontWeight="Normal" FontStyle="Normal"/>
+                    <DataGrid x:Name="dgInventario" Width="500" Height="230" IsReadOnly="True" FontFamily="{StaticResource MaterialDesignFont}" FontWeight="Normal" FontStyle="Normal"/>
                 </StackPanel>
                 <StackPanel Width="550" Orientation="Horizontal">
                     <StackPanel>

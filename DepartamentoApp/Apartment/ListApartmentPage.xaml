@@ -29,6 +29,8 @@
                                     <StackPanel>
                                         <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Detalles departamento</TextBlock>
                                         <TextBlock Text="{Binding IdDepartamento, StringFormat={}ID: {0}}"/>
+                                        <TextBlock Text="{Binding Region, StringFormat={}Región: {0}}"/>
+                                        <TextBlock Text="{Binding Ciudad, StringFormat={}Ciudad: {0}}"/>
                                         <Border BorderBrush="{StaticResource MaterialDesignDarkBackground}" BorderThickness="0,1,0,0" Margin="0,8" />
                                         <WrapPanel>
                                             <Label Content="{materialDesign:PackIcon Kind=InformationCircleOutline}" Foreground="Black"/>

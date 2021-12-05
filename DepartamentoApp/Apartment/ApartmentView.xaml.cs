@@ -136,6 +136,8 @@ namespace DepartamentoApp
                     cbEditMode.Background = System.Windows.Media.Brushes.DarkGreen;
                     editMode = true;
                 }
+
+                
                 else
                 {
                     editMode = false;
@@ -235,6 +237,7 @@ namespace DepartamentoApp
 
                     if (ImageChanged)
                     {
+                        
                         isModified = NegocioComun.UpdateApartment(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Text).ToString(), tbDireccion.Text, TDescripcion.Text, su.ImagePathToBytes(fileName), TTitulo.Text);
 
                     }
@@ -243,21 +246,33 @@ namespace DepartamentoApp
                         isModified = NegocioComun.UpdateApartmentWithoutIM(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Text).ToString(), tbDireccion.Text, TDescripcion.Text, TTitulo.Text);
                     }
 
-
-                    if (isModified)
+                    if (CreationValidate())
                     {
-                        MessageBox.Show("El departamento ha sido editado exitosamente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                        NavigationService.GoBack();
+                        if (isModified)
+                        {
+                            MessageBox.Show("El departamento ha sido editado exitosamente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                            NavigationService.GoBack();
 
+                        }
+                        else
+                        {
+
+
+                            MessageBox.Show("Hubo un error al guardar los cambios.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+
+                        }
                     }
                     else
                     {
-
-
-                        MessageBox.Show("Hubo un error al guardar los cambios.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-
+                        MessageBox.Show("No se ha podido ingresar el departamento, hay campos vacíos, rellénelos e inténtelo nuevamente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+                    
+
+                   
+
+
+                    
 
 
 
