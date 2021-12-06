@@ -114,7 +114,7 @@ namespace SkyrentObjects
 
         }
 
-        public int CalculateID(string IdColumnName, string TableName) 
+        public int CalculateID(string IdColumnName, string TableName)
         {
 
 
@@ -173,7 +173,7 @@ namespace SkyrentObjects
                 CiudadLista.Add(ci);
             }
             return CiudadLista;
-        }               
+        }
 
         public List<Comuna> GetComunaListFromCiudad(string Ciudad)
         {
@@ -204,7 +204,7 @@ namespace SkyrentObjects
         {
             string sqlcommand = $"SELECT ciudad.nombre FROM COMUNA INNER JOIN CIUDAD ON ciudad.idciudad = comuna.ciudad_idciudad WHERE comuna.nombre = '{NombreComuna}'";
             return osc.RunOracleExecuteScalar(sqlcommand).ToString();
-            
+
         }
 
 
@@ -244,7 +244,7 @@ namespace SkyrentObjects
             foreach (DataRow dataRow in osc.OracleToDataTable(sqlcommand).Rows)
             {
                 Item fi = new();
-                fi.NombreItem = dataRow["Nombre Item"].ToString();
+                fi.Descripcion = dataRow["Nombre Item"].ToString();
                 fi.Cantidad = Convert.ToInt32(dataRow["Cantidad"]);
 
                 familiaItems.Add(fi);
@@ -256,13 +256,13 @@ namespace SkyrentObjects
         public List<Tarifa> GetTarifaList()
         {
             List<Tarifa> TarifaList = new();
-            string sqlcommand = "SELECT * FROM tarifa";
+            string sqlcommand = "SELECT * FROM TARIFA ORDER BY TARIFA.idtarifa";
             foreach (DataRow dataRow in osc.OracleToDataTable(sqlcommand).Rows)
             {
                 Tarifa t = new();
                 t.Id = Convert.ToInt32(dataRow["IDTARIFA"]);
                 t.Monto_Noche = Convert.ToInt32(dataRow["MONTO_NOCHE"]);
-                TarifaList.Add(t);  
+                TarifaList.Add(t);
             }
 
             return TarifaList;
@@ -272,14 +272,14 @@ namespace SkyrentObjects
         {
             string sqlcommand = $"SELECT IDTARIFA FROM TARIFA WHERE MONTO_NOCHE = '{price}'";
             return osc.RunOracleExecuteScalar(sqlcommand).ToString();
-            
+
         }
 
         public bool InsertApartment(string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart)
         {
 
             OracleCommand cmd = new("INSERT INTO DEPARTAMENTO (IdDepartamento, Tarifa_IdTarifa, Comuna_IdComuna, Direccion, Descripcion, FotoBig, TituloDepart) VALUES (:1, :2, :3, :4, :5, :6, :7)", osc.OracleConnection);
-            cmd.Parameters.Add("1", OracleDbType.Varchar2, CalculateID("IDDEPARTAMENTO","DEPARTAMENTO"), ParameterDirection.Input);
+            cmd.Parameters.Add("1", OracleDbType.Varchar2, CalculateID("IDDEPARTAMENTO", "DEPARTAMENTO"), ParameterDirection.Input);
             cmd.Parameters.Add("2", OracleDbType.Varchar2, GetTarifaIdFromTarifaPrice(Convert.ToInt32(tarifa)), ParameterDirection.Input);
             cmd.Parameters.Add("3", OracleDbType.Varchar2, idcomuna, ParameterDirection.Input);
             cmd.Parameters.Add("4", OracleDbType.Varchar2, direccion, ParameterDirection.Input);
@@ -295,7 +295,7 @@ namespace SkyrentObjects
             catch (Exception)
             {
                 return false;
-                
+
             }
         }
 
@@ -386,16 +386,16 @@ namespace SkyrentObjects
                 RegionDepGraph rdg = new();
                 rdg.Cantidad = Convert.ToInt32(dataRow["Cantidad"]);
                 rdg.NombreRegion = dataRow["Region"].ToString();
-                
-                regionDepGraphs.Add(rdg);   
+
+                regionDepGraphs.Add(rdg);
             }
 
-            return regionDepGraphs; 
-        } 
+            return regionDepGraphs;
+        }
 
         public bool CreateTarifa(int Money)
         {
-            Tarifa t = new() { Monto_Noche = Money, Id = CalculateID("IDTARIFA", "TARIFA")};
+            Tarifa t = new() { Monto_Noche = Money, Id = CalculateID("IDTARIFA", "TARIFA") };
             OracleCommand orc = new("SP_CREARTARIFA", osc.OracleConnection);
             orc.CommandType = CommandType.StoredProcedure;
             orc.Parameters.Add("@P_idTarifa", OracleDbType.Int32, t.Id, ParameterDirection.Input);
@@ -430,19 +430,16 @@ namespace SkyrentObjects
             }
         }
 
-        public bool CheckTarifa(int Price)
+        public bool DoesTarifaExists(int Price)
         {
             List<int> ListaPrecios = new();
 
-            string sqlcommand = "SELECT * FROM TARIFA";
-
+            string sqlcommand = "SELECT * FROM TARIFA ORDER BY TARIFA.idtarifa";
 
             foreach (DataRow dataRow in osc.OracleToDataTable(sqlcommand).Rows)
             {
                 ListaPrecios.Add(Convert.ToInt32(dataRow["MONTO_NOCHE"]));
             }
-
-
 
             foreach (var item in ListaPrecios)
             {
@@ -451,6 +448,7 @@ namespace SkyrentObjects
                 {
                     return false;
                 }
+
             }
 
             return true;
@@ -473,5 +471,85 @@ namespace SkyrentObjects
                 return false;
             }
         }
+
+        public List<FamiliaItem> GetFamiliaItemList()
+        {
+            List<FamiliaItem> NewFamiliaItemList = new();
+            string sqlcommand = "SELECT * FROM FAMILIA_ITEM";
+            foreach (DataRow dataRow in osc.OracleToDataTable(sqlcommand).Rows)
+            {
+                FamiliaItem fi = new() { IdFamilia_Item = Convert.ToInt32(dataRow["idfamilia_item"]), Descripcion = dataRow["descripcion"].ToString() };
+
+                NewFamiliaItemList.Add(fi);
+            }
+
+            return NewFamiliaItemList;
+        }
+
+        public List<SubFamiliaItem> GetNombreSubFamiliaItemFromID(int FamiliaID)
+        {
+            List<SubFamiliaItem> subFamiliaItems = new();
+
+            string sqlcommand = $"SELECT sfi.NOMBRE, sfi.familia_item_idfamilia_item, sfi.idsub_familia_item FROM SUB_FAMILIA_ITEM sfi INNER JOIN familia_item fi ON fi.idfamilia_item = sfi.familia_item_idfamilia_item WHERE fi.idfamilia_item = {FamiliaID}";
+            foreach (DataRow data in osc.OracleToDataTable(sqlcommand).Rows)
+            {
+                SubFamiliaItem subFamiliaItem = new()
+                {
+                    Nombre = data["NOMBRE"].ToString(),
+                    Familia_Item_IdFamilia_Item = Convert.ToInt32(data["familia_item_idfamilia_item"]),
+                    IdSub_Familia_Item = Convert.ToInt32(data["idsub_familia_item"])
+                };
+
+                subFamiliaItems.Add(subFamiliaItem);    
+            }
+
+            return subFamiliaItems;
+        }
+
+        public bool AddItem(Item it)
+        {
+
+            string sqlcommand = $"INSERT INTO ITEM (iditem, sub_familia_item_idsub_familia_item, descripcion, valor, cantidad) VALUES ({it.IdItem}, {it.SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM}, '{it.Descripcion}', {it.Valor}, {it.Cantidad})";
+
+            try
+            {
+                osc.RunOracleNonQuery(sqlcommand);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteItem(Item it)
+        {
+            string sqlcommand = $"DELETE FROM ITEM WHERE ITEM.iditem = {it.IdItem}";
+
+            try
+            {
+                osc.RunOracleNonQuery(sqlcommand);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public int GetFamiliaItemIdFromFamiliaItemName(string FamiliaName)
+        {
+            string sqlcommand = $"SELECT idfamilia_item FROM FAMILIA_ITEM WHERE descripcion='{FamiliaName}'";
+
+            return Convert.ToInt32(osc.RunOracleExecuteScalar(sqlcommand));  
+        }
+
+        public int GetSubFamiliaItemIdFromSubFamiliaItemName(string SubFamiliaName)
+        {
+            string sqlcommand = $"SELECT IDSUB_FAMILIA_ITEM FROM SUB_FAMILIA_ITEM WHERE nombre='{SubFamiliaName}'";
+
+            return Convert.ToInt32(osc.RunOracleExecuteScalar(sqlcommand));
+        }
+
     }
 }

@@ -72,7 +72,7 @@ namespace DepartamentoApp
             else
             {
                 SetValuesDep(dep_);
-                dgInventario.ItemsSource = NegocioComun.GetFamiliaListByDepartamentoID(dep_.IdDepartamento);
+                dgInventario.ItemsSource = NegocioComun.GetFamiliaListByDepartamentoID(dep_.IdDepartamento).Select(i => new {i.Descripcion, i.Cantidad}).ToList();
                 xListReservas.ItemsSource = NegocioComun.GetReservaListByDepID(dep_.IdDepartamento);
             }
 

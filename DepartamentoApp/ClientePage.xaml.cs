@@ -31,6 +31,7 @@ namespace DepartamentoApp
         {
             InitializeComponent();
             DHSpamton.Visibility = Visibility.Hidden;
+            DialogItemF.Visibility = Visibility.Hidden;
         }
 
         private void GridVerCliente_Loaded(object sender, RoutedEventArgs e)
@@ -44,8 +45,10 @@ namespace DepartamentoApp
             //DgClienteGrid.ItemsSource = Osc.OracleToDataTable("SELECT c.rutcliente AS \"RUT de Cliente\", " +
             //    "us.nombreusuario AS \"Nombre de usuario\", co.nombre AS \"Nombre de Comuna\",c.nombre AS \"Nombres\",c.apellidop AS \"Apellido Paterno\"," +
             //    "c.apellidom AS \"Apellido Materno\" FROM COMUNA co INNER JOIN CLIENTE c ON co.idcomuna = c.comuna_idcomuna INNER JOIN USUARIO us ON c.usuario_idusuario = us.idusuario").DefaultView;
-            //DgItemsGrid.ItemsSource = Osc.OracleToDataTable("SELECT IDITEM AS \"ID Item\", DESCRIPCION AS \"Nombre\", TO_CHAR(VALOR, '$9G999G999') AS \"Precio\", CANTIDAD AS \"Cantidad\" FROM ITEM").DefaultView;
+            DgItemsGrid.ItemsSource = Osc.OracleToDataTable("SELECT IDITEM AS \"ID Item\", DESCRIPCION AS \"Nombre\", TO_CHAR(VALOR, '$9G999G999') AS \"Precio\", CANTIDAD AS \"Cantidad\" FROM ITEM").DefaultView;
             DgTarifasGrid.ItemsSource = Business.GetTarifaList();
+            cbCategoria.ItemsSource = Business.GetFamiliaItemList().Select(x=>x.Descripcion);
+            
         }
 
         private void btnCrearTarifa_Click(object sender, RoutedEventArgs e)
@@ -56,14 +59,15 @@ namespace DepartamentoApp
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            int TarifaINT = Int32.Parse(tbTarifa.Text);
             DHSpamton.Visibility = Visibility.Hidden;
 
             if (!editMode)
             {
                 if (tbTarifa.Text != string.Empty)
                 {
-                    if (Business.CheckTarifa(TarifaINT))
+                    int TarifaINT = Int32.Parse(tbTarifa.Text);
+
+                    if (Business.DoesTarifaExists(TarifaINT))
                     {
                         if (Business.CreateTarifa(TarifaINT))
                         {
@@ -80,7 +84,7 @@ namespace DepartamentoApp
                     }
                     else
                     {
-                        MessageBox.Show("La tarifa no se ha podido crear.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("La tarifa que se ha intentado crear ya existe.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     }
                 }
@@ -95,23 +99,42 @@ namespace DepartamentoApp
                 Tarifa TarifaFrom_ = ((Tarifa)DgTarifasGrid.SelectedItem);
 
 
-                if (MessageBox.Show(string.Format("¿Desea modificar la tarifa con ID {0}?", TarifaFrom_.Id), "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                if (tbTarifa.Text != String.Empty)
                 {
-                    TarifaFrom_.Monto_Noche = Convert.ToInt32(tbTarifa.Text);
-
-                    if (Business.ModifyTarifa(TarifaFrom_))
+                    int a = TarifaFrom_.Monto_Noche = Convert.ToInt32(tbTarifa.Text);
+                    if (MessageBox.Show(string.Format("¿Desea modificar la tarifa con ID {0}?", TarifaFrom_.Id), "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
-                        MessageBox.Show(String.Format("Se ha modificado la tarifa {0} con éxito.", TarifaFrom_.Id), "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                        DgTarifasGrid.ItemsSource = Business.GetTarifaList();
-                        tbTarifa.Text=string.Empty; 
+
+                        if (Business.DoesTarifaExists(a))
+                        {
+                            if (Business.ModifyTarifa(TarifaFrom_))
+                            {
+                                MessageBox.Show(String.Format("Se ha modificado la tarifa {0} con éxito.", TarifaFrom_.Id), "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                                DgTarifasGrid.ItemsSource = Business.GetTarifaList();
+                                tbTarifa.Text = string.Empty;
+
+
+                            }
+                            else
+                            {
+                                MessageBox.Show(String.Format("No se ha podido modificar la tarifa {0}.", TarifaFrom_.Id), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show(String.Format("No se ha podido modificar la tarifa {0}, la tarifa ya existe.", TarifaFrom_.Id), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        }
 
 
                     }
-                    else
-                    {
-                        MessageBox.Show(String.Format("No se ha podido modificar la tarifa {0}.", TarifaFrom_.Id), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                    }
+                }
+                else
+                {
+                    MessageBox.Show("El campo no puede estar vacío.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                 }
             }
             
@@ -193,6 +216,75 @@ namespace DepartamentoApp
                 tbTarifa.Text = TarifaFrom_.Monto_Noche.ToString();
             }
 
+        }
+
+        private void btnCrearItem_Click(object sender, RoutedEventArgs e)
+        {
+            DialogItemF.Visibility = Visibility.Visible;
+        }
+
+        private void btnEliminarItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnReloadItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnEditItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Grid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            
+        }
+
+        private void cbCategoria_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbCategoria.SelectedItem != null)
+            {
+                int getid = Business.GetFamiliaItemIdFromFamiliaItemName(cbCategoria.SelectedItem.ToString());
+                cbSubcategoria.ItemsSource = Business.GetNombreSubFamiliaItemFromID(getid).Select(x => x.Nombre);
+
+                
+
+            }
+            else
+            {
+                
+            }
+        }
+
+        private void btnItemGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            Item im = new()
+            {
+                Cantidad = Convert.ToInt32(tbCantidadItem.Text),
+                Descripcion = tbDescripcionItem.Text,
+                IdItem = Business.CalculateID("IDITEM", "ITEM"),
+                SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM = Business.GetSubFamiliaItemIdFromSubFamiliaItemName(cbSubcategoria.SelectedItem.ToString()),
+                Valor = Convert.ToInt32(tbValorItem.Text)
+
+            };
+
+            if (Business.AddItem(im))
+            {
+                MessageBox.Show("ÉXITOOOO");
+                DgItemsGrid.ItemsSource = Osc.OracleToDataTable("SELECT IDITEM AS \"ID Item\", DESCRIPCION AS \"Nombre\", TO_CHAR(VALOR, '$9G999G999') AS \"Precio\", CANTIDAD AS \"Cantidad\" FROM ITEM").DefaultView;
+                DialogItemF.Visibility = Visibility.Hidden;
+
+
+            }
+
+        }
+
+        private void btnItemCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            DialogItemF.Visibility = Visibility.Hidden;
         }
     }
 }
