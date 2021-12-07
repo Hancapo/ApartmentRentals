@@ -7,8 +7,10 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:controls="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
       mc:Ignorable="d" 
+      Language="es-CL"
       d:DesignHeight="680" d:DesignWidth="1160"
       Title="" Loaded="Page_Loaded">
+    
 
     <Grid x:Name="GridVerCliente" Loaded="GridVerCliente_Loaded">
         <TabControl Style="{StaticResource MaterialDesignTabControl}">
@@ -35,8 +37,16 @@
                         <Button Margin="10" Style="{StaticResource MaterialDesignIconButton}" x:Name="btnReloadItem" Content="{materialDesign:PackIcon Kind=Reload}" Click="btnReloadItem_Click"/>
                         <Button Margin="10" Style="{StaticResource MaterialDesignIconButton}" x:Name="btnEditItem" Content="{materialDesign:PackIcon Kind=ModeEdit}" Click="btnEditItem_Click"/>
                     </StackPanel>
-                    <DataGrid Style="{StaticResource MaterialDesignDataGrid}" Grid.Row="1" IsReadOnly="True"  x:Name="DgItemsGrid" AutoGenerateColumns="True" Width="Auto" Height="Auto" MaxWidth="900" MaxHeight="500"/>
-                        <materialDesign:DialogHost x:Name="DialogItemF" Grid.Row="1"  IsOpen="False" Width="300" Height="300">
+                    <DataGrid Style="{StaticResource MaterialDesignDataGrid}" Grid.Row="1" IsReadOnly="True"  x:Name="DgItemsGrid" AutoGenerateColumns="False" Width="Auto" Height="Auto" MaxWidth="900" MaxHeight="500" ItemsSource="{Binding ItemsLoaded,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding IdItem}" Header="Item ID"/>
+                            <DataGridTextColumn Binding="{Binding SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM}" Header="HASDJK" Visibility="Hidden"/>
+                            <DataGridTextColumn Binding="{Binding Descripcion}" Header="Nombre"/>
+                            <DataGridTextColumn Binding="{Binding Valor, StringFormat=C}" Header="Valor"/>
+                            <DataGridTextColumn Binding="{Binding Cantidad}" Header="Cantidad"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <materialDesign:DialogHost x:Name="DialogItemF" Grid.Row="1"  IsOpen="False" Width="300" Height="300">
                         <materialDesign:DialogHost.Content>
                             <materialDesign:Card>
                                 <Grid MouseEnter="Grid_MouseEnter" >
@@ -50,8 +60,8 @@
                                     <ComboBox x:Name="cbCategoria" Width="250" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="10" Height="40" Foreground="{StaticResource MaterialDesignDarkForeground}" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Categoría" SelectionChanged="cbCategoria_SelectionChanged"/>
                                     <ComboBox x:Name="cbSubcategoria" Width="250" Margin="10" Grid.Row="1" Height="40" Foreground="{StaticResource MaterialDesignDarkForeground}" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Subcategoría" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                                     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <TextBox x:Name="tbValorItem" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Valor" Width="120" Foreground="{StaticResource MaterialDesignDarkForeground}" Margin="10"/>
-                                        <TextBox x:Name="tbCantidadItem" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Cantidad" Width="120" Foreground="{StaticResource MaterialDesignDarkForeground}" Margin="10"/>
+                                        <TextBox x:Name="tbValorItem" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Valor" Width="120" Foreground="{StaticResource MaterialDesignDarkForeground}" Margin="10" TextChanged="tbValorItem_TextChanged"/>
+                                        <TextBox x:Name="tbCantidadItem" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Cantidad" Width="120" Foreground="{StaticResource MaterialDesignDarkForeground}" Margin="10" TextChanged="tbCantidadItem_TextChanged"/>
                                     </StackPanel>
                                     <TextBox x:Name="tbDescripcionItem" Width="260" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Descripción" Margin="10" Grid.Row="3" Foreground="{StaticResource MaterialDesignDarkForeground}"/>
                                     <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">

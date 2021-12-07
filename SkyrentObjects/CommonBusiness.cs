@@ -5,7 +5,7 @@ using System.Windows.Media.Imaging;
 using Oracle.ManagedDataAccess.Client;
 using SkyrentConnect;
 using System.Linq;
-
+using System.Collections.ObjectModel;
 
 namespace SkyrentObjects
 {
@@ -549,6 +549,29 @@ namespace SkyrentObjects
             string sqlcommand = $"SELECT IDSUB_FAMILIA_ITEM FROM SUB_FAMILIA_ITEM WHERE nombre='{SubFamiliaName}'";
 
             return Convert.ToInt32(osc.RunOracleExecuteScalar(sqlcommand));
+        }
+
+        public ObservableCollection<Item> GetItemList()
+        {
+            ObservableCollection<Item> ItemListo = new ObservableCollection<Item>();
+
+            string sqlcommand = "SELECT * FROM ITEM ORDER BY IDITEM";
+
+            foreach (DataRow dr in osc.OracleToDataTable(sqlcommand).Rows)
+            {
+                Item im = new() {
+                    IdItem = Convert.ToInt32(dr["IDITEM"]),
+                    SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM = Convert.ToInt32(dr["SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM"]),
+                    Descripcion = dr["DESCRIPCION"].ToString(),
+                    Valor = Convert.ToInt32(dr["VALOR"]),
+                    Cantidad = Convert.ToInt32(dr["CANTIDAD"])
+                };
+
+                ItemListo.Add(im);  
+            }
+
+            return ItemListo;
+
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,13 +26,17 @@ namespace DepartamentoApp
     public partial class ClientePage : Page
     {
         private OracleSkyCon Osc = new();
-        CommonBusiness Business = new CommonBusiness();
-        bool editMode;
+        CommonBusiness Business = new();
+        bool TarifaEditMode;
+        bool ItemEditMode;
         public ClientePage()
         {
             InitializeComponent();
             DHSpamton.Visibility = Visibility.Hidden;
             DialogItemF.Visibility = Visibility.Hidden;
+
+            LoadItems();
+
         }
 
         private void GridVerCliente_Loaded(object sender, RoutedEventArgs e)
@@ -39,13 +44,19 @@ namespace DepartamentoApp
 
         }
 
+        private void LoadItems()
+        {
+            DgItemsGrid.ItemsSource = Business.GetItemList();
+        }
+
+        //TARIFA
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Visibility = Visibility.Visible;
             //DgClienteGrid.ItemsSource = Osc.OracleToDataTable("SELECT c.rutcliente AS \"RUT de Cliente\", " +
             //    "us.nombreusuario AS \"Nombre de usuario\", co.nombre AS \"Nombre de Comuna\",c.nombre AS \"Nombres\",c.apellidop AS \"Apellido Paterno\"," +
             //    "c.apellidom AS \"Apellido Materno\" FROM COMUNA co INNER JOIN CLIENTE c ON co.idcomuna = c.comuna_idcomuna INNER JOIN USUARIO us ON c.usuario_idusuario = us.idusuario").DefaultView;
-            DgItemsGrid.ItemsSource = Osc.OracleToDataTable("SELECT IDITEM AS \"ID Item\", DESCRIPCION AS \"Nombre\", TO_CHAR(VALOR, '$9G999G999') AS \"Precio\", CANTIDAD AS \"Cantidad\" FROM ITEM").DefaultView;
+            DgItemsGrid.ItemsSource = Business.GetItemList();//.Select(p => new { p.IdItem, p.Descripcion, p.Valor, p.Cantidad });
             DgTarifasGrid.ItemsSource = Business.GetTarifaList();
             cbCategoria.ItemsSource = Business.GetFamiliaItemList().Select(x=>x.Descripcion);
             
@@ -54,14 +65,14 @@ namespace DepartamentoApp
         private void btnCrearTarifa_Click(object sender, RoutedEventArgs e)
         {
             DHSpamton.Visibility = Visibility.Visible;
-            editMode = false;
+            TarifaEditMode = false;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             DHSpamton.Visibility = Visibility.Hidden;
 
-            if (!editMode)
+            if (!TarifaEditMode)
             {
                 if (tbTarifa.Text != string.Empty)
                 {
@@ -201,7 +212,7 @@ namespace DepartamentoApp
 
         private void btnEditTarifas_Click(object sender, RoutedEventArgs e)
         {
-            editMode = true;
+            TarifaEditMode = true;
 
             if (DgTarifasGrid.SelectedItem == null)
             {
@@ -218,23 +229,47 @@ namespace DepartamentoApp
 
         }
 
+        // ITEM
         private void btnCrearItem_Click(object sender, RoutedEventArgs e)
         {
+            ItemEditMode = false;
             DialogItemF.Visibility = Visibility.Visible;
         }
 
         private void btnEliminarItem_Click(object sender, RoutedEventArgs e)
         {
+            if (DgItemsGrid.SelectedItem != null)
+            {
+                var ItemFromGrid = (Item)DgItemsGrid.SelectedItem;
 
+                if (MessageBox.Show("¿Está seguro de eliminar el Item " + ItemFromGrid.IdItem + "?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    if (Business.DeleteItem(ItemFromGrid))
+                    {
+                        MessageBox.Show("Se ha eliminado el Item " + ItemFromGrid.IdItem, "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoadItems();
+                        CleanDialogHostItem();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se ha podido eliminar el Item " + ItemFromGrid.IdItem, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+                }
+                
+            }
         }
 
         private void btnReloadItem_Click(object sender, RoutedEventArgs e)
         {
+            LoadItems();
 
         }
 
         private void btnEditItem_Click(object sender, RoutedEventArgs e)
         {
+            ItemEditMode = true;
 
         }
 
@@ -249,42 +284,123 @@ namespace DepartamentoApp
             {
                 int getid = Business.GetFamiliaItemIdFromFamiliaItemName(cbCategoria.SelectedItem.ToString());
                 cbSubcategoria.ItemsSource = Business.GetNombreSubFamiliaItemFromID(getid).Select(x => x.Nombre);
-
-                
-
-            }
-            else
-            {
-                
             }
         }
 
         private void btnItemGuardar_Click(object sender, RoutedEventArgs e)
         {
-            Item im = new()
+
+            if (!ItemEditMode)
             {
-                Cantidad = Convert.ToInt32(tbCantidadItem.Text),
-                Descripcion = tbDescripcionItem.Text,
-                IdItem = Business.CalculateID("IDITEM", "ITEM"),
-                SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM = Business.GetSubFamiliaItemIdFromSubFamiliaItemName(cbSubcategoria.SelectedItem.ToString()),
-                Valor = Convert.ToInt32(tbValorItem.Text)
+                if (ValidationItem())
+                {
+                    Item im = new()
+                    {
+                        Cantidad = Convert.ToInt32(tbCantidadItem.Text),
+                        Descripcion = tbDescripcionItem.Text,
+                        IdItem = Business.CalculateID("IDITEM", "ITEM"),
+                        SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM = Business.GetSubFamiliaItemIdFromSubFamiliaItemName(cbSubcategoria.SelectedItem.ToString()),
+                        Valor = Convert.ToInt32(tbValorItem.Text)
+                    };
 
-            };
+                    if (Business.AddItem(im))
+                    {
+                        MessageBox.Show("Se ha añadido el item exitosamente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoadItems();
+                        CleanDialogHostItem();
+                        DialogItemF.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se ha podido agregar, intente nuevamente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            if (Business.AddItem(im))
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No se ha podido agregar, rellena los campos faltantes e intente nuevamente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
+            }
+            else
             {
-                MessageBox.Show("ÉXITOOOO");
-                DgItemsGrid.ItemsSource = Osc.OracleToDataTable("SELECT IDITEM AS \"ID Item\", DESCRIPCION AS \"Nombre\", TO_CHAR(VALOR, '$9G999G999') AS \"Precio\", CANTIDAD AS \"Cantidad\" FROM ITEM").DefaultView;
-                DialogItemF.Visibility = Visibility.Hidden;
-
 
             }
+            
+
+
 
         }
 
         private void btnItemCancelar_Click(object sender, RoutedEventArgs e)
         {
             DialogItemF.Visibility = Visibility.Hidden;
+            CleanDialogHostItem();
+        }
+
+        private bool ValidationItem()
+        {
+            int valdcount = 0;
+
+            if (!string.IsNullOrEmpty(tbCantidadItem.Text))
+            {
+                valdcount++;
+            }
+
+            if (!string.IsNullOrEmpty(tbDescripcionItem.Text))
+            {
+                valdcount++;
+            }
+
+            if (!string.IsNullOrEmpty(tbValorItem.Text))
+            {
+                valdcount++;
+            }
+
+            if (cbCategoria.SelectedItem != null)
+            {
+                valdcount++;
+            }
+
+            if (cbSubcategoria.SelectedItem != null)
+            {
+                valdcount++;
+            }
+
+            if (valdcount == 5)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        private void tbCantidadItem_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!Int32.TryParse(tbCantidadItem.Text, out int nop))
+            {
+                tbCantidadItem.Text = String.Empty;
+            }
+        }
+
+        private void tbValorItem_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!Int32.TryParse(tbValorItem.Text, out int nope))
+            {
+                tbValorItem.Text = String.Empty;
+            }
+        }
+
+        private void CleanDialogHostItem()
+        {
+            cbCategoria.SelectedItem = null;
+            cbSubcategoria.SelectedItem = null;
+            tbCantidadItem.Text = string.Empty;
+            tbDescripcionItem.Text = string.Empty;  
+            tbValorItem.Text= string.Empty;
         }
     }
 }
