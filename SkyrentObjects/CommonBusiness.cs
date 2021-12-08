@@ -299,6 +299,21 @@ namespace SkyrentObjects
             }
         }
 
+        //public bool InsertApartment2(Departamento ded, bool HasImage)
+        //{
+        //    OracleCommand cmd = new();
+            
+
+        //    if (HasImage)
+        //    {
+
+        //    }
+        //    else
+        //    {
+
+        //    }
+        //}
+
         public bool UpdateApartment(int IDDEPARTAMENTO, string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart)
         {
 

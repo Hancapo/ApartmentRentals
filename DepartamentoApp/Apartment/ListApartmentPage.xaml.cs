@@ -5,6 +5,8 @@ using Button = System.Windows.Controls.Button;
 using MaterialDesignThemes.Wpf;
 using System.Linq;
 using ToolTip = System.Windows.Controls.ToolTip;
+using System.Windows.Media;
+using Brush = System.Windows.Media.Brush;
 
 namespace DepartamentoApp.Apartment
 {
@@ -20,11 +22,15 @@ namespace DepartamentoApp.Apartment
         {
             InitializeComponent();
             cbFilterTypes.ItemsSource = new List<string>() { "Tarifa", "ID", "Título" };
+
+
+
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
+        {   
             ListaDepartamentos.ItemsSource = su.GetDepartamentoList();
+
         }
 
         private void DepartamentoCard_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
