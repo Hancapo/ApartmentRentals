@@ -33,7 +33,7 @@ namespace DepartamentoApp
         {
             InitializeComponent();
             DHSpamton.Visibility = Visibility.Hidden;
-            DialogItemF.Visibility = Visibility.Hidden;
+            
 
             LoadItems();
 
@@ -47,6 +47,7 @@ namespace DepartamentoApp
         private void LoadItems()
         {
             DgItemsGrid.ItemsSource = Business.GetItemList();
+            FitToContent(DgItemsGrid);
         }
 
         //TARIFA
@@ -233,7 +234,6 @@ namespace DepartamentoApp
         private void btnCrearItem_Click(object sender, RoutedEventArgs e)
         {
             ItemEditMode = false;
-            DialogItemF.Visibility = Visibility.Visible;
         }
 
         private void btnEliminarItem_Click(object sender, RoutedEventArgs e)
@@ -306,9 +306,8 @@ namespace DepartamentoApp
                     if (Business.AddItem(im))
                     {
                         MessageBox.Show("Se ha añadido el item exitosamente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        PopUpCrearItem.IsPopupOpen = false;
                         LoadItems();
-                        CleanDialogHostItem();
-                        DialogItemF.Visibility = Visibility.Hidden;
                     }
                     else
                     {
@@ -334,8 +333,8 @@ namespace DepartamentoApp
 
         private void btnItemCancelar_Click(object sender, RoutedEventArgs e)
         {
-            DialogItemF.Visibility = Visibility.Hidden;
-            CleanDialogHostItem();
+            PopUpCrearItem.IsPopupOpen = false;
+
         }
 
         private bool ValidationItem()
@@ -401,6 +400,20 @@ namespace DepartamentoApp
             tbCantidadItem.Text = string.Empty;
             tbDescripcionItem.Text = string.Empty;  
             tbValorItem.Text= string.Empty;
+        }
+
+        private void FitToContent(DataGrid dg)
+        {
+            // where dg is my data grid's name...
+            foreach (DataGridColumn column in dg.Columns)
+            {
+                //if you want to size your column as per the cell content
+                column.Width = new DataGridLength(1.0, DataGridLengthUnitType.SizeToCells);
+                //if you want to size your column as per the column header
+                column.Width = new DataGridLength(1.0, DataGridLengthUnitType.SizeToHeader);
+                //if you want to size your column as per both header and cell content
+                column.Width = new DataGridLength(1.0, DataGridLengthUnitType.Auto);
+            }
         }
     }
 }

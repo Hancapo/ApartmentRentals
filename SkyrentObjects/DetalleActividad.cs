@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SkyrentObjects
 {
-    public class Reserva
+    public class DetalleActividad
     {
-        //JUNTAR CON DETALLE ARRIENDO
-        public DateTime FechaInicio { get; set; }
-        public DateTime FechaFin { get; set; }
+        public int IdDetalleActividad { get; set; } 
+
+        public int Servicio_IDServicio { get; set; }
     }
 }

@@ -20,7 +20,6 @@ namespace SkyrentObjects
         
         public int IdTarifaDep { get; set; }
 
-        //private int TarifaDep;
         public int TarifaDep => Convert.ToInt32(osc.RunOracleExecuteScalar($"SELECT MONTO_NOCHE FROM TARIFA WHERE IDTARIFA = '{IdTarifaDep}'"));
         public int IdComunaDep { get; set; }
         public string ComunaDep { get; set; }
@@ -29,9 +28,18 @@ namespace SkyrentObjects
         public BitmapImage FotoBig { get; set; }
         public string TituloDepartamento { get; set; }
 
-        public bool Disponibilidad { get; set; }
+        public int Dormitorio { get; set; }
+
+        public int Banos { get; set; }
+
+        public int Capacidad { get; set; }
+
+        public int Estado { get; set; }
+
 
         public string Ciudad => cbb.GetCiudadByComuna(ComunaDep);
         public string Region => cbb.GetRegionByCiudad(Ciudad);
+
+
     }
 }
