@@ -8,6 +8,7 @@ namespace SkyrentObjects
 {
     public class Conductor
     {
+        public int A = 0;
         public string RutConductor { get; set; }    
 
         public int Comuna_IdComuna { get; set; }
@@ -19,6 +20,8 @@ namespace SkyrentObjects
         public string ApellidoMaternoConductor { get; set; }
 
         public int B = 1;
+
+
 
 
     }
