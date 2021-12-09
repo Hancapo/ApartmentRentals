@@ -26,9 +26,8 @@ namespace DepartamentoApp
         Departamento dep_;
         bool creationMode;
         string fileName;
-        
-        
-
+        bool EditLoad;
+        List<Inventario> inventories = new();
 
         public ApartmentView(Departamento dep, bool CreationMode)
         {
@@ -193,6 +192,7 @@ namespace DepartamentoApp
                 //Ccalendario.Visibility = Visibility.Visible;
                 btnDelete.Visibility = Visibility.Hidden;
                 //SpMiscControls.Visibility = Visibility.Hidden;
+                lbInventory.ItemsSource = inventories;
             }
             else
             {
@@ -200,11 +200,9 @@ namespace DepartamentoApp
                 //Ccalendario.Visibility = Visibility.Visible;
                 btnDelete.Visibility = Visibility.Visible;
                 //SpMiscControls.Visibility = Visibility.Visible;
+                lbItems1.ItemsSource = null;
             }
-
-
         }
-
 
         private void btnSaveChanges_Click(object sender, RoutedEventArgs e)
         {
@@ -413,92 +411,125 @@ namespace DepartamentoApp
             }
         }
 
-        private void btnCreateInv_Click(object sender, RoutedEventArgs e)
+        //************************INVENTARIO***************************************
+        private void lbItems1_Loaded(object sender, RoutedEventArgs e)
+        {
+            BusinessInventory b = new BusinessInventory();
+            lbItems1.ItemsSource = b.GetItemList();
+        }
+
+        public int GenerateInvId(List<Inventario> invList)
         {
 
+            int NewId = 0;
+
+
+            if (invList.Count == 0)
+            {
+                return NewId = 1;
+            }
+            else
+            {
+                List<int> invIds = invList.Select(x => x.IdInventario).ToList();
+
+                invIds.Sort();
+
+                for (int i = 0; i < invIds.Count; i++)
+                {
+                    NewId++;
+
+                    if (invIds[i] != NewId)
+                    {
+                        return NewId;
+                    }
+
+                }
+
+                return invList.Max(x => x.IdInventario) + 1;
+            }
+        }
+
+        private void btnCreateInv_Click(object sender, RoutedEventArgs e) //******************************************************************OBTENER ID DE DEPTO
+        {
+            int idDepto = 2133313;
+            Inventario inv = new Inventario() { IdInventario = GenerateInvId(inventories), IdDepartamento= idDepto, fechaCreacion = DateTime.Now, Descripcion = 1 };
+            inventories.Add(inv);
+            lbInventory.Items.Refresh();
         }
 
         private void btnDeleteInv_Click(object sender, RoutedEventArgs e)
         {
-
+            inventories.Remove((Inventario)lbInventory.SelectedItem);
+            lbInventory.Items.Refresh();
         }
 
-        
+        private void lbInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            /*
+            if (lbInventory.SelectedItem != null)
+            {
+                lbItems2.Items.Clear();
+
+
+                var SelectedInv = lbInventory.SelectedItem;
+
+                var SelectedInvCasted = (Inventario)SelectedInv;
+
+                //lbFrutas2.Items.Clear();
+
+                if (SelectedInvCasted.fruits.Count != 0)
+                {
+                    foreach (var item in SelectedInvCasted.fruits)
+                    {
+                        lbItems2.Items.Add(item);
+                    }
+                }
+                gridDetail.IsEnabled = true;
+            }
+            */
+        }
 
         private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
-            if (lbFrutas1.Items.Count == 0)
+            if (lbItems1.Items.Count == 0)
             {
                 MessageBox.Show("El primer listado está vacío, no es posible realizar ninguna operación.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
 
             }
             else
             {
-                if (lbFrutas1.SelectedItem != null)
+                if (lbItems1.SelectedItem != null)
                 {
-
-
-
-                    var ItemToTransfer = lbFrutas1.SelectedItem;
-
-                    var ItemAsFruit = (Fruit)ItemToTransfer;
-
-                    List<Fruit> FrutasFromInv = ((Inventory)lbInventory.SelectedItem).fruits;
-
-
-                    if (ItemAsFruit.FruitQuantity > 0)
+                    var ItemToTransfer = lbItems1.SelectedItem;
+                    var ItemAsItem = (Item)ItemToTransfer;
+                    if (ItemAsItem.Cantidad > 0)
                     {
-                        ItemAsFruit.FruitQuantity--;
-
-                        lbFrutas1.Items.Refresh();
-
-
-
-                        if (lbFrutas2.Items.Count != 0)
+                        ItemAsItem.Cantidad--;
+                        lbItems1.Items.Refresh();
+                        if (lbItems2.Items.Count != 0)
                         {
-
-                            bool FruitExistsInList2 = lbFrutas2.Items.Cast<Fruit>().Any(x => x.FruitName == ItemAsFruit.FruitName);
-
-
-
-                            if (!FruitExistsInList2)
+                            bool ItemExistsInList2 = lbItems2.Items.Cast<Item>().Any(x => x.Descripcion == ItemAsItem.Descripcion);
+                            if (!ItemExistsInList2)
                             {
-                                lbFrutas2.Items.Add(new Fruit { FruitName = ItemAsFruit.FruitName, FruitColor = ItemAsFruit.FruitColor, FruitSize = ItemAsFruit.FruitSize, FruitQuantity = 1 });
+                                lbItems2.Items.Add(new Item { Descripcion = ItemAsItem.Descripcion, Cantidad = 1 });
                             }
                             else
                             {
-
-
-
-                                for (int i = 0; i < lbFrutas2.Items.Count; i++)
+                                for (int i = 0; i < lbItems2.Items.Count; i++)
                                 {
-                                    if (((Fruit)lbFrutas2.Items[i]).FruitName == ItemAsFruit.FruitName)
+                                    if (((Item)lbItems2.Items[i]).Descripcion == ItemAsItem.Descripcion)
                                     {
-                                        ((Fruit)lbFrutas2.Items[i]).FruitQuantity++;
-                                        lbFrutas2.Items.Refresh();
-
+                                        ((Item)lbItems2.Items[i]).Cantidad++;
+                                        lbItems2.Items.Refresh();
                                     }
-
-
                                 }
-
                             }
-
-
                         }
                         else
                         {
-
-                            lbFrutas2.Items.Add(new Fruit { FruitName = ItemAsFruit.FruitName, FruitColor = ItemAsFruit.FruitColor, FruitSize = ItemAsFruit.FruitSize, FruitQuantity = 1 });
-
-
-
+                            lbItems2.Items.Add(new Item { Descripcion = ItemAsItem.Descripcion, Cantidad = 1 });
                         }
                     }
-
-
-
-
                 }
                 else
                 {
@@ -507,37 +538,225 @@ namespace DepartamentoApp
             }
         }
 
-        
-
-        private void btnSaveInventory_Click(object sender, RoutedEventArgs e)
+        private void btnSubstract_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-        private void btnGuardarInv_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TbComuna_Click(object sender, RoutedEventArgs e)
-        {
-            if (editMode)
+            if (lbItems2.Items.Count == 0)
             {
-                //ComunaWindow cw = new(editMode, TbComuna.Content.ToString());
-                //cw.ShowDialog();
+                MessageBox.Show("El segundo listado está vacío, no es posible realizar ninguna operación.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
 
             }
             else
             {
-                //ComunaWindow cw = new(editMode, null);
-                //cw.ShowDialog();
+                if (lbItems2.SelectedItem != null)
+                {
+                    var ItemToSubstract = lbItems2.SelectedItem;
+                    var ItemAsItem = (Item)ItemToSubstract;
+                    if (ItemAsItem.Cantidad > 0)
+                    {
+                        ItemAsItem.Cantidad--;
+                        lbItems2.Items.Refresh();
+                        for (int i = 0; i < lbItems1.Items.Count; i++)
+                        {
+                            if (((Item)lbItems1.Items[i]).Descripcion == ItemAsItem.Descripcion)
+                            {
+                                ((Item)lbItems1.Items[i]).Cantidad++;
+                                lbItems1.Items.Refresh();
+                            }
+                        }
+                        if (ItemAsItem.Cantidad == 0)
+                        {
+                            lbItems2.Items.Remove(lbItems2.SelectedItem);
+                            lbItems2.Items.Refresh();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione una fruta del segundo listado para transferir", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
 
-        
+        private void btnSubstractAll_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbItems2.Items.Count != 0)
+            {
+                for (int i = 0; i < lbItems1.Items.Count; i++)
+                {
+                    Item f1 = (Item)lbItems1.Items[i];
+                    for (int i1 = 0; i1 < lbItems2.Items.Count; i1++)
+                    {
+                        Item f2 = (Item)lbItems2.Items[i1];
+                        if (f1.Descripcion == f2.Descripcion)
+                        {
+                            f1.Cantidad += f2.Cantidad;
+
+                            lbItems2.Items.Remove(f2);
+                        }
+                    }
+                }
+
+                lbItems1.Items.Refresh();
+                lbItems2.Items.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("No se puede transferir todos los elementos, el segundo listado está vacío.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+        }
+
+        private void btnSaveInventory_Click(object sender, RoutedEventArgs e)
+        {
+            /*
+            if (lbInventory.SelectedItem != null)
+            {
+                lbItems2.Items.Clear();
+
+
+                var SelectedInv = lbInventory.SelectedItem;
+
+                var SelectedInvCasted = (Inventario)SelectedInv;
+
+                //lbFrutas2.Items.Clear();
+
+                if (SelectedInvCasted.fruits.Count != 0)
+                {
+                    foreach (var item in SelectedInvCasted.fruits)
+                    {
+                        lbItems2.Items.Add(item);
+                    }
+                }
+                gridDetail.IsEnabled = true;
+            }
+            */
+        } //*******************************************MANEJAR ARRAY 
+
+        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            /*
+            if (tbSearch.Text.Length > 0)
+            {
+                var amogus = tbSearch.Text.ToLowerInvariant();
+                lbFrutas1.ItemsSource = StaticFruitList.Where(x => (x.FruitName.ToLowerInvariant().Contains(amogus)));
+            }
+            else
+            {
+                lbFrutas1.ItemsSource = StaticFruitList;
+            }
+            */
+        }  //****************************************MANEJAR ARRAY
+
+        private void btnGuardarInv_Click(object sender, RoutedEventArgs e) //***************************************************TERMINAR
+        {
+
+        }
+
+        //**************************************************************************
+
+
+
+        //***************COMUNA**********************************
+
+        private void cbRegion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (editMode && EditLoad)
+            {
+                string RegionCode = NegocioComun.GetRegionList()[cbRegion.SelectedIndex].IdRegion;
+                cbComuna.ItemsSource = null;
+                cbCiudad.ItemsSource = null;
+                cbCiudad.SelectedIndex = -1;
+                cbComuna.SelectedIndex = -1;
+                cbCiudad.ItemsSource = NegocioComun.GetCiudadListFromRegion(RegionCode).Select(x => x.NameCiudad);
+
+            }
+            else
+            {
+                string RegionCode = NegocioComun.GetRegionList()[cbRegion.SelectedIndex].IdRegion;
+
+                cbCiudad.IsEnabled = true;
+                cbCiudad.ItemsSource = NegocioComun.GetCiudadListFromRegion(RegionCode).Select(x => x.NameCiudad);
+            }
+
+        }
+
+        private void cbCiudad_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (editMode && cbCiudad.SelectedIndex != -1)
+            {
+                string NombreCiudad = (sender as System.Windows.Controls.ComboBox).SelectedItem as string;
+                cbComuna.ItemsSource = NegocioComun.GetComunaListFromCiudad(NombreCiudad).Select(x => x.NombreComuna);
+            }
+
+            if ((editMode && cbCiudad.SelectedIndex == -1) && cbRegion.SelectedIndex != -1)
+            {
+                string RegionCode = NegocioComun.GetRegionList()[cbRegion.SelectedIndex].IdRegion;
+                cbCiudad.ItemsSource = NegocioComun.GetCiudadListFromRegion(RegionCode).Select(x => x.NameCiudad);
+            }
+
+            if (!editMode)
+            {
+                cbComuna.IsEnabled = true;
+                string ciudad = (sender as System.Windows.Controls.ComboBox).SelectedItem as string;
+                cbComuna.ItemsSource = NegocioComun.GetComunaListFromCiudad(ciudad).Select(x => x.NombreComuna);
+            }
+        }
+
+        private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            TbComuna.Content = cbComuna.Text;
+            popComuna.IsPopupOpen = false;
+        }
+
+        private void btnCerrarComuna_Click(object sender, RoutedEventArgs e)
+        {
+            popComuna.IsPopupOpen = false;
+        }
+
+        private void popComuna_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (editMode)
+            {
+                String comuna = TbComuna.Content.ToString();
+                //Comuna List
+                string CiudadFromComuna = NegocioComun.GetCiudadByComuna(comuna);
+                cbComuna.ItemsSource = NegocioComun.GetComunaListFromCiudad(CiudadFromComuna).Select(x => x.NombreComuna);
+
+                //Selected Comuna
+                cbComuna.SelectedIndex = cbComuna.Items.IndexOf(comuna);
+
+                //Ciudad List
+                string RegionIdFromCiudad = NegocioComun.GetRegionIdByCiudad(CiudadFromComuna);
+                cbCiudad.ItemsSource = NegocioComun.GetCiudadListFromRegion(RegionIdFromCiudad).Select(x => x.NameCiudad);
+
+                //Selected Ciudad
+                cbCiudad.SelectedIndex = cbCiudad.Items.IndexOf(CiudadFromComuna);
+
+
+                string RegionNombreFromCiudad = NegocioComun.GetRegionByCiudad(CiudadFromComuna);
+
+
+                //Region List
+                cbRegion.ItemsSource = NegocioComun.GetRegionList().Select(x => x.Nombre);
+                //Selected Region
+                cbRegion.SelectedIndex = cbRegion.Items.IndexOf(RegionNombreFromCiudad);
+
+                EditLoad = true;
+
+
+            }
+            else
+            {
+                cbCiudad.IsEnabled = false;
+                cbComuna.IsEnabled = false;
+
+                cbRegion.ItemsSource = NegocioComun.GetRegionList().Select(x => x.Nombre);
+            }
+        }      
+
+        //**********************************************************
+
+
     }
 }

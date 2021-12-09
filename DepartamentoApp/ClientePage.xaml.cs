@@ -57,6 +57,7 @@ namespace DepartamentoApp
             //    "c.apellidom AS \"Apellido Materno\" FROM COMUNA co INNER JOIN CLIENTE c ON co.idcomuna = c.comuna_idcomuna INNER JOIN USUARIO us ON c.usuario_idusuario = us.idusuario").DefaultView;
             DgItemsGrid.ItemsSource = Business.GetItemList();//.Select(p => new { p.IdItem, p.Descripcion, p.Valor, p.Cantidad });
             DgTarifasGrid.ItemsSource = Business.GetTarifaList();
+            DgClienteGrid.ItemsSource = Business.GetClientsList();
             cbCategoria.ItemsSource = Business.GetFamiliaItemList().Select(x=>x.Descripcion);
             
         }

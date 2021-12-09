@@ -8,12 +8,12 @@ namespace SkyrentObjects
 {
     public class Cliente
     {
-        public string NombreUsuario { get; set; }
-        public string ComunaCliente { get; set; }
-        public string NombresCliente { get; set; }
-        public string ContrasenaUsuario { get; set; }
         public string RutCliente { get; set; }
-        public string ApellidoMaterno { get; set; }
-        public string ApellidoPaterno { get; set; }
+        public int Usuario_IdUsuario { get; set;}
+        public int Comuna_IdComuna { get; set; }
+        public string Nombre { get; set; }
+        public string ApellidoP { get; set; }
+        public string ApellidoM { get; set; }
+        public int Estado { get; set; }
     }
 }

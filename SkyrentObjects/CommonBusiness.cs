@@ -73,18 +73,13 @@ namespace SkyrentObjects
             //1 - User has been created sucessfully.
             //2 - User already exists.
 
-
-
             int IDalgo = CalculateID("idusuario", "usuario");
-
 
             string CreateUserCommand = string.Format("INSERT INTO USUARIO (idusuario, usuariopassword, nombreusuario, tipo_usuario_idtipo_usuario) " +
                 "VALUES ('{0}', '{1}', '{2}', '{3}')", IDalgo, clie.ContrasenaUsuario, clie.NombreUsuario, 2);
             string CreateClienteCommand = string.Format("INSERT INTO CLIENTE (rutcliente, usuario_idusuario, comuna_idcomuna, nombre, apellidop, apellidom) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}')",
                 clie.RutCliente, IDalgo, clie.ComunaCliente, clie.NombresCliente, clie.ApellidoPaterno, clie.ApellidoMaterno);
             string SearchUsersCommand = string.Format("SELECT COUNT(rutcliente) FROM CLIENTE WHERE rutcliente = '{0}'", clie.RutCliente);
-
-
 
             int UsersWithSameRUT = Convert.ToInt32(osc.RunOracleExecuteScalar(SearchUsersCommand));
 
@@ -106,11 +101,6 @@ namespace SkyrentObjects
             {
                 return 2;
             }
-
-
-
-
-
         }
 
         public bool CreateInventory(Inventario invent)
@@ -630,6 +620,27 @@ namespace SkyrentObjects
 
             return ItemListo;
 
+        }
+
+        public List<Cliente> GetClientsList()
+        {
+            List<Cliente> ClienteLista = new();
+            string sqlcommand = string.Format("SELECT * FROM Cliente");
+            foreach (DataRow dr in osc.OracleToDataTable(sqlcommand).Rows)
+            {
+                Cliente c = new();
+                c.RutCliente = dr["RutCliente"].ToString();
+                c.Usuario_IdUsuario = Convert.ToInt32(dr["Usuario_IdUsuario"]);
+                c.Comuna_IdComuna = Convert.ToInt32(dr["Comuna_IdComuna"]);
+                c.Nombre = dr["Nombre"].ToString();
+                c.ApellidoP = dr["ApellidoP"].ToString();
+                c.ApellidoM = dr["ApellidoM"].ToString();
+                c.Estado = Convert.ToInt32(dr["Estado"]);
+
+                ClienteLista.Add(c);
+
+            }
+            return ClienteLista;
         }
 
     }

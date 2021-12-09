@@ -40,7 +40,11 @@ namespace DepartamentoApp.Apartment
                 DragMove();
             }
         }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
 
+        }
+        /**
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -82,7 +86,7 @@ namespace DepartamentoApp.Apartment
                 cbRegion.ItemsSource = cbb.GetRegionList().Select(x => x.Nombre);
             }
         }
-
+        
         private void cbRegion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (editMode && EditLoad)
@@ -161,5 +165,6 @@ namespace DepartamentoApp.Apartment
                 }
             }
         }
+        **/
     }
 }

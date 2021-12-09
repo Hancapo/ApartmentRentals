@@ -11,18 +11,18 @@ namespace SkyrentObjects
     public class BusinessInventory
     {
         public OracleSkyCon osc = new();
-        public List<Item> GetitemList()
+        public List<Item> GetItemList()
         {
             List<Item> ItemLista = new();
             string sqlcommand = string.Format("SELECT * FROM Item");
             foreach (DataRow dr in osc.OracleToDataTable(sqlcommand).Rows)
             {
                 Item i = new();
-                i.IdItem = (int)dr["IdItem"];
-                i.SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM = (int)dr["SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM"];
+                i.IdItem = Convert.ToInt32(dr["IdItem"]);
+                i.SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM = Convert.ToInt32(dr["SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM"]);
                 i.Descripcion = (dr["Descripcion"]).ToString();
-                i.Valor = (int)dr["Valor"];
-                i.Cantidad = (int)dr["Cantidad"];
+                i.Valor = Convert.ToInt32(dr["Valor"]);
+                i.Cantidad = Convert.ToInt32(dr["Cantidad"]);
 
                 ItemLista.Add(i);
             }
