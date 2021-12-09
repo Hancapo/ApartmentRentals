@@ -18,6 +18,8 @@ namespace SkyrentObjects
         public string ApellidoPaternoConductor { get; set; }
         public string ApellidoMaternoConductor { get; set; }
 
+        public int B = 1;
+
 
     }
 }
