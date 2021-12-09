@@ -431,10 +431,91 @@ namespace DepartamentoApp
 
         }
 
+        /
+
         private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
+            if (lbFrutas1.Items.Count == 0)
+            {
+                MessageBox.Show("El primer listado está vacío, no es posible realizar ninguna operación.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
 
+            }
+            else
+            {
+                if (lbFrutas1.SelectedItem != null)
+                {
+
+
+
+                    var ItemToTransfer = lbFrutas1.SelectedItem;
+
+                    var ItemAsFruit = (Fruit)ItemToTransfer;
+
+                    List<Fruit> FrutasFromInv = ((Inventory)lbInventory.SelectedItem).fruits;
+
+
+                    if (ItemAsFruit.FruitQuantity > 0)
+                    {
+                        ItemAsFruit.FruitQuantity--;
+
+                        lbFrutas1.Items.Refresh();
+
+
+
+                        if (lbFrutas2.Items.Count != 0)
+                        {
+
+                            bool FruitExistsInList2 = lbFrutas2.Items.Cast<Fruit>().Any(x => x.FruitName == ItemAsFruit.FruitName);
+
+
+
+                            if (!FruitExistsInList2)
+                            {
+                                lbFrutas2.Items.Add(new Fruit { FruitName = ItemAsFruit.FruitName, FruitColor = ItemAsFruit.FruitColor, FruitSize = ItemAsFruit.FruitSize, FruitQuantity = 1 });
+                            }
+                            else
+                            {
+
+
+
+                                for (int i = 0; i < lbFrutas2.Items.Count; i++)
+                                {
+                                    if (((Fruit)lbFrutas2.Items[i]).FruitName == ItemAsFruit.FruitName)
+                                    {
+                                        ((Fruit)lbFrutas2.Items[i]).FruitQuantity++;
+                                        lbFrutas2.Items.Refresh();
+
+                                    }
+
+
+                                }
+
+                            }
+
+
+                        }
+                        else
+                        {
+
+                            lbFrutas2.Items.Add(new Fruit { FruitName = ItemAsFruit.FruitName, FruitColor = ItemAsFruit.FruitColor, FruitSize = ItemAsFruit.FruitSize, FruitQuantity = 1 });
+
+
+
+                        }
+                    }
+
+
+
+
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione una fruta del primer listado para transferir", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
         }
+
+        **/
 
         private void btnSaveInventory_Click(object sender, RoutedEventArgs e)
         {
