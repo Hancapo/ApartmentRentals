@@ -9,6 +9,11 @@ namespace SkyrentObjects
     public class Conductor
     {
         public int A = 0;
+        public int Ab = 0;
+        public int A3 = 0;
+        public int Ad = 0;
+        public int Ac = 0;
+
         public string RutConductor { get; set; }    
 
         public int Comuna_IdComuna { get; set; }
