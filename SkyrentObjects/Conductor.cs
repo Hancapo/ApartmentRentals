@@ -21,6 +21,8 @@ namespace SkyrentObjects
 
         public int B = 1;
 
+        public int c = 1;
+
 
 
 
