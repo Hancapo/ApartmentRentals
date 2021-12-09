@@ -11,5 +11,7 @@ namespace SkyrentObjects
         //JUNTAR CON DETALLE ARRIENDO
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
+
+        //TEST !
     }
 }
