@@ -53,37 +53,40 @@
                                 </Grid>
                             </Grid>
                             <Grid Grid.Column="1">
-                                <materialDesign:PopupBox x:Name="popComuna" StaysOpen="True" Loaded="popComuna_Loaded" HorizontalAlignment="Right" Margin="0,102,18,330" Foreground="White">
-
-                                    <Grid Height="200" Width="400">
-                                        <StackPanel Orientation="Vertical">
-                                            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
-                                                <Label Content="{materialDesign:PackIcon Kind=ImageFilterHdr}"/>
-                                                <Label Content="Región" Margin="0,0,10,0"/>
-                                                <ComboBox x:Name="cbRegion" Width="200" SelectionChanged="cbRegion_SelectionChanged" Foreground="{StaticResource MaterialDesignDarkForeground}" />
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
-                                                <Label Content="{materialDesign:PackIcon Kind=City}"/>
-                                                <Label Content="Ciudad" Margin="0,0,10,0"/>
-                                                <ComboBox x:Name="cbCiudad" Width="200" SelectionChanged="cbCiudad_SelectionChanged" Foreground="{StaticResource MaterialDesignDarkForeground}"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
-                                                <Label Content="{materialDesign:PackIcon Kind=AccountGroup}"/>
-                                                <Label Content="Comuna" Margin="0,0,10,0"/>
-                                                <ComboBox x:Name="cbComuna" Width="200" Margin="0,0,8,0" Foreground="White"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Button x:Name="btnGuardarComuna" Width="80" Height="30" Margin="100,20,0,0" Content="Guardar" FontSize="9" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnGuardar_Click"/>
-                                                <Button x:Name="btnCerrarComuna" Width="80" Height="30" Margin="50,20,0,0" Content="Cerrar" FontSize="9" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnCerrarComuna_Click"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </Grid>
-                                </materialDesign:PopupBox>
 
                                 <StackPanel Margin="10" Orientation="Vertical">
                                     <TextBox x:Name="TTitulo" MaxLength="60" MaxLines="3" Foreground="{StaticResource MaterialDesignDarkForeground}" Margin="0,15,0,10" materialDesign:HintAssist.Hint="Título" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-                                    <Button x:Name="TbComuna" Foreground="{StaticResource MaterialDesignDarkForeground}" Content="" Style="{StaticResource MaterialDesignOutlinedButton}" materialDesign:HintAssist.Hint="Comuna" Margin="0,15,0,0" BorderBrush="#BCFFFFFF" Cursor="Hand" Width="205" HorizontalAlignment="Left"/>
+                                    <materialDesign:PopupBox x:Name="TbComuna" HorizontalAlignment="Center" Opened="TbComuna_Opened" StaysOpen="True">
+                                        <materialDesign:PopupBox.ToggleContent>
+                                            <Label x:Name="lbComuna" Content="Comuna"/>
+                                        </materialDesign:PopupBox.ToggleContent>
+                                        <StackPanel>
+                                            <Grid Height="200" Width="400">
+                                                <StackPanel Orientation="Vertical">
+                                                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                                                        <Label Content="{materialDesign:PackIcon Kind=ImageFilterHdr}"/>
+                                                        <Label Content="Región" Margin="0,0,10,0"/>
+                                                        <ComboBox x:Name="cbRegion" Width="200" SelectionChanged="cbRegion_SelectionChanged" Foreground="{StaticResource MaterialDesignDarkForeground}" />
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                                                        <Label Content="{materialDesign:PackIcon Kind=City}"/>
+                                                        <Label Content="Ciudad" Margin="0,0,10,0"/>
+                                                        <ComboBox x:Name="cbCiudad" Width="200" SelectionChanged="cbCiudad_SelectionChanged" Foreground="{StaticResource MaterialDesignDarkForeground}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                                                        <Label Content="{materialDesign:PackIcon Kind=AccountGroup}"/>
+                                                        <Label Content="Comuna" Margin="0,0,10,0"/>
+                                                        <ComboBox x:Name="cbComuna" Width="200" Margin="0,0,8,0" Foreground="White"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0" >
+                                                        <Button Style="{StaticResource MaterialDesignPaperDarkButton}" x:Name="btnGuardarComuna" Width="80" Height="30" Content="Guardar" FontSize="9" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnGuardar_Click"/>
+                                                        <Button Style="{StaticResource MaterialDesignPaperDarkButton}" x:Name="btnCerrarComuna" Width="80" Height="30" Content="Cerrar" FontSize="9" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnCerrarComuna_Click"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
 
+                                    </materialDesign:PopupBox>
                                     <ComboBox x:Name="CbTarifa" Foreground="{StaticResource MaterialDesignDarkForeground}" materialDesign:HintAssist.Hint="Tarifa" Style="{StaticResource MaterialDesignOutlinedComboBox}" Margin="0,15,0,0"/>
                                     <TextBox x:Name="tbDireccion" MaxLength="250" MaxLines="3" Foreground="{StaticResource MaterialDesignDarkForeground}" Margin="0,15,0,0" materialDesign:HintAssist.Hint="Dirección" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
                                     <Grid Margin="0,15,0,0">

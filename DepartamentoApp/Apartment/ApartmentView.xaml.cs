@@ -53,6 +53,7 @@ namespace DepartamentoApp
                 //IsEnable settings
                 btnSaveChanges.IsEnabled = true;
                 tbDireccion.IsEnabled = true;
+                
                 TbComuna.IsEnabled = true;
                 CbTarifa.IsEnabled = true;
                 TTitulo.IsEnabled = true;
@@ -109,15 +110,18 @@ namespace DepartamentoApp
         private void SetValuesDep(Departamento dd)
         {
             cbEditMode.Background = System.Windows.Media.Brushes.DarkRed;
-
+            tbBanos.Text = dd.Banos.ToString();
+            tbCapacidad.Text = dd.Capacidad.ToString();
+            tbDorms.Text = dd.Dormitorio.ToString();    
             tbDireccion.Text = dd.DireccionDep;
             ImBig.Source = dd.FotoBig;
-            TbComuna.Content = dd.ComunaDep;
+            lbComuna.Content = dd.ComunaDep;
             TTitulo.Text = dd.TituloDepartamento;
             CbTarifa.SelectedIndex = Convert.ToInt32(dd.IdTarifaDep) - 1;
             cbEstado.SelectedIndex = Convert.ToInt32(dd.Estado) - 1;
             CbTarifa.ItemsSource = NegocioComun.GetTarifaList().OrderBy(x => x.Monto_Noche).Select(x => x.Monto_Noche).ToList();
             TDescripcion.Text = dd.DescripcionDep;
+            
 
         }
 
@@ -226,12 +230,14 @@ namespace DepartamentoApp
                     if (ImageChanged)
                     {
                         
-                        isModified = NegocioComun.UpdateApartment(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Content.ToString()).ToString(), tbDireccion.Text, TDescripcion.Text, su.ImagePathToBytes(fileName), TTitulo.Text);
+                        isModified = NegocioComun.UpdateApartment(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(lbComuna.Content.ToString()).ToString(), tbDireccion.Text, TDescripcion.Text, su.ImagePathToBytes(fileName), TTitulo.Text
+                            , Convert.ToInt32(tbBanos.Text), Convert.ToInt32(tbCapacidad.Text), cbEstado.SelectedIndex -1, Convert.ToInt32(tbDorms.Text));
 
                     }
                     else
                     {
-                        isModified = NegocioComun.UpdateApartmentWithoutIM(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.ToString()).ToString(), tbDireccion.Text, TDescripcion.Text, TTitulo.Text);
+                        isModified = NegocioComun.UpdateApartmentWithoutIM(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(lbComuna.Content.ToString()).ToString(), tbDireccion.Text, TDescripcion.Text, TTitulo.Text
+                            ,Convert.ToInt32(tbBanos.Text), Convert.ToInt32(tbCapacidad.Text), cbEstado.SelectedIndex - 1, Convert.ToInt32(tbDorms.Text));
                     }
 
                     if (CreationValidate())
@@ -377,7 +383,7 @@ namespace DepartamentoApp
 
             }
 
-            if (TbComuna.Content.ToString() == string.Empty)
+            if (lbComuna.Content.ToString() == "Comuna")
             {
                 EmptyFields++;
 
@@ -760,20 +766,46 @@ namespace DepartamentoApp
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            TbComuna.Content = cbComuna.Text;
-            popComuna.IsPopupOpen = false;
+            lbComuna.Content = cbComuna.Text;
+            TbComuna.IsPopupOpen = false;
         }
 
         private void btnCerrarComuna_Click(object sender, RoutedEventArgs e)
         {
-            popComuna.IsPopupOpen = false;
+            TbComuna.IsPopupOpen = false;
         }
 
         private void popComuna_Loaded(object sender, RoutedEventArgs e)
         {
+            
+        }
+
+        private void lbInventory_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!creationMode)
+            {
+                foreach (var item in NegocioComun.GetInventarioFromDepId(dep_.IdDepartamento))
+                {
+                    lbInventory.Items.Add(item);
+                }
+            }
+            
+
+
+            
+
+        }
+
+        private void btnGuardarCambios_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TbComuna_Opened(object sender, RoutedEventArgs e)
+        {
             if (editMode)
             {
-                string comuna = TbComuna.Content.ToString();
+                string comuna = lbComuna.Content.ToString();
                 //Comuna List
                 string CiudadFromComuna = NegocioComun.GetCiudadByComuna(comuna);
                 cbComuna.ItemsSource = NegocioComun.GetComunaListFromCiudad(CiudadFromComuna).Select(x => x.NombreComuna);
@@ -808,27 +840,6 @@ namespace DepartamentoApp
 
                 cbRegion.ItemsSource = NegocioComun.GetRegionList().Select(x => x.Nombre);
             }
-        }
-
-        private void lbInventory_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (!creationMode)
-            {
-                foreach (var item in NegocioComun.GetInventarioFromDepId(dep_.IdDepartamento))
-                {
-                    lbInventory.Items.Add(item);
-                }
-            }
-            
-
-
-            
-
-        }
-
-        private void btnGuardarCambios_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         //**********************************************************

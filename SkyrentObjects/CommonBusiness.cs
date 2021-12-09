@@ -370,10 +370,10 @@ namespace SkyrentObjects
             cmd.Parameters.Add("4", OracleDbType.Varchar2, descripcion, ParameterDirection.Input);
             cmd.Parameters.Add("5", OracleDbType.Blob, fotoBig, ParameterDirection.Input);
             cmd.Parameters.Add("6", OracleDbType.Varchar2, TituloApart, ParameterDirection.Input);
-            cmd.Parameters.Add("7", OracleDbType.Varchar2, dormis, ParameterDirection.Input);
-            cmd.Parameters.Add("8", OracleDbType.Varchar2, banios, ParameterDirection.Input);
-            cmd.Parameters.Add("9", OracleDbType.Varchar2, capa, ParameterDirection.Input);
-            cmd.Parameters.Add("10", OracleDbType.Varchar2, estate, ParameterDirection.Input);
+            cmd.Parameters.Add("7", OracleDbType.Int32, Convert.ToInt32(dormis), ParameterDirection.Input);
+            cmd.Parameters.Add("8", OracleDbType.Int32, Convert.ToInt32(banios), ParameterDirection.Input);
+            cmd.Parameters.Add("9", OracleDbType.Int32, Convert.ToInt32(capa), ParameterDirection.Input);
+            cmd.Parameters.Add("10", OracleDbType.Int32, Convert.ToInt32(estate), ParameterDirection.Input);
 
             try
             {
@@ -395,10 +395,10 @@ namespace SkyrentObjects
             cmd.Parameters.Add("3", OracleDbType.Varchar2, direccion, ParameterDirection.Input);
             cmd.Parameters.Add("4", OracleDbType.Varchar2, descripcion, ParameterDirection.Input);
             cmd.Parameters.Add("5", OracleDbType.Varchar2, TituloApart, ParameterDirection.Input);
-            cmd.Parameters.Add("6", OracleDbType.Varchar2, dormis, ParameterDirection.Input);
-            cmd.Parameters.Add("7", OracleDbType.Varchar2, banios, ParameterDirection.Input);
-            cmd.Parameters.Add("8", OracleDbType.Varchar2, capa, ParameterDirection.Input);
-            cmd.Parameters.Add("9", OracleDbType.Varchar2, estate, ParameterDirection.Input);
+            cmd.Parameters.Add("6", OracleDbType.Int32, Convert.ToInt32(dormis), ParameterDirection.Input);
+            cmd.Parameters.Add("7", OracleDbType.Int32, Convert.ToInt32(banios), ParameterDirection.Input);
+            cmd.Parameters.Add("8", OracleDbType.Int32, Convert.ToInt32(capa), ParameterDirection.Input);
+            cmd.Parameters.Add("9", OracleDbType.Int32, Convert.ToInt32(estate), ParameterDirection.Input);
 
             try
             {
