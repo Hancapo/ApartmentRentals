@@ -697,5 +697,14 @@ namespace SkyrentObjects
             return items;
         }
 
+        public int GetInventoryCountFromDepId(int _DepId)
+        {
+            string sqlcommand = $"SELECT COUNT(idinventario) FROM INVENTARIO WHERE departamento_iddepartamento = {_DepId}";
+
+            int result = Convert.ToInt32(osc.RunOracleExecuteScalar(sqlcommand));
+
+            return result;
+        }
+
     }
 }

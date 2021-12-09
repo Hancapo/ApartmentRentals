@@ -27,6 +27,7 @@ namespace DepartamentoApp
         bool creationMode;
         string fileName;
         bool EditLoad;
+        bool InventoryHasChanged;
         List<Inventario> inventories = new();
 
 
@@ -421,8 +422,9 @@ namespace DepartamentoApp
         {
             if (lbInventory.Items.Count == 0)
             {
-                Inventario inv = new() { IdInventario = NegocioComun.CalculateID("Inventario", "IDINVENTARIO"), IdDepartamento = dep_.IdDepartamento, fechaCreacion = DateTime.Now, Descripcion = null, Items = new() };
+                Inventario inv = new() { IdInventario = NegocioComun.CalculateID("IDINVENTARIO", "INVENTARIO"), IdDepartamento = dep_.IdDepartamento, fechaCreacion = DateTime.Now, Descripcion = null, Items = new() };
                 inventories.Add(inv);
+                lbInventory.Items.Add(inv); 
                 lbInventory.Items.Refresh();
             }
             else
@@ -452,9 +454,9 @@ namespace DepartamentoApp
                 var SelectedInvCasted = (Inventario)SelectedInv;
 
 
-                if (SelectedInvCasted.items.Count != 0)
+                if (SelectedInvCasted.Items.Count != 0)
                 {
-                    foreach (var item in SelectedInvCasted.items)
+                    foreach (var item in SelectedInvCasted.Items)
                     {
                         lbItems2.Items.Add(item);
                     }
@@ -488,6 +490,8 @@ namespace DepartamentoApp
                             if (!ItemExistsInList2)
                             {
                                 lbItems2.Items.Add(new Item { Descripcion = ItemAsItem.Descripcion, Cantidad = 1 });
+                                InventoryHasChanged = true;
+
                             }
                             else
                             {
@@ -499,11 +503,15 @@ namespace DepartamentoApp
                                         lbItems2.Items.Refresh();
                                     }
                                 }
+                                InventoryHasChanged = true;
+
                             }
                         }
                         else
                         {
                             lbItems2.Items.Add(new Item {  Descripcion = ItemAsItem.Descripcion, Cantidad = 1, IdItem = ItemAsItem.IdItem });
+                            InventoryHasChanged = true;
+
                         }
                     }
                 }
@@ -545,6 +553,9 @@ namespace DepartamentoApp
                             lbItems2.Items.Refresh();
                         }
                     }
+
+                    InventoryHasChanged = true;
+
                 }
                 else
                 {
@@ -572,6 +583,8 @@ namespace DepartamentoApp
                     }
                 }
 
+                InventoryHasChanged = true;
+
                 lbItems1.Items.Refresh();
                 lbItems2.Items.Refresh();
             }
@@ -587,25 +600,70 @@ namespace DepartamentoApp
 
             if (lbInventory.SelectedItem != null)
             {
-                lbItems2.Items.Clear();
 
 
                 var SelectedInv = lbInventory.SelectedItem;
 
                 var SelectedInvCasted = (Inventario)SelectedInv;
 
+                var SavedItemList = lbItems2.Items.Cast<Item>().ToList();
 
-                if (SelectedInvCasted.Items.Count != 0)
-                {
-                    foreach (var item in SelectedInvCasted.Items)
-                    {
-                        lbItems2.Items.Add(item);
-                    }
-                }
+
+                //for (int i = 0; i < lbInventory.Items.Count; i++)
+                //{
+                //    if (lbInventory.Items[i].cas)
+                //    {
+
+                //    }
+                //}
+
+                SelectedInvCasted.Items = SavedItemList;
+
+                InsertInvDep(SelectedInvCasted);
+
+
                 gridDetail.IsEnabled = true;
             }
 
-        } //*******************************************MANEJAR ARRAY 
+            lbItems2.Items.Clear();
+
+            lbInventory.SelectedIndex = -1;
+
+
+        }
+
+        private void InsertInvDep(Inventario inv)
+        {
+            
+            int InvCount = NegocioComun.GetInventoryCountFromDepId(dep_.IdDepartamento);
+
+            if (InvCount > 1)
+            {
+                MessageBox.Show("No puede existir más de un inventario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+            else
+            {
+                Inventario invv = new() {Descripcion = inv.Descripcion, fechaCreacion = DateTime.Now, IdInventario = inv.IdInventario, IdDepartamento = dep_.IdDepartamento, Items = inv.Items };
+
+                //Crear registro en Tabla Inventario
+
+                NegocioComun.CreateInventory(invv);
+
+                //Crear registro en Tabla Detalle_Inventario
+
+                foreach (Item item in invv.Items)
+                {
+                    DetalleInventario di = new() { Cantidad = item.Cantidad, IdDetalleInventario = NegocioComun.CalculateID("DETALLE_INVENTARIO", "IDDETALLE_INVENTARIO"), INVENTARIO_IDINVENTARIO = invv.IdInventario, Item_IdItem = item.IdItem };
+
+                    NegocioComun.CreateDetailInventory(di);
+
+                }
+
+
+
+            }
+        }
 
         private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -732,9 +790,19 @@ namespace DepartamentoApp
 
         private void lbInventory_Loaded(object sender, RoutedEventArgs e)
         {
-            lbInventory.ItemsSource = NegocioComun.GetInventarioFromDepId(dep_.IdDepartamento);
+
+            foreach (var item in NegocioComun.GetInventarioFromDepId(dep_.IdDepartamento))
+            {
+                lbInventory.Items.Add(item);    
+            }
+
 
             
+
+        }
+
+        private void btnGuardarCambios_Click(object sender, RoutedEventArgs e)
+        {
 
         }
 

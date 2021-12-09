@@ -114,7 +114,7 @@
                                     <RowDefinition Height="318*"/>
                                 </Grid.RowDefinitions>
 
-                                <Grid Margin="0,0,0,34">
+                                <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="77*"/>
                                         <RowDefinition Height="68*"/>
@@ -144,27 +144,17 @@
                                         <RowDefinition Height="8*"/>
                                         <RowDefinition Height="3*"/>
                                     </Grid.RowDefinitions>
-                                    <StackPanel Grid.ColumnSpan="3" Margin="0,1,0,42" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
-                                        <StackPanel.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform ScaleY="1"/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform/>
-                                            </TransformGroup>
-                                        </StackPanel.RenderTransform>
-                                        <Button x:Name="btnGuardarInv" Content="Guardar" Click="btnGuardarInv_Click" Width="130" Foreground="White"/>
-                                    </StackPanel>
+                                    <StackPanel Grid.ColumnSpan="3" Margin="0,1,0,42" RenderTransformOrigin="0.5,0.5" Grid.Row="1"/>
 
 
-                                    <GroupBox Header="Items" Grid.ColumnSpan="2" Margin="0,0,50,9">
+                                    <GroupBox Header="Items" Grid.ColumnSpan="2" Margin="0,0,50,0" Grid.RowSpan="2">
                                         <StackPanel>
                                             <TextBox Foreground="{StaticResource MaterialDesignDarkForeground}" x:Name="tbSearch" materialDesign:HintAssist.Hint="Buscar" VerticalContentAlignment="Center"/>
-                                            <ListView ItemsSource="{Binding lbItems1}" Height="138" x:Name="lbItems1" Grid.Column="0" Style="{StaticResource MaterialDesignListBox}" Background="{StaticResource MaterialDesignDarkBackground}" d:ItemsSource="{d:SampleData ItemCount=50}" Loaded="lbItems1_Loaded">
+                                            <ListView ItemsSource="{Binding lbItems1}" Height="227" x:Name="lbItems1" Grid.Column="0" Style="{StaticResource MaterialDesignListBox}" Background="{StaticResource MaterialDesignDarkBackground}" d:ItemsSource="{d:SampleData ItemCount=50}" Loaded="lbItems1_Loaded">
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
-                                                            <Label Content="{Binding Descripcion"/>
+                                                            <Label Content="{Binding Descripcion}"/>
                                                             <Label Content="{Binding Cantidad}"/>
                                                         </StackPanel>
                                                     </DataTemplate>
@@ -173,14 +163,14 @@
                                         </StackPanel>
 
                                     </GroupBox>
-                                    <GroupBox Grid.Column="1" Header="Detalle Inventario" Grid.ColumnSpan="2" Margin="50,0,0,9">
+                                    <GroupBox Grid.Column="1" Header="Detalle Inventario" Grid.ColumnSpan="2" Margin="50,0,0,0" Grid.RowSpan="2">
                                         <StackPanel>
                                             <TextBox  x:Name="Temporal" materialDesign:HintAssist.Hint="X" VerticalContentAlignment="Center" Visibility="Hidden"/>
-                                            <ListView ItemsSource="{Binding lbItems2}" Height="136" x:Name="lbItems2" Style="{StaticResource MaterialDesignListBox}" Background="{StaticResource MaterialDesignDarkBackground}" d:ItemsSource="{d:SampleData ItemCount=15}">
+                                            <ListView ItemsSource="{Binding lbItems2}" Height="226" x:Name="lbItems2" Style="{StaticResource MaterialDesignListBox}" Background="{StaticResource MaterialDesignDarkBackground}" d:ItemsSource="{d:SampleData ItemCount=15}">
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
-                                                            <Label Content="{Binding Descripcion, StringFormat={}Name: {0}}"/>
+                                                            <Label Content="{Binding Descripcion}"/>
                                                             <Label Content="{Binding Cantidad}"/>
                                                         </StackPanel>
                                                     </DataTemplate>
