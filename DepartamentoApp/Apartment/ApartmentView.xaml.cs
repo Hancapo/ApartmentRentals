@@ -394,7 +394,7 @@ namespace DepartamentoApp
 
             }
 
-            if (tbCapacidad.Text == String.Empty)
+            if (tbCapacidad.Text == string.Empty)
             {
                 EmptyFields++;
 
@@ -419,9 +419,18 @@ namespace DepartamentoApp
 
         private void btnCreateInv_Click(object sender, RoutedEventArgs e) //******************************************************************OBTENER ID DE DEPTO
         {
-            Inventario inv = new Inventario() { IdInventario = NegocioComun.CalculateID("Inventario", "IDINVENTARIO"), IdDepartamento= dep_.IdDepartamento, fechaCreacion = DateTime.Now, Descripcion = null };
-            inventories.Add(inv);
-            lbInventory.Items.Refresh();
+            if (lbInventory.Items.Count == 0)
+            {
+                Inventario inv = new() { IdInventario = NegocioComun.CalculateID("Inventario", "IDINVENTARIO"), IdDepartamento = dep_.IdDepartamento, fechaCreacion = DateTime.Now, Descripcion = null, Items = new() };
+                inventories.Add(inv);
+                lbInventory.Items.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Solo puede existir un solo inventario por departamento.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+
         }
 
         private void btnDeleteInv_Click(object sender, RoutedEventArgs e)
@@ -494,13 +503,13 @@ namespace DepartamentoApp
                         }
                         else
                         {
-                            lbItems2.Items.Add(new Item { Descripcion = ItemAsItem.Descripcion, Cantidad = 1 });
+                            lbItems2.Items.Add(new Item {  Descripcion = ItemAsItem.Descripcion, Cantidad = 1, IdItem = ItemAsItem.IdItem });
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Seleccione una fruta del primer listado para transferir", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Seleccione un Item del primer listado para transferir", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }
@@ -539,7 +548,7 @@ namespace DepartamentoApp
                 }
                 else
                 {
-                    MessageBox.Show("Seleccione una fruta del segundo listado para transferir", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Seleccione un Item del segundo listado para transferir", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }
@@ -568,14 +577,14 @@ namespace DepartamentoApp
             }
             else
             {
-                MessageBox.Show("No se puede transferir todos los elementos, el segundo listado está vacío.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("No se ha podido transferir todos los elementos, el segundo listado está vacío.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
         }
 
         private void btnSaveInventory_Click(object sender, RoutedEventArgs e)
         {
-            /*
+
             if (lbInventory.SelectedItem != null)
             {
                 lbItems2.Items.Clear();
@@ -585,33 +594,32 @@ namespace DepartamentoApp
 
                 var SelectedInvCasted = (Inventario)SelectedInv;
 
-                //lbFrutas2.Items.Clear();
 
-                if (SelectedInvCasted.fruits.Count != 0)
+                if (SelectedInvCasted.Items.Count != 0)
                 {
-                    foreach (var item in SelectedInvCasted.fruits)
+                    foreach (var item in SelectedInvCasted.Items)
                     {
                         lbItems2.Items.Add(item);
                     }
                 }
                 gridDetail.IsEnabled = true;
             }
-            */
+
         } //*******************************************MANEJAR ARRAY 
 
         private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            /*
+
             if (tbSearch.Text.Length > 0)
             {
-                var amogus = tbSearch.Text.ToLowerInvariant();
-                lbFrutas1.ItemsSource = StaticFruitList.Where(x => (x.FruitName.ToLowerInvariant().Contains(amogus)));
+                var NameSearch = tbSearch.Text.ToLowerInvariant();
+                NegocioComun.GetItemList().Where(x => (x.Descripcion.ToLowerInvariant().Contains(NameSearch)));
             }
             else
             {
-                lbFrutas1.ItemsSource = StaticFruitList;
+                NegocioComun.GetItemList();
             }
-            */
+
         }  //****************************************MANEJAR ARRAY
 
         private void btnGuardarInv_Click(object sender, RoutedEventArgs e) //***************************************************TERMINAR

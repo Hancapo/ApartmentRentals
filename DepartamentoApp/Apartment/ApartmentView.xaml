@@ -164,7 +164,7 @@
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
-                                                            <Label Content="{Binding Descripcion, StringFormat={}Name: {0}}"/>
+                                                            <Label Content="{Binding Descripcion"/>
                                                             <Label Content="{Binding Cantidad}"/>
                                                         </StackPanel>
                                                     </DataTemplate>

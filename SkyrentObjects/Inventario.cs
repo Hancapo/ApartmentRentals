@@ -17,5 +17,7 @@ namespace SkyrentObjects
         public string Descripcion { get; set; }
 
         public List<Item>? items => CommonBusiness.GetItemListFromInventoryId(IdInventario);
+
+        public List<Item> Items { get; set; }
     }
 }
