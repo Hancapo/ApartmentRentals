@@ -193,7 +193,6 @@ namespace DepartamentoApp
                 //Ccalendario.Visibility = Visibility.Visible;
                 btnDelete.Visibility = Visibility.Hidden;
                 //SpMiscControls.Visibility = Visibility.Hidden;
-                lbInventory.ItemsSource = inventories;
             }
             else
             {
@@ -201,7 +200,6 @@ namespace DepartamentoApp
                 //Ccalendario.Visibility = Visibility.Visible;
                 btnDelete.Visibility = Visibility.Visible;
                 //SpMiscControls.Visibility = Visibility.Visible;
-                lbItems1.ItemsSource = null;
             }
         }
 
@@ -421,7 +419,7 @@ namespace DepartamentoApp
 
         private void btnCreateInv_Click(object sender, RoutedEventArgs e) //******************************************************************OBTENER ID DE DEPTO
         {
-            Inventario inv = new Inventario() { IdInventario = NegocioComun.CalculateID("Inventario", "IDINVENTARIO"), IdDepartamento= dep_.IdDepartamento, fechaCreacion = DateTime.Now, Descripcion = 1 };
+            Inventario inv = new Inventario() { IdInventario = NegocioComun.CalculateID("Inventario", "IDINVENTARIO"), IdDepartamento= dep_.IdDepartamento, fechaCreacion = DateTime.Now, Descripcion = null };
             inventories.Add(inv);
             lbInventory.Items.Refresh();
         }
@@ -434,7 +432,7 @@ namespace DepartamentoApp
 
         private void lbInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /*
+
             if (lbInventory.SelectedItem != null)
             {
                 lbItems2.Items.Clear();
@@ -444,18 +442,18 @@ namespace DepartamentoApp
 
                 var SelectedInvCasted = (Inventario)SelectedInv;
 
-                //lbFrutas2.Items.Clear();
 
-                if (SelectedInvCasted.fruits.Count != 0)
+                if (SelectedInvCasted.items.Count != 0)
                 {
-                    foreach (var item in SelectedInvCasted.fruits)
+                    foreach (var item in SelectedInvCasted.items)
                     {
                         lbItems2.Items.Add(item);
                     }
                 }
+
                 gridDetail.IsEnabled = true;
             }
-            */
+
         }
 
         private void btnInsert_Click(object sender, RoutedEventArgs e)
@@ -722,7 +720,15 @@ namespace DepartamentoApp
 
                 cbRegion.ItemsSource = NegocioComun.GetRegionList().Select(x => x.Nombre);
             }
-        }      
+        }
+
+        private void lbInventory_Loaded(object sender, RoutedEventArgs e)
+        {
+            lbInventory.ItemsSource = NegocioComun.GetInventarioFromDepId(dep_.IdDepartamento);
+
+            
+
+        }
 
         //**********************************************************
 

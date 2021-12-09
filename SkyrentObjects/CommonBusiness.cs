@@ -667,7 +667,12 @@ namespace SkyrentObjects
                 inv.IdInventario = Convert.ToInt32(dr["IDINVENTARIO"]);
                 inv.IdDepartamento = Convert.ToInt32(dr["DEPARTAMENTO_IDDEPARTAMENTO"]);
                 inv.Descripcion = dr["DESCRIPCION"].ToString();
+                inv.fechaCreacion = Convert.ToDateTime(dr["FECHACREACION"]);
+
+                inventarios.Add(inv);   
             }
+
+            return inventarios;
         }
 
     }

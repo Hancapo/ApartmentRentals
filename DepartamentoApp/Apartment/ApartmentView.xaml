@@ -119,11 +119,11 @@
                                         <RowDefinition Height="77*"/>
                                         <RowDefinition Height="68*"/>
                                     </Grid.RowDefinitions>
-                                    <ListView x:Name="lbInventory" Grid.Row="0" Margin="10,10,10,7" Style="{StaticResource MaterialDesignChoiceChipListBox}" Background="{StaticResource MaterialDesignDarkBackground}"  d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="lbInventory_SelectionChanged">
+                                    <ListView x:Name="lbInventory" Grid.Row="0" Style="{StaticResource MaterialDesignChoiceChipListBox}" Background="{StaticResource MaterialDesignDarkBackground}"  d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="lbInventory_SelectionChanged" Loaded="lbInventory_Loaded">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Label Content="{Binding idInv}"/>
+                                                    <Label Content="{Binding IdInventario}"/>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
