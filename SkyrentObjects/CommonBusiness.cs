@@ -675,5 +675,27 @@ namespace SkyrentObjects
             return inventarios;
         }
 
+        public List<Item> GetItemListFromInventoryId(int inventoryid)
+        {
+            List<Item> items = new List<Item>();
+            string sqlcommand = $"SELECT it.iditem, it.sub_familia_item_idsub_familia_item, it.descripcion, it.valor, it.cantidad FROM DETALLE_INVENTARIO dinv INNER JOIN ITEM it ON it.iditem = dinv.item_iditem WHERE dinv.inventario_idinventario = {inventoryid}";
+
+            foreach (DataRow dr in osc.OracleToDataTable(sqlcommand).Rows)
+            {
+                Item im = new()
+                {
+                    IdItem = Convert.ToInt32(dr["IDITEM"]),
+                    SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM = Convert.ToInt32(dr["SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM"]),
+                    Descripcion = dr["DESCRIPCION"].ToString(),
+                    Valor = Convert.ToInt32(dr["VALOR"]),
+                    Cantidad = Convert.ToInt32(dr["CANTIDAD"])
+                };
+
+                items.Add(im);
+            }
+
+            return items;
+        }
+
     }
 }

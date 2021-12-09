@@ -8,11 +8,14 @@ namespace SkyrentObjects
 {
     public class Inventario
     {
+
+        CommonBusiness CommonBusiness = new();
+
         public int IdInventario { get; set; }
         public int IdDepartamento { get; set; }
         public DateTime fechaCreacion { get; set; }
         public string Descripcion { get; set; }
 
-        public List<Item>? items { get; set; }
+        public List<Item>? items => CommonBusiness.GetItemListFromInventoryId(IdInventario);
     }
 }
