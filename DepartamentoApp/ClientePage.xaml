@@ -20,8 +20,8 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="6*"/>
                     </Grid.RowDefinitions>
-
-                    <DataGrid IsReadOnly="True" Grid.Row="1" x:Name="DgClienteGrid" AutoGenerateColumns="True" Width="Auto" Height="400"/>
+                        
+                    <DataGrid IsReadOnly="True" Grid.Row="1" x:Name="DgClienteGrid" AutoGenerateColumns="True" MaxWidth="900" MaxHeight="400"/>
 
                 </Grid>
             </TabItem>
@@ -52,8 +52,8 @@
                                 </StackPanel>
                                 <TextBox x:Name="tbDescripcionItem" Width="260" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Descripción" Margin="10" Grid.Row="3" Foreground="{StaticResource MaterialDesignDarkForeground}"/>
                                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button x:Name="btnItemGuardar" Margin="10" Content="Guardar" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnItemGuardar_Click"/>
-                                    <Button x:Name="btnItemCancelar" Margin="10" Content="Cancelar" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnItemCancelar_Click"/>
+                                    <Button Style="{StaticResource MaterialDesignPaperDarkButton}" x:Name="btnItemGuardar" Margin="10" Content="Guardar" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnItemGuardar_Click"/>
+                                    <Button Style="{StaticResource MaterialDesignPaperDarkButton}" x:Name="btnItemCancelar" Margin="10" Content="Cancelar" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnItemCancelar_Click"/>
                                 </StackPanel>
                             </Grid>
                         </materialDesign:PopupBox>
@@ -61,7 +61,7 @@
                         <Button Margin="10" Style="{StaticResource MaterialDesignIconButton}" x:Name="btnReloadItem" Content="{materialDesign:PackIcon Kind=Reload}" Click="btnReloadItem_Click"/>
                         <Button Margin="10" Style="{StaticResource MaterialDesignIconButton}" x:Name="btnEditItem" Content="{materialDesign:PackIcon Kind=ModeEdit}" Click="btnEditItem_Click"/>
                     </StackPanel>
-                    <DataGrid Style="{StaticResource MaterialDesignDataGrid}" Grid.Row="1" IsReadOnly="True" x:Name="DgItemsGrid" AutoGenerateColumns="False" Height="400" ItemsSource="{Binding ItemsLoaded,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGrid Style="{StaticResource MaterialDesignDataGrid}" Grid.Row="1" IsReadOnly="True" x:Name="DgItemsGrid" AutoGenerateColumns="False" MaxWidth="900" MaxHeight="400" ItemsSource="{Binding ItemsLoaded,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding IdItem}" Header="Item ID"/>
                             <DataGridTextColumn Binding="{Binding SUB_FAMILIA_ITEM_IDSUB_FAMILIA_ITEM}" Header="HASDJK" Visibility="Hidden"/>
@@ -80,33 +80,40 @@
                     <DataGrid IsReadOnly="True" Grid.Row="1"  Style="{StaticResource MaterialDesignDataGrid}" x:Name="DgTarifasGrid" AutoGenerateColumns="True" MaxWidth="900" MaxHeight="400">
                     </DataGrid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Margin="10" Style="{StaticResource MaterialDesignIconButton}" x:Name="btnCrearTarifa" Content="{materialDesign:PackIcon Kind=AddCircle}" Click="btnCrearTarifa_Click"/>
+                        <materialDesign:PopupBox x:Name="PopBoxTarifa" Margin="10" StaysOpen="True">
+                            <materialDesign:PopupBox.ToggleContent>
+                                <materialDesign:PackIcon Kind="AddCircle" Height="25" Width="25" Foreground="#FFF44336"/>
+                            </materialDesign:PopupBox.ToggleContent>
+                            <Grid Width="200">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <StackPanel>
+                                    <TextBox x:Name="tbTarifa" Margin="10" Grid.Row="1" Foreground="{StaticResource MaterialDesignDarkForeground}" Width="100" materialDesign:HintAssist.Hint="Tarifa" VerticalContentAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="tbTarifa_TextChanged" Cursor="IBeam"/>
+
+                                    <Button Grid.Row="1" Margin="10" Width="100" Style="{StaticResource MaterialDesignPaperDarkButton}" x:Name="btnSaveTarifa" Content="Guardar" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnSaveTarifa_Click"/>
+                                    <Button Grid.Row="1" Margin="10" Width="100" Style="{StaticResource MaterialDesignPaperDarkButton}"  x:Name="btnCancelTarifa" Content="Cancelar" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnCancelTarifa_Click"/>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:PopupBox>
                         <Button Margin="10" Style="{StaticResource MaterialDesignIconButton}" x:Name="btnEliminarTarifa" Content="{materialDesign:PackIcon Kind=Delete}" Click="btnEliminarTarifa_Click"/>
                         <Button Margin="10" Style="{StaticResource MaterialDesignIconButton}" x:Name="btnReloadTarifas" Content="{materialDesign:PackIcon Kind=Reload}" Click="btnReloadTarifas_Click" />
                         <Button Margin="10" Style="{StaticResource MaterialDesignIconButton}" x:Name="btnEditTarifas" Content="{materialDesign:PackIcon Kind=ModeEdit}" Click="btnEditTarifas_Click" />
                     </StackPanel>
 
-                    <materialDesign:DialogHost Grid.Row="1" x:Name="DHSpamton" IsOpen="False" Width="300" Height="100" MouseDown="DHSpamton_MouseDown">
-                        <materialDesign:DialogHost.Content>
-                            <Grid Background="#FF3C3C3C">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <TextBox x:Name="tbTarifa" Foreground="{StaticResource MaterialDesignDarkForeground}" Width="200" materialDesign:HintAssist.Hint="Tarifa" VerticalContentAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="tbTarifa_TextChanged" Cursor="IBeam"/>
-                                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button x:Name="btnSave" Margin="5" Content="Guardar" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnSave_Click"/>
-                                    <Button x:Name="btnCancel" Margin="5" Content="Cancelar" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnCancel_Click"/>
-                                </StackPanel>
-                            </Grid>
-                        </materialDesign:DialogHost.Content>
-
-                    </materialDesign:DialogHost>
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="6*"/>
                     </Grid.RowDefinitions>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Servicios">
+                
+            </TabItem>
+            <TabItem Header="Conductor">
+                
             </TabItem>
         </TabControl>
 

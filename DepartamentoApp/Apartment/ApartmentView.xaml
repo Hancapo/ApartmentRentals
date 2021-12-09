@@ -55,7 +55,34 @@
                             <Grid Grid.Column="1">
                                 <StackPanel Margin="10" Orientation="Vertical">
                                     <TextBox x:Name="TTitulo" MaxLength="60" MaxLines="3" Foreground="{StaticResource MaterialDesignDarkForeground}" Margin="0,15,0,10" materialDesign:HintAssist.Hint="Título" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-
+                                    <materialDesign:PopupBox HorizontalAlignment="Center" Margin="5" StaysOpen="True">
+                                        <materialDesign:PopupBox.ToggleContent>
+                                            <Button Style="{StaticResource MaterialDesignOutlinedSecondaryButton}" Background="{x:Null}" Foreground="{StaticResource MaterialDesignDarkForeground}" Content="Comuna" BorderBrush="#BCFFFFFF" Width="233" />
+                                        </materialDesign:PopupBox.ToggleContent>
+                                        <Grid Height="200" Width="400">
+                                            <StackPanel Orientation="Vertical">
+                                                <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                                                    <Label Content="{materialDesign:PackIcon Kind=ImageFilterHdr}"/>
+                                                    <Label Content="Región" Margin="0,0,10,0"/>
+                                                    <ComboBox x:Name="cbRegion" Width="200" SelectionChanged="cbRegion_SelectionChanged" Foreground="{StaticResource MaterialDesignDarkForeground}" />
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                                                    <Label Content="{materialDesign:PackIcon Kind=City}"/>
+                                                    <Label Content="Ciudad" Margin="0,0,10,0"/>
+                                                    <ComboBox x:Name="cbCiudad" Width="200" SelectionChanged="cbCiudad_SelectionChanged" Foreground="{StaticResource MaterialDesignDarkForeground}"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                                                    <Label Content="{materialDesign:PackIcon Kind=AccountGroup}"/>
+                                                    <Label Content="Comuna" Margin="0,0,10,0"/>
+                                                    <ComboBox x:Name="cbComuna" Width="200" Margin="0,0,8,0" Foreground="White"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button x:Name="btnGuardarComuna" Width="80" Height="30" Margin="100,20,0,0" Content="Guardar" FontSize="9" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnGuardar_Click"/>
+                                                    <Button x:Name="btnCerrarComuna" Width="80" Height="30" Margin="50,20,0,0" Content="Cerrar" FontSize="9" Foreground="{StaticResource MaterialDesignDarkForeground}" Click="btnCerrar_Click"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                    </materialDesign:PopupBox>
                                     <Button x:Name="TbComuna" Foreground="{StaticResource MaterialDesignDarkForeground}" Content="Comuna" Style="{StaticResource MaterialDesignOutlinedSecondaryButton}" Margin="0,15,0,0" BorderBrush="#BCFFFFFF" Cursor="Hand" Click="TbComuna_Click"/>
                                     <ComboBox x:Name="CbTarifa" Foreground="{StaticResource MaterialDesignDarkForeground}" materialDesign:HintAssist.Hint="Tarifa" Style="{StaticResource MaterialDesignOutlinedComboBox}" Margin="0,15,0,0"/>
                                     <TextBox x:Name="tbDireccion" MaxLength="250" MaxLines="3" Foreground="{StaticResource MaterialDesignDarkForeground}" Margin="0,15,0,0" materialDesign:HintAssist.Hint="Dirección" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>

@@ -427,47 +427,78 @@ namespace DepartamentoApp
 
         private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
-            if (lbItems1.Items.Count == 0)
+            if (lbFrutas1.Items.Count == 0)
             {
                 MessageBox.Show("El primer listado está vacío, no es posible realizar ninguna operación.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
 
             }
             else
             {
-                if (lbItems1.SelectedItem != null)
+                if (lbFrutas1.SelectedItem != null)
                 {
-                    var ItemToTransfer = lbItems1.SelectedItem;
-                    var ItemAsItems = (Item)ItemToTransfer;
-                    if (ItemAsItems.Cantidad > 0)
+
+
+
+                    var ItemToTransfer = lbFrutas1.SelectedItem;
+
+                    var ItemAsFruit = (Fruit)ItemToTransfer;
+
+                    List<Fruit> FrutasFromInv = ((Inventory)lbInventory.SelectedItem).fruits;
+
+
+                    if (ItemAsFruit.FruitQuantity > 0)
                     {
-                        ItemAsItems.Cantidad--;
-                        lbItems1.Items.Refresh();
-                        if (lbItems2.Items.Count != 0)
+                        ItemAsFruit.FruitQuantity--;
+
+                        lbFrutas1.Items.Refresh();
+
+
+
+                        if (lbFrutas2.Items.Count != 0)
                         {
-                            bool ItemsExistsInList2 = lbItems2.Items.Cast<Item>().Any(x => x.Descripcion == ItemAsItems.Descripcion);
-                            if (!ItemsExistsInList2)
+
+                            bool FruitExistsInList2 = lbFrutas2.Items.Cast<Fruit>().Any(x => x.FruitName == ItemAsFruit.FruitName);
+
+
+
+                            if (!FruitExistsInList2)
                             {
-                                lbItems2.Items.Add(new Item { Descripcion = ItemAsItems.Descripcion, Cantidad = 1 });
+                                lbFrutas2.Items.Add(new Fruit { FruitName = ItemAsFruit.FruitName, FruitColor = ItemAsFruit.FruitColor, FruitSize = ItemAsFruit.FruitSize, FruitQuantity = 1 });
                             }
                             else
                             {
-                                for (int i = 0; i < lbItems2.Items.Count; i++)
+
+
+
+                                for (int i = 0; i < lbFrutas2.Items.Count; i++)
                                 {
-                                    if (((Item)lbItems2.Items[i]).Descripcion == ItemAsItems.Descripcion)
+                                    if (((Fruit)lbFrutas2.Items[i]).FruitName == ItemAsFruit.FruitName)
                                     {
-                                        ((Item)lbItems2.Items[i]).Cantidad++;
-                                        lbItems2.Items.Refresh();
+                                        ((Fruit)lbFrutas2.Items[i]).FruitQuantity++;
+                                        lbFrutas2.Items.Refresh();
 
                                     }
+
+
                                 }
+
                             }
+
 
                         }
                         else
                         {
-                            lbItems2.Items.Add(new Item { Descripcion = ItemAsItems.Descripcion, Cantidad = 1 });
+
+                            lbFrutas2.Items.Add(new Fruit { FruitName = ItemAsFruit.FruitName, FruitColor = ItemAsFruit.FruitColor, FruitSize = ItemAsFruit.FruitSize, FruitQuantity = 1 });
+
+
+
                         }
                     }
+
+
+
+
                 }
                 else
                 {
@@ -496,14 +527,14 @@ namespace DepartamentoApp
         {
             if (editMode)
             {
-                ComunaWindow cw = new(editMode, TbComuna.Content.ToString());
-                cw.ShowDialog();
+                //ComunaWindow cw = new(editMode, TbComuna.Content.ToString());
+                //cw.ShowDialog();
 
             }
             else
             {
-                ComunaWindow cw = new(editMode, null);
-                cw.ShowDialog();
+                //ComunaWindow cw = new(editMode, null);
+                //cw.ShowDialog();
             }
         }
 

@@ -32,7 +32,6 @@ namespace DepartamentoApp
         public ClientePage()
         {
             InitializeComponent();
-            DHSpamton.Visibility = Visibility.Hidden;
             
 
             LoadItems();
@@ -47,7 +46,6 @@ namespace DepartamentoApp
         private void LoadItems()
         {
             DgItemsGrid.ItemsSource = Business.GetItemList();
-            FitToContent(DgItemsGrid);
         }
 
         //TARIFA
@@ -65,110 +63,9 @@ namespace DepartamentoApp
 
         private void btnCrearTarifa_Click(object sender, RoutedEventArgs e)
         {
-            DHSpamton.Visibility = Visibility.Visible;
             TarifaEditMode = false;
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            DHSpamton.Visibility = Visibility.Hidden;
-
-            if (!TarifaEditMode)
-            {
-                if (tbTarifa.Text != string.Empty)
-                {
-                    int TarifaINT = Int32.Parse(tbTarifa.Text);
-
-                    if (Business.DoesTarifaExists(TarifaINT))
-                    {
-                        if (Business.CreateTarifa(TarifaINT))
-                        {
-                            MessageBox.Show("La tarifa se ha creado correctamente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                            DgTarifasGrid.ItemsSource = Business.GetTarifaList();
-                            tbTarifa.Text = string.Empty;
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se puede crear nuevamente una tarifa que ya existe, inténtelo nuevamente con un valor diferente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("La tarifa que se ha intentado crear ya existe.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("El campo no puede estar vacío.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                }
-            }
-            else
-            {
-                Tarifa TarifaFrom_ = ((Tarifa)DgTarifasGrid.SelectedItem);
-
-
-                if (tbTarifa.Text != String.Empty)
-                {
-                    int a = TarifaFrom_.Monto_Noche = Convert.ToInt32(tbTarifa.Text);
-                    if (MessageBox.Show(string.Format("¿Desea modificar la tarifa con ID {0}?", TarifaFrom_.Id), "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-                    {
-
-                        if (Business.DoesTarifaExists(a))
-                        {
-                            if (Business.ModifyTarifa(TarifaFrom_))
-                            {
-                                MessageBox.Show(String.Format("Se ha modificado la tarifa {0} con éxito.", TarifaFrom_.Id), "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                                DgTarifasGrid.ItemsSource = Business.GetTarifaList();
-                                tbTarifa.Text = string.Empty;
-
-
-                            }
-                            else
-                            {
-                                MessageBox.Show(String.Format("No se ha podido modificar la tarifa {0}.", TarifaFrom_.Id), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show(String.Format("No se ha podido modificar la tarifa {0}, la tarifa ya existe.", TarifaFrom_.Id), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        }
-
-
-                    }
-
-                }
-                else
-                {
-                    MessageBox.Show("El campo no puede estar vacío.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                }
-            }
-            
-
-
-
-        }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            DHSpamton.Visibility = Visibility.Hidden;
-            tbTarifa.Text = string.Empty;
-
-        }
-
-        private void DHSpamton_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                //DragMove();
-            }
-        }
 
         private void tbTarifa_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -189,18 +86,24 @@ namespace DepartamentoApp
             {
                 int Idcosa = ((Tarifa)DgTarifasGrid.SelectedItem).Id;
 
-                if (Business.DeleteTarifa(Idcosa))
+                if (MessageBox.Show("Se eliminará la tarifa " + Idcosa + ". ¿Desea continuar?", "Error", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
                 {
-                    MessageBox.Show(String.Format("Se ha eliminado la tarifa {0} con éxito.", Idcosa), "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                    DgTarifasGrid.ItemsSource = Business.GetTarifaList();
+                    if (Business.DeleteTarifa(Idcosa))
+                    {
+                        MessageBox.Show(String.Format("Se ha eliminado la tarifa {0} con éxito.", Idcosa), "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        DgTarifasGrid.ItemsSource = Business.GetTarifaList();
 
 
+                    }
+                    else
+                    {
+                        MessageBox.Show(String.Format("No se ha podido eliminar la tarifa {0}.", Idcosa), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
                 }
-                else
-                {
-                    MessageBox.Show(String.Format("No se ha podido eliminar la tarifa {0}.", Idcosa), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                }
+
+                
 
 
             }
@@ -222,10 +125,12 @@ namespace DepartamentoApp
             }
             else
             {
-                DHSpamton.Visibility = Visibility.Visible;
+                PopBoxTarifa.IsPopupOpen = true;
+
                 Tarifa TarifaFrom_ = ((Tarifa)DgTarifasGrid.SelectedItem);
 
                 tbTarifa.Text = TarifaFrom_.Monto_Noche.ToString();
+
             }
 
         }
@@ -402,17 +307,88 @@ namespace DepartamentoApp
             tbValorItem.Text= string.Empty;
         }
 
-        private void FitToContent(DataGrid dg)
+        private void btnCancelTarifa_Click(object sender, RoutedEventArgs e)
         {
-            // where dg is my data grid's name...
-            foreach (DataGridColumn column in dg.Columns)
+            tbTarifa.Text = string.Empty;
+            PopBoxTarifa.IsPopupOpen = false;
+        }
+        private void btnSaveTarifa_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TarifaEditMode)
             {
-                //if you want to size your column as per the cell content
-                column.Width = new DataGridLength(1.0, DataGridLengthUnitType.SizeToCells);
-                //if you want to size your column as per the column header
-                column.Width = new DataGridLength(1.0, DataGridLengthUnitType.SizeToHeader);
-                //if you want to size your column as per both header and cell content
-                column.Width = new DataGridLength(1.0, DataGridLengthUnitType.Auto);
+                if (tbTarifa.Text != string.Empty)
+                {
+                    int TarifaINT = Int32.Parse(tbTarifa.Text);
+
+                    if (Business.DoesTarifaExists(TarifaINT))
+                    {
+                        if (Business.CreateTarifa(TarifaINT))
+                        {
+                            MessageBox.Show("La tarifa se ha creado correctamente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                            DgTarifasGrid.ItemsSource = Business.GetTarifaList();
+                            tbTarifa.Text = string.Empty;
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se puede crear nuevamente una tarifa que ya existe, inténtelo nuevamente con un valor diferente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("La tarifa que se ha intentado crear ya existe.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El campo no puede estar vacío.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
+            }
+            else
+            {
+                Tarifa TarifaFrom_ = ((Tarifa)DgTarifasGrid.SelectedItem);
+
+
+                if (tbTarifa.Text != String.Empty)
+                {
+                    int a = TarifaFrom_.Monto_Noche = Convert.ToInt32(tbTarifa.Text);
+                    if (MessageBox.Show(string.Format("¿Desea modificar la tarifa con ID {0}?", TarifaFrom_.Id), "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    {
+
+                        if (Business.DoesTarifaExists(a))
+                        {
+                            if (Business.ModifyTarifa(TarifaFrom_))
+                            {
+                                MessageBox.Show(String.Format("Se ha modificado la tarifa {0} con éxito.", TarifaFrom_.Id), "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                                DgTarifasGrid.ItemsSource = Business.GetTarifaList();
+                                tbTarifa.Text = string.Empty;
+
+
+                            }
+                            else
+                            {
+                                MessageBox.Show(String.Format("No se ha podido modificar la tarifa {0}.", TarifaFrom_.Id), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show(String.Format("No se ha podido modificar la tarifa {0}, la tarifa ya existe.", TarifaFrom_.Id), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        }
+
+
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("El campo no puede estar vacío.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
             }
         }
     }
