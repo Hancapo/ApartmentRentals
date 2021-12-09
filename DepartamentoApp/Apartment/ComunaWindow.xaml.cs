@@ -140,7 +140,7 @@ namespace DepartamentoApp.Apartment
 
                     var ApartmentView_ = ApartmentFrame_.Content as ApartmentView;
 
-                    ApartmentView_.TbComuna.Text = cbComuna.Text;
+                    ApartmentView_.TbComuna.Content = cbComuna.Text;
 
                     Close();
                 }
@@ -155,7 +155,7 @@ namespace DepartamentoApp.Apartment
 
                     var ApartmentView_ = ApartmentFrame_.Content as ApartmentView;
 
-                    ApartmentView_.TbComuna.Text = cbComuna.Text; 
+                    ApartmentView_.TbComuna.Content = cbComuna.Text; 
 
                     Close();
                 }

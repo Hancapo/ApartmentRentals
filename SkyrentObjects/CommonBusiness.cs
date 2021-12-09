@@ -6,6 +6,7 @@ using Oracle.ManagedDataAccess.Client;
 using SkyrentConnect;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace SkyrentObjects
 {
@@ -13,8 +14,6 @@ namespace SkyrentObjects
     {
 
         public OracleSkyCon osc = new();
-
-
 
 
         public int LoginProc(string usuario, string contrasena)
@@ -114,6 +113,45 @@ namespace SkyrentObjects
 
         }
 
+        public bool CreateInventory(Inventario invent)
+        {
+            OracleCommand cmd = new("INSERT INTO Inventario (idInventario, departamento_idDepartamento,descripcion,fechaCreacion) VALUES (:1, :2, :3, :4)", osc.OracleConnection);
+            cmd.Parameters.Add("1", OracleDbType.Varchar2, CalculateID("idInventario", "Inventario"), ParameterDirection.Input);
+            cmd.Parameters.Add("2", OracleDbType.Varchar2, invent.IdDepartamento, ParameterDirection.Input);
+            cmd.Parameters.Add("3", OracleDbType.Varchar2, invent.Descripcion, ParameterDirection.Input);
+            cmd.Parameters.Add("4", OracleDbType.Varchar2, invent.fechaCreacion, ParameterDirection.Input);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+
+            }
+        }
+
+        public bool CreateDetailInventory(DetalleInventario detInvent)
+        {
+            OracleCommand cmd = new("INSERT INTO detalle_invetario (iddetalle_inventario, item_idItem,inventario_idInventario,cantidad) VALUES (:1, :2, :3, :4)", osc.OracleConnection);
+            cmd.Parameters.Add("1", OracleDbType.Varchar2, CalculateID("iddetalle_inventario", "detalle_invetario"), ParameterDirection.Input);
+            cmd.Parameters.Add("2", OracleDbType.Varchar2, detInvent.Item_IdItem, ParameterDirection.Input);
+            cmd.Parameters.Add("3", OracleDbType.Varchar2, detInvent.INVENTARIO_IDINVENTARIO, ParameterDirection.Input);
+            cmd.Parameters.Add("4", OracleDbType.Varchar2, detInvent.Cantidad, ParameterDirection.Input);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+
+            }
+        }
         public int CalculateID(string IdColumnName, string TableName)
         {
 

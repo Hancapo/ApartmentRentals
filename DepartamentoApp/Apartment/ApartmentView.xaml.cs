@@ -37,10 +37,10 @@ namespace DepartamentoApp
             if (creationMode)
             {
                 //Visibility settings
-                Ccalendario.Visibility = Visibility.Hidden;
-                lbCalend.Visibility = Visibility.Hidden;
+                //Ccalendario.Visibility = Visibility.Hidden;
+                //lbCalend.Visibility = Visibility.Hidden;
                 cbEditMode.Visibility = Visibility.Hidden;
-                SpMiscControls.Visibility = Visibility.Hidden;
+                //SpMiscControls.Visibility = Visibility.Hidden;
                 btnDelete.Visibility = Visibility.Hidden;
                 btnSaveChanges.Visibility = Visibility.Visible;
 
@@ -56,11 +56,11 @@ namespace DepartamentoApp
                 CbTarifa.IsEnabled = true;
 
                 //Text and Content settings
-                lbTextoCambios.Content = "Agregar";
+                //lbTextoCambios.Content = "Agregar"; SE TIENE QUE CREAR
 
                 TTitulo.Text = String.Empty;
                 TDescripcion.Text = String.Empty;
-                TbComuna.Text = String.Empty;
+                TbComuna.Content = String.Empty;
                 tbDireccion.Text = String.Empty;
                 CbTarifa.SelectedItem = null;
                 CbTarifa.ItemsSource = NegocioComun.GetTarifaList().OrderBy(x => x.Monto_Noche).Select(x => x.Monto_Noche).ToList();
@@ -72,8 +72,8 @@ namespace DepartamentoApp
             else
             {
                 SetValuesDep(dep_);
-                dgInventario.ItemsSource = NegocioComun.GetFamiliaListByDepartamentoID(dep_.IdDepartamento).Select(i => new {i.Descripcion, i.Cantidad}).ToList();
-                xListReservas.ItemsSource = NegocioComun.GetReservaListByDepID(dep_.IdDepartamento);
+                //dgInventario.ItemsSource = NegocioComun.GetFamiliaListByDepartamentoID(dep_.IdDepartamento).Select(i => new {i.Descripcion, i.Cantidad}).ToList();
+                //xListReservas.ItemsSource = NegocioComun.GetReservaListByDepID(dep_.IdDepartamento);
             }
 
         }
@@ -103,7 +103,7 @@ namespace DepartamentoApp
 
             tbDireccion.Text = dd.DireccionDep;
             ImBig.Source = dd.FotoBig;
-            TbComuna.Text = dd.ComunaDep;
+            TbComuna.Content = dd.ComunaDep;
             TTitulo.Text = dd.TituloDepartamento;
             CbTarifa.SelectedIndex = Convert.ToInt32(dd.IdTarifaDep) - 1;
             CbTarifa.ItemsSource = NegocioComun.GetTarifaList().OrderBy(x => x.Monto_Noche).Select(x => x.Monto_Noche).ToList();
@@ -170,7 +170,7 @@ namespace DepartamentoApp
 
 
             tbDireccion.IsReadOnly = !checkEdit;
-            TbComuna.IsReadOnly = true;
+            TbComuna.IsEnabled = true;
             TDescripcion.IsReadOnly = !checkEdit;
 
             tbDireccion.IsEnabled = checkEdit;
@@ -182,17 +182,17 @@ namespace DepartamentoApp
             if (checkEdit)
             {
                 btnSaveChanges.Visibility = Visibility.Visible;
-                Ccalendario.Visibility = Visibility.Visible;
+                //Ccalendario.Visibility = Visibility.Visible;
                 btnDelete.Visibility = Visibility.Hidden;
-                SpMiscControls.Visibility = Visibility.Hidden;
+                //SpMiscControls.Visibility = Visibility.Hidden;
 
             }
             else
             {
                 btnSaveChanges.Visibility = Visibility.Hidden;
-                Ccalendario.Visibility = Visibility.Visible;
+                //Ccalendario.Visibility = Visibility.Visible;
                 btnDelete.Visibility = Visibility.Visible;
-                SpMiscControls.Visibility = Visibility.Visible;
+                //SpMiscControls.Visibility = Visibility.Visible;
 
 
 
@@ -201,20 +201,6 @@ namespace DepartamentoApp
 
         }
 
-        private void TbComuna_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (editMode)
-            {
-                ComunaWindow cw = new(editMode, TbComuna.Text);
-                cw.ShowDialog();
-
-            }
-            else
-            {
-                ComunaWindow cw = new(editMode, null);
-                cw.ShowDialog();
-            }
-        }
 
         private void btnSaveChanges_Click(object sender, RoutedEventArgs e)
         {
@@ -238,12 +224,12 @@ namespace DepartamentoApp
                     if (ImageChanged)
                     {
                         
-                        isModified = NegocioComun.UpdateApartment(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Text).ToString(), tbDireccion.Text, TDescripcion.Text, su.ImagePathToBytes(fileName), TTitulo.Text);
+                        isModified = NegocioComun.UpdateApartment(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Content.ToString()).ToString(), tbDireccion.Text, TDescripcion.Text, su.ImagePathToBytes(fileName), TTitulo.Text);
 
                     }
                     else
                     {
-                        isModified = NegocioComun.UpdateApartmentWithoutIM(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Text).ToString(), tbDireccion.Text, TDescripcion.Text, TTitulo.Text);
+                        isModified = NegocioComun.UpdateApartmentWithoutIM(dep_.IdDepartamento, currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.ToString()).ToString(), tbDireccion.Text, TDescripcion.Text, TTitulo.Text);
                     }
 
                     if (CreationValidate())
@@ -289,7 +275,7 @@ namespace DepartamentoApp
                     {
                         int currency = int.Parse(CbTarifa.Text, NumberStyles.Currency);
 
-                        bool isAdded = NegocioComun.InsertApartment(currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Text).ToString(), tbDireccion.Text, TDescripcion.Text, su.ImagePathToBytes(fileName), TTitulo.Text);
+                        bool isAdded = NegocioComun.InsertApartment(currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Content.ToString()).ToString(), tbDireccion.Text, TDescripcion.Text, su.ImagePathToBytes(fileName), TTitulo.Text);
 
 
                         if (isAdded)
@@ -323,7 +309,7 @@ namespace DepartamentoApp
         {
             if (MessageBox.Show("¿Está seguro de querer eliminar el departamento? Este cambio no es reversible.", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                if (NegocioComun.DeleteApartment(dep_.IdDepartamento.ToString()) && dgInventario.Items.Count == 0)
+                if (NegocioComun.DeleteApartment(dep_.IdDepartamento.ToString()) && lbInventory.Items.Count == 0)
                 {
 
                     MessageBox.Show("El departamento ha sido borrado con éxito.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -340,16 +326,16 @@ namespace DepartamentoApp
 
         }
 
-        private void btnGoDate_Click(object sender, RoutedEventArgs e)
-        {
-            Reserva reser = ((Button)sender).DataContext as Reserva;
+        //private void btnGoDate_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Reserva reser = ((Button)sender).DataContext as Reserva;
 
-            Ccalendario.DisplayDate = reser.FechaInicio;
+        //    Ccalendario.DisplayDate = reser.FechaInicio;
 
-            Ccalendario.SelectedDates.AddRange(reser.FechaInicio, reser.FechaFin);
+        //    Ccalendario.SelectedDates.AddRange(reser.FechaInicio, reser.FechaFin);
 
 
-        }
+        //}
 
         public bool CreationValidate()
         {
@@ -372,7 +358,7 @@ namespace DepartamentoApp
 
             }
 
-            if (TbComuna.Text == string.Empty)
+            if (TbComuna.Content.ToString() == string.Empty)
             {
                 EmptyFields++;
 
@@ -422,6 +408,21 @@ namespace DepartamentoApp
         private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void TbComuna_Click(object sender, RoutedEventArgs e)
+        {
+            if (editMode)
+            {
+                ComunaWindow cw = new(editMode, TbComuna.Content.ToString());
+                cw.ShowDialog();
+
+            }
+            else
+            {
+                ComunaWindow cw = new(editMode, null);
+                cw.ShowDialog();
+            }
         }
     }
 }

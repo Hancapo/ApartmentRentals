@@ -27,6 +27,7 @@ namespace SkyrentObjects
         public string DireccionDep { get; set; }
         public string DescripcionDep { get; set; }
         public BitmapImage FotoBig { get; set; }
+
         public string TituloDepartamento { get; set; }
 
         public int Dormitorio { get; set; }
