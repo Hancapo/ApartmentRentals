@@ -11,6 +11,6 @@ namespace SkyrentObjects
         public int IdInventario { get; set; }
         public int IdDepartamento { get; set; }
         public DateTime fechaCreacion { get; set; }
-        public int Descripcion { get; set; }
+        public string Descripcion { get; set; }
     }
 }

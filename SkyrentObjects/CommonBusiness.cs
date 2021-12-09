@@ -66,42 +66,42 @@ namespace SkyrentObjects
 
         }
 
-        public int CreateUser(Cliente clie)
-        {
+        //public int CreateUser(Cliente clie)
+        //{
 
-            //0 - User couldn't be created.
-            //1 - User has been created sucessfully.
-            //2 - User already exists.
+        //    //0 - User couldn't be created.
+        //    //1 - User has been created sucessfully.
+        //    //2 - User already exists.
 
-            int IDalgo = CalculateID("idusuario", "usuario");
+        //    int IDalgo = CalculateID("idusuario", "usuario");
 
-            string CreateUserCommand = string.Format("INSERT INTO USUARIO (idusuario, usuariopassword, nombreusuario, tipo_usuario_idtipo_usuario) " +
-                "VALUES ('{0}', '{1}', '{2}', '{3}')", IDalgo, clie.ContrasenaUsuario, clie.NombreUsuario, 2);
-            string CreateClienteCommand = string.Format("INSERT INTO CLIENTE (rutcliente, usuario_idusuario, comuna_idcomuna, nombre, apellidop, apellidom) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}')",
-                clie.RutCliente, IDalgo, clie.ComunaCliente, clie.NombresCliente, clie.ApellidoPaterno, clie.ApellidoMaterno);
-            string SearchUsersCommand = string.Format("SELECT COUNT(rutcliente) FROM CLIENTE WHERE rutcliente = '{0}'", clie.RutCliente);
+        //    string CreateUserCommand = string.Format("INSERT INTO USUARIO (idusuario, usuariopassword, nombreusuario, tipo_usuario_idtipo_usuario) " +
+        //        "VALUES ('{0}', '{1}', '{2}', '{3}')", IDalgo, clie.ContrasenaUsuario, clie.NombreUsuario, 2);
+        //    string CreateClienteCommand = string.Format("INSERT INTO CLIENTE (rutcliente, usuario_idusuario, comuna_idcomuna, nombre, apellidop, apellidom) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}')",
+        //        clie.RutCliente, IDalgo, clie.ComunaCliente, clie.NombresCliente, clie.ApellidoPaterno, clie.ApellidoMaterno);
+        //    string SearchUsersCommand = string.Format("SELECT COUNT(rutcliente) FROM CLIENTE WHERE rutcliente = '{0}'", clie.RutCliente);
 
-            int UsersWithSameRUT = Convert.ToInt32(osc.RunOracleExecuteScalar(SearchUsersCommand));
+        //    int UsersWithSameRUT = Convert.ToInt32(osc.RunOracleExecuteScalar(SearchUsersCommand));
 
 
-            if (UsersWithSameRUT <= 0)
-            {
-                try
-                {
-                    osc.RunOracleNonQuery(CreateUserCommand);
-                    osc.RunOracleNonQuery(CreateClienteCommand);
-                    return 1;
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-            }
-            else
-            {
-                return 2;
-            }
-        }
+        //    if (UsersWithSameRUT <= 0)
+        //    {
+        //        try
+        //        {
+        //            osc.RunOracleNonQuery(CreateUserCommand);
+        //            osc.RunOracleNonQuery(CreateClienteCommand);
+        //            return 1;
+        //        }
+        //        catch (Exception)
+        //        {
+        //            return 0;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return 2;
+        //    }
+        //}
 
         public bool CreateInventory(Inventario invent)
         {
@@ -327,24 +327,36 @@ namespace SkyrentObjects
             }
         }
 
-        public int InsertApartment2(Departamento ded, bool HasImage)
+        public bool NewInsertApartment(Departamento ded, byte[] fotoByte)
         {
-            OracleCommand cmd = new();
+            OracleCommand cmd = new("INSERT INTO DEPARTAMENTO (IdDepartamento, Tarifa_IdTarifa, Comuna_IdComuna, Direccion, Descripcion, FotoBig, TituloDepart, Dormitorio, Banos, Capacidad, Estado) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11)", osc.OracleConnection);
 
 
-            if (HasImage)
+
+            cmd.CommandText = "INSERT INTO DEPARTAMENTO (IdDepartamento, Tarifa_IdTarifa, Comuna_IdComuna, Direccion, Descripcion, FotoBig, TituloDepart, Dormitorio, Banos, Capacidad, Estado) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11)";
+            cmd.Parameters.Add("1", OracleDbType.Varchar2, CalculateID("IDDEPARTAMENTO", "DEPARTAMENTO"), ParameterDirection.Input);
+            cmd.Parameters.Add("2", OracleDbType.Varchar2, GetTarifaIdFromTarifaPrice(Convert.ToInt32(ded.TarifaDep)), ParameterDirection.Input);
+            cmd.Parameters.Add("3", OracleDbType.Varchar2, ded.IdComunaDep, ParameterDirection.Input);
+            cmd.Parameters.Add("4", OracleDbType.Varchar2, ded.DireccionDep, ParameterDirection.Input);
+            cmd.Parameters.Add("5", OracleDbType.Varchar2, ded.DescripcionDep, ParameterDirection.Input);
+            cmd.Parameters.Add("6", OracleDbType.Blob, fotoByte, ParameterDirection.Input);
+            cmd.Parameters.Add("7", OracleDbType.Varchar2, ded.TituloDepartamento, ParameterDirection.Input);
+            cmd.Parameters.Add("8", OracleDbType.Int32, ded.Dormitorio, ParameterDirection.Input);
+            cmd.Parameters.Add("9", OracleDbType.Int32, ded.Banos, ParameterDirection.Input);
+            cmd.Parameters.Add("10", OracleDbType.Int32, ded.Capacidad, ParameterDirection.Input);
+            cmd.Parameters.Add("11", OracleDbType.Int32, ded.Estado, ParameterDirection.Input);
+
+            try
             {
-                cmd.CommandText = "INSERT INTO DEPARTAMENTO (IdDepartamento, Tarifa_IdTarifa, Comuna_IdComuna, Direccion, Descripcion, FotoBig, TituloDepart, Dormitorio, Banom, Capacidad, Estado) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11)";
-                return 0;
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
 
             }
-            else
-            {
-                cmd.CommandText = "INSERT INTO DEPARTAMENTO (IdDepartamento, Tarifa_IdTarifa, Comuna_IdComuna, Direccion, Descripcion, TituloDepart, Dormitorio, Banom, Capacidad, Estado) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)";
-                return 0;
 
-
-            }
         }
 
         public bool UpdateApartment(int IDDEPARTAMENTO, string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart)
@@ -599,9 +611,9 @@ namespace SkyrentObjects
             return Convert.ToInt32(osc.RunOracleExecuteScalar(sqlcommand));
         }
 
-        public ObservableCollection<Item> GetItemList()
+        public List<Item> GetItemList()
         {
-            ObservableCollection<Item> ItemListo = new ObservableCollection<Item>();
+            List<Item> ItemListo = new List<Item>();
 
             string sqlcommand = "SELECT * FROM ITEM ORDER BY IDITEM";
 
@@ -641,6 +653,21 @@ namespace SkyrentObjects
 
             }
             return ClienteLista;
+        }
+
+        public List<Inventario> GetInventarioFromDepId(int DepId_)
+        {
+            List<Inventario> inventarios = new List<Inventario>();
+
+            string sqlcommand = $"SELECT * FROM INVENTARIO WHERE departamento_iddepartamento = {DepId_}";
+
+            foreach (DataRow dr in osc.OracleToDataTable(sqlcommand).Rows)
+            {
+                Inventario inv = new();
+                inv.IdInventario = Convert.ToInt32(dr["IDINVENTARIO"]);
+                inv.IdDepartamento = Convert.ToInt32(dr["DEPARTAMENTO_IDDEPARTAMENTO"]);
+                inv.Descripcion = dr["DESCRIPCION"].ToString();
+            }
         }
 
     }

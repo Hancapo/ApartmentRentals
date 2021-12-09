@@ -29,6 +29,7 @@ namespace DepartamentoApp
         bool EditLoad;
         List<Inventario> inventories = new();
 
+
         public ApartmentView(Departamento dep, bool CreationMode)
         {
             dep_ = dep;
@@ -414,45 +415,13 @@ namespace DepartamentoApp
         //************************INVENTARIO***************************************
         private void lbItems1_Loaded(object sender, RoutedEventArgs e)
         {
-            BusinessInventory b = new BusinessInventory();
-            lbItems1.ItemsSource = b.GetItemList();
+            lbItems1.ItemsSource = NegocioComun.GetItemList();
         }
 
-        public int GenerateInvId(List<Inventario> invList)
-        {
-
-            int NewId = 0;
-
-
-            if (invList.Count == 0)
-            {
-                return NewId = 1;
-            }
-            else
-            {
-                List<int> invIds = invList.Select(x => x.IdInventario).ToList();
-
-                invIds.Sort();
-
-                for (int i = 0; i < invIds.Count; i++)
-                {
-                    NewId++;
-
-                    if (invIds[i] != NewId)
-                    {
-                        return NewId;
-                    }
-
-                }
-
-                return invList.Max(x => x.IdInventario) + 1;
-            }
-        }
 
         private void btnCreateInv_Click(object sender, RoutedEventArgs e) //******************************************************************OBTENER ID DE DEPTO
         {
-            int idDepto = 2133313;
-            Inventario inv = new Inventario() { IdInventario = GenerateInvId(inventories), IdDepartamento= idDepto, fechaCreacion = DateTime.Now, Descripcion = 1 };
+            Inventario inv = new Inventario() { IdInventario = NegocioComun.CalculateID("Inventario", "IDINVENTARIO"), IdDepartamento= dep_.IdDepartamento, fechaCreacion = DateTime.Now, Descripcion = 1 };
             inventories.Add(inv);
             lbInventory.Items.Refresh();
         }
@@ -718,7 +687,7 @@ namespace DepartamentoApp
         {
             if (editMode)
             {
-                String comuna = TbComuna.Content.ToString();
+                string comuna = TbComuna.Content.ToString();
                 //Comuna List
                 string CiudadFromComuna = NegocioComun.GetCiudadByComuna(comuna);
                 cbComuna.ItemsSource = NegocioComun.GetComunaListFromCiudad(CiudadFromComuna).Select(x => x.NombreComuna);
