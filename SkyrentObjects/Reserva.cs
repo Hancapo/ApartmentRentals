@@ -8,11 +8,9 @@ namespace SkyrentObjects
 {
     public class Reserva
     {
-        //JUNTAR CON DETALLE ARRIENDO
+        //HolaAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
-
-        
     }
     //TEST !
 }
