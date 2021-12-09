@@ -398,5 +398,30 @@ namespace DepartamentoApp
                 return true;
             }
         }
+
+        private void btnCreateInv_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDeleteInv_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnInsert_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSaveInventory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

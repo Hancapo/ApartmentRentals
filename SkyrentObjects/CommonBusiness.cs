@@ -299,20 +299,25 @@ namespace SkyrentObjects
             }
         }
 
-        //public bool InsertApartment2(Departamento ded, bool HasImage)
-        //{
-        //    OracleCommand cmd = new();
-            
+        public int InsertApartment2(Departamento ded, bool HasImage)
+        {
+            OracleCommand cmd = new();
 
-        //    if (HasImage)
-        //    {
 
-        //    }
-        //    else
-        //    {
+            if (HasImage)
+            {
+                cmd.CommandText = "INSERT INTO DEPARTAMENTO (IdDepartamento, Tarifa_IdTarifa, Comuna_IdComuna, Direccion, Descripcion, FotoBig, TituloDepart, Dormitorio, Banom, Capacidad, Estado) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11)";
+                return 0;
 
-        //    }
-        //}
+            }
+            else
+            {
+                cmd.CommandText = "INSERT INTO DEPARTAMENTO (IdDepartamento, Tarifa_IdTarifa, Comuna_IdComuna, Direccion, Descripcion, TituloDepart, Dormitorio, Banom, Capacidad, Estado) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)";
+                return 0;
+
+
+            }
+        }
 
         public bool UpdateApartment(int IDDEPARTAMENTO, string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart)
         {
