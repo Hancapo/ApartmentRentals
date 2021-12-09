@@ -27,6 +27,7 @@ namespace DepartamentoApp
         bool creationMode;
         string fileName;
         
+        
 
 
         public ApartmentView(Departamento dep, bool CreationMode)
@@ -168,15 +169,10 @@ namespace DepartamentoApp
                 }
             }
             EditModeControls(editMode);
-
-
-
         }
 
         private void EditModeControls(bool checkEdit)
         {
-
-
             tbDireccion.IsReadOnly = !checkEdit;
             TbComuna.IsEnabled = true;
             TDescripcion.IsReadOnly = !checkEdit;
@@ -190,14 +186,13 @@ namespace DepartamentoApp
             TDescripcion.IsEnabled = checkEdit;
             GroupBookings.IsEnabled = checkEdit;    
             GroupInventario.IsEnabled = checkEdit;  
+            
             if (checkEdit)
             {
                 btnSaveChanges.Visibility = Visibility.Visible;
                 //Ccalendario.Visibility = Visibility.Visible;
                 btnDelete.Visibility = Visibility.Hidden;
                 //SpMiscControls.Visibility = Visibility.Hidden;
-                
-
             }
             else
             {
@@ -205,11 +200,8 @@ namespace DepartamentoApp
                 //Ccalendario.Visibility = Visibility.Visible;
                 btnDelete.Visibility = Visibility.Visible;
                 //SpMiscControls.Visibility = Visibility.Visible;
-
-
-
-
             }
+
 
         }
 
@@ -431,82 +423,51 @@ namespace DepartamentoApp
 
         }
 
-        /
+        
 
         private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
-            if (lbFrutas1.Items.Count == 0)
+            if (lbItems1.Items.Count == 0)
             {
                 MessageBox.Show("El primer listado está vacío, no es posible realizar ninguna operación.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
 
             }
             else
             {
-                if (lbFrutas1.SelectedItem != null)
+                if (lbItems1.SelectedItem != null)
                 {
-
-
-
-                    var ItemToTransfer = lbFrutas1.SelectedItem;
-
-                    var ItemAsFruit = (Fruit)ItemToTransfer;
-
-                    List<Fruit> FrutasFromInv = ((Inventory)lbInventory.SelectedItem).fruits;
-
-
-                    if (ItemAsFruit.FruitQuantity > 0)
+                    var ItemToTransfer = lbItems1.SelectedItem;
+                    var ItemAsItems = (Item)ItemToTransfer;
+                    if (ItemAsItems.Cantidad > 0)
                     {
-                        ItemAsFruit.FruitQuantity--;
-
-                        lbFrutas1.Items.Refresh();
-
-
-
-                        if (lbFrutas2.Items.Count != 0)
+                        ItemAsItems.Cantidad--;
+                        lbItems1.Items.Refresh();
+                        if (lbItems2.Items.Count != 0)
                         {
-
-                            bool FruitExistsInList2 = lbFrutas2.Items.Cast<Fruit>().Any(x => x.FruitName == ItemAsFruit.FruitName);
-
-
-
-                            if (!FruitExistsInList2)
+                            bool ItemsExistsInList2 = lbItems2.Items.Cast<Item>().Any(x => x.Descripcion == ItemAsItems.Descripcion);
+                            if (!ItemsExistsInList2)
                             {
-                                lbFrutas2.Items.Add(new Fruit { FruitName = ItemAsFruit.FruitName, FruitColor = ItemAsFruit.FruitColor, FruitSize = ItemAsFruit.FruitSize, FruitQuantity = 1 });
+                                lbItems2.Items.Add(new Item { Descripcion = ItemAsItems.Descripcion, Cantidad = 1 });
                             }
                             else
                             {
-
-
-
-                                for (int i = 0; i < lbFrutas2.Items.Count; i++)
+                                for (int i = 0; i < lbItems2.Items.Count; i++)
                                 {
-                                    if (((Fruit)lbFrutas2.Items[i]).FruitName == ItemAsFruit.FruitName)
+                                    if (((Item)lbItems2.Items[i]).Descripcion == ItemAsItems.Descripcion)
                                     {
-                                        ((Fruit)lbFrutas2.Items[i]).FruitQuantity++;
-                                        lbFrutas2.Items.Refresh();
+                                        ((Item)lbItems2.Items[i]).Cantidad++;
+                                        lbItems2.Items.Refresh();
 
                                     }
-
-
                                 }
-
                             }
-
 
                         }
                         else
                         {
-
-                            lbFrutas2.Items.Add(new Fruit { FruitName = ItemAsFruit.FruitName, FruitColor = ItemAsFruit.FruitColor, FruitSize = ItemAsFruit.FruitSize, FruitQuantity = 1 });
-
-
-
+                            lbItems2.Items.Add(new Item { Descripcion = ItemAsItems.Descripcion, Cantidad = 1 });
                         }
                     }
-
-
-
-
                 }
                 else
                 {
@@ -515,7 +476,7 @@ namespace DepartamentoApp
             }
         }
 
-        **/
+        
 
         private void btnSaveInventory_Click(object sender, RoutedEventArgs e)
         {
@@ -523,6 +484,10 @@ namespace DepartamentoApp
         }
 
         private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+        private void btnGuardarInv_Click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -541,5 +506,7 @@ namespace DepartamentoApp
                 cw.ShowDialog();
             }
         }
+
+        
     }
 }

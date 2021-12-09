@@ -81,18 +81,18 @@
                 <Grid Grid.Column="2">
                     <GroupBox x:Name="GroupInventario" Header="Inventario" Margin="5">
                         <StackPanel >
-                            <Grid >
+                            <Grid Height="463" >
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="145*"/>
+                                    <RowDefinition Height="318*"/>
                                 </Grid.RowDefinitions>
 
-                                <Grid>
+                                <Grid Margin="0,0,0,34">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition Height="0.2*"/>
+                                        <RowDefinition Height="77*"/>
+                                        <RowDefinition Height="68*"/>
                                     </Grid.RowDefinitions>
-                                    <ListView x:Name="lbInventory" Grid.Row="0" Margin="10" Style="{StaticResource MaterialDesignChoiceChipListBox}" Background="{StaticResource MaterialDesignDarkBackground}"  d:ItemsSource="{d:SampleData ItemCount=5}">
+                                    <ListView x:Name="lbInventory" Grid.Row="0" Margin="10,10,10,7" Style="{StaticResource MaterialDesignChoiceChipListBox}" Background="{StaticResource MaterialDesignDarkBackground}"  d:ItemsSource="{d:SampleData ItemCount=5}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
@@ -101,23 +101,39 @@
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                     </ListView>
-                                    <StackPanel Grid.Row="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Height="72" Width="214">
                                         <Button Style="{StaticResource MaterialDesignPaperDarkButton}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" x:Name="btnCreateInv" Content="Crear" Margin="5" Width="100"/>
-                                        <Button Style="{StaticResource MaterialDesignPaperDarkButton}" VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" x:Name="btnDeleteInv" Content="Eliminar" Margin="5" Width="100"/>
+                                        <Button Style="{StaticResource MaterialDesignPaperDarkButton}" VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" x:Name="btnDeleteInv" Content="Eliminar" Width="100"/>
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Height="300" x:Name="gridDetail" Grid.Row="1" >
+                                <Grid x:Name="gridDetail" Grid.Row="1" Margin="0,0,0,10" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="0.2*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="8*"/>
+                                        <RowDefinition Height="3*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.ColumnSpan="3" Margin="0,1,0,42" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+                                        <StackPanel.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleY="1"/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </StackPanel.RenderTransform>
+                                        <Button x:Name="btnGuardarInv" Content="Guardar" Click="btnGuardarInv_Click" Width="130" Foreground="White"/>
+                                    </StackPanel>
 
-                                    <GroupBox Header="Items" Grid.ColumnSpan="2" Margin="0,0,50,-50">
+
+                                    <GroupBox Header="Items" Grid.ColumnSpan="2" Margin="0,0,50,9">
                                         <StackPanel>
                                             <TextBox Foreground="{StaticResource MaterialDesignDarkForeground}" x:Name="tbSearch" materialDesign:HintAssist.Hint="Buscar" VerticalContentAlignment="Center"/>
-                                            <ListView ItemsSource="{Binding lbFrutas1}" VerticalAlignment="Center" Height="270" x:Name="lbFrutas1" Grid.Column="0" Style="{StaticResource MaterialDesignListBox}" Background="{StaticResource MaterialDesignDarkBackground}" d:ItemsSource="{d:SampleData ItemCount=50}">
+                                            <ListView ItemsSource="{Binding lbItems1}" Height="138" x:Name="lbItems1" Grid.Column="0" Style="{StaticResource MaterialDesignListBox}" Background="{StaticResource MaterialDesignDarkBackground}" d:ItemsSource="{d:SampleData ItemCount=50}">
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
@@ -132,15 +148,14 @@
                                         </StackPanel>
 
                                     </GroupBox>
-                                    <GroupBox Grid.Column="1" Header="Detalle Inventario" Grid.ColumnSpan="2" Margin="50,0,0,-50">
+                                    <GroupBox Grid.Column="1" Header="Detalle Inventario" Grid.ColumnSpan="2" Margin="50,0,0,9">
                                         <StackPanel>
                                             <TextBox  x:Name="Temporal" materialDesign:HintAssist.Hint="X" VerticalContentAlignment="Center" Visibility="Hidden"/>
-
-                                            <ListView ItemsSource="{Binding lbFrutas2}" Height="280" VerticalAlignment="Center" x:Name="lbFrutas2" Grid.Row="1" Grid.Column="2" Style="{StaticResource MaterialDesignListBox}" Background="{StaticResource MaterialDesignDarkBackground}" d:ItemsSource="{d:SampleData ItemCount=15}">
+                                            <ListView ItemsSource="{Binding lbItems2}" Height="136" x:Name="lbItems2" Style="{StaticResource MaterialDesignListBox}" Background="{StaticResource MaterialDesignDarkBackground}" d:ItemsSource="{d:SampleData ItemCount=15}">
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
-                                                            <Label Content="{Binding FruitName, StringFormat={}Name: {0}}"/>
+                                                            <Label Content="{Binding FruitName, StringFormat=Name: \{0\}}"/>
                                                             <Label Content="{Binding FruitColor}"/>
                                                             <Label Content="{Binding FruitSize}"/>
                                                             <Label Content="{Binding FruitQuantity}"/>
@@ -153,7 +168,7 @@
                                     </GroupBox>
 
 
-                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Height="192">
                                         <Button Style="{StaticResource MaterialDesignIconButton}" x:Name="btnInsert" Content="{materialDesign:PackIcon Kind=ChevronDoubleRight}" />
                                         <Button Style="{StaticResource MaterialDesignIconButton}" x:Name="btnSubstract"   Content="{materialDesign:PackIcon Kind=ChevronDoubleLeft}"/>
                                         <Button Style="{StaticResource MaterialDesignIconButton}" x:Name="btnSubstractAll" Content="{materialDesign:PackIcon Kind=ChevronTripleLeft}" />
