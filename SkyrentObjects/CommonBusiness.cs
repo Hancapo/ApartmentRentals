@@ -105,11 +105,11 @@ namespace SkyrentObjects
 
         public bool CreateInventory(Inventario invent)
         {
-            OracleCommand cmd = new("INSERT INTO Inventario (idInventario, departamento_idDepartamento,descripcion,fechaCreacion) VALUES (:1, :2, :3, :4)", osc.OracleConnection);
+            OracleCommand cmd = new("INSERT INTO INVENTARIO (idInventario, departamento_idDepartamento,descripcion,fechaCreacion) VALUES (:1, :2, :3, :4)", osc.OracleConnection);
             cmd.Parameters.Add("1", OracleDbType.Varchar2, CalculateID("idInventario", "Inventario"), ParameterDirection.Input);
             cmd.Parameters.Add("2", OracleDbType.Varchar2, invent.IdDepartamento, ParameterDirection.Input);
             cmd.Parameters.Add("3", OracleDbType.Varchar2, invent.Descripcion, ParameterDirection.Input);
-            cmd.Parameters.Add("4", OracleDbType.Varchar2, invent.fechaCreacion, ParameterDirection.Input);
+            cmd.Parameters.Add("4", OracleDbType.Date, invent.fechaCreacion, ParameterDirection.Input);
 
             try
             {
@@ -125,8 +125,8 @@ namespace SkyrentObjects
 
         public bool CreateDetailInventory(DetalleInventario detInvent)
         {
-            OracleCommand cmd = new("INSERT INTO detalle_invetario (iddetalle_inventario, item_idItem,inventario_idInventario,cantidad) VALUES (:1, :2, :3, :4)", osc.OracleConnection);
-            cmd.Parameters.Add("1", OracleDbType.Varchar2, CalculateID("iddetalle_inventario", "detalle_invetario"), ParameterDirection.Input);
+            OracleCommand cmd = new("INSERT INTO DETALLE_INVENTARIO (iddetalle_inventario, item_idItem,inventario_idInventario,cantidad) VALUES (:1, :2, :3, :4)", osc.OracleConnection);
+            cmd.Parameters.Add("1", OracleDbType.Varchar2, CalculateID("iddetalle_inventario", "DETALLE_INVENTARIO"), ParameterDirection.Input);
             cmd.Parameters.Add("2", OracleDbType.Varchar2, detInvent.Item_IdItem, ParameterDirection.Input);
             cmd.Parameters.Add("3", OracleDbType.Varchar2, detInvent.INVENTARIO_IDINVENTARIO, ParameterDirection.Input);
             cmd.Parameters.Add("4", OracleDbType.Varchar2, detInvent.Cantidad, ParameterDirection.Input);
@@ -296,10 +296,10 @@ namespace SkyrentObjects
             return TarifaList;
         }
 
-        public string GetTarifaIdFromTarifaPrice(int price)
+        public int GetTarifaIdFromTarifaPrice(int price)
         {
             string sqlcommand = $"SELECT IDTARIFA FROM TARIFA WHERE MONTO_NOCHE = '{price}'";
-            return osc.RunOracleExecuteScalar(sqlcommand).ToString();
+            return Convert.ToInt32(osc.RunOracleExecuteScalar(sqlcommand));
 
         }
 
@@ -359,17 +359,21 @@ namespace SkyrentObjects
 
         }
 
-        public bool UpdateApartment(int IDDEPARTAMENTO, string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart)
+        public bool UpdateApartment(int IDDEPARTAMENTO, string tarifa, string idcomuna, string direccion, string descripcion, byte[] fotoBig, string TituloApart, int banios, int capa, int estate, int dormis)
         {
 
 
-            OracleCommand cmd = new("UPDATE DEPARTAMENTO SET Tarifa_IdTarifa = :1, Comuna_IdComuna = :2, Direccion = :3 , Descripcion = :4, FotoBig =:5, TituloDepart =:6 WHERE IDDEPARTAMENTO = " + IDDEPARTAMENTO.ToString(), osc.OracleConnection);
+            OracleCommand cmd = new("UPDATE DEPARTAMENTO SET Tarifa_IdTarifa = :1, Comuna_IdComuna = :2, Direccion = :3 , Descripcion = :4, FotoBig =:5, TituloDepart =:6, Dormitorio =:7, Banos =:8, Capacidad =:9, Estado =:10 WHERE IDDEPARTAMENTO = " + IDDEPARTAMENTO.ToString(), osc.OracleConnection);
             cmd.Parameters.Add("1", OracleDbType.Varchar2, GetTarifaIdFromTarifaPrice(Convert.ToInt32(tarifa)), ParameterDirection.Input);
             cmd.Parameters.Add("2", OracleDbType.Varchar2, idcomuna, ParameterDirection.Input);
             cmd.Parameters.Add("3", OracleDbType.Varchar2, direccion, ParameterDirection.Input);
             cmd.Parameters.Add("4", OracleDbType.Varchar2, descripcion, ParameterDirection.Input);
             cmd.Parameters.Add("5", OracleDbType.Blob, fotoBig, ParameterDirection.Input);
             cmd.Parameters.Add("6", OracleDbType.Varchar2, TituloApart, ParameterDirection.Input);
+            cmd.Parameters.Add("7", OracleDbType.Varchar2, dormis, ParameterDirection.Input);
+            cmd.Parameters.Add("8", OracleDbType.Varchar2, banios, ParameterDirection.Input);
+            cmd.Parameters.Add("9", OracleDbType.Varchar2, capa, ParameterDirection.Input);
+            cmd.Parameters.Add("10", OracleDbType.Varchar2, estate, ParameterDirection.Input);
 
             try
             {
@@ -383,14 +387,18 @@ namespace SkyrentObjects
             }
         }
 
-        public bool UpdateApartmentWithoutIM(int IDDEPARTAMENTO, string tarifa, string idcomuna, string direccion, string descripcion, string TituloApart)
+        public bool UpdateApartmentWithoutIM(int IDDEPARTAMENTO, string tarifa, string idcomuna, string direccion, string descripcion, string TituloApart, int banios, int capa, int estate, int dormis)
         {
-            OracleCommand cmd = new("UPDATE DEPARTAMENTO SET Tarifa_IdTarifa = :1, Comuna_IdComuna = :2, Direccion = :3 , Descripcion = :4, TituloDepart =:5 WHERE IDDEPARTAMENTO = " + IDDEPARTAMENTO.ToString(), osc.OracleConnection);
+            OracleCommand cmd = new("UPDATE DEPARTAMENTO SET Tarifa_IdTarifa = :1, Comuna_IdComuna = :2, Direccion = :3 , Descripcion = :4, TituloDepart =:5, Dormitorio =:6, Banos =:7, Capacidad =:8, Estado =:9 WHERE IDDEPARTAMENTO = " + IDDEPARTAMENTO.ToString(), osc.OracleConnection);
             cmd.Parameters.Add("1", OracleDbType.Varchar2, GetTarifaIdFromTarifaPrice(Convert.ToInt32(tarifa)), ParameterDirection.Input);
             cmd.Parameters.Add("2", OracleDbType.Varchar2, idcomuna, ParameterDirection.Input);
             cmd.Parameters.Add("3", OracleDbType.Varchar2, direccion, ParameterDirection.Input);
             cmd.Parameters.Add("4", OracleDbType.Varchar2, descripcion, ParameterDirection.Input);
             cmd.Parameters.Add("5", OracleDbType.Varchar2, TituloApart, ParameterDirection.Input);
+            cmd.Parameters.Add("6", OracleDbType.Varchar2, dormis, ParameterDirection.Input);
+            cmd.Parameters.Add("7", OracleDbType.Varchar2, banios, ParameterDirection.Input);
+            cmd.Parameters.Add("8", OracleDbType.Varchar2, capa, ParameterDirection.Input);
+            cmd.Parameters.Add("9", OracleDbType.Varchar2, estate, ParameterDirection.Input);
 
             try
             {

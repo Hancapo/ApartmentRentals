@@ -39,14 +39,6 @@
             <TabItem Height="60" Width="120" x:Name="TabItemCliente" Loaded="TabItemCliente_Loaded">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="{materialDesign:PackIcon Kind=Collage}"/>
-                        <Label Content="Inventario" FontSize="11" FontStyle="Normal" FontFamily="{StaticResource MaterialDesignFont}" VerticalContentAlignment="Center"/>
-                    </StackPanel>
-                </TabItem.Header>
-            </TabItem>
-            <TabItem Height="60" Width="120" x:Name="TabItemAdministrar">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
                         <Label Content="{materialDesign:PackIcon Kind=ApplicationCog}"/>
                         <Label Content="Administrar" FontSize="11"  FontStyle="Normal" FontFamily="Montserrat ExtraLight" VerticalContentAlignment="Center"/>
                     </StackPanel>

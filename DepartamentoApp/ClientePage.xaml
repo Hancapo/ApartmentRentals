@@ -102,18 +102,12 @@
                         <Button Margin="10" Style="{StaticResource MaterialDesignIconButton}" x:Name="btnEditTarifas" Content="{materialDesign:PackIcon Kind=ModeEdit}" Click="btnEditTarifas_Click" />
                     </StackPanel>
 
-                    
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="6*"/>
                     </Grid.RowDefinitions>
                 </Grid>
-            </TabItem>
-            <TabItem Header="Servicios">
-                
-            </TabItem>
-            <TabItem Header="Conductor">
-                
             </TabItem>
         </TabControl>
 

@@ -277,7 +277,24 @@ namespace DepartamentoApp
                     {
                         int currency = int.Parse(CbTarifa.Text, NumberStyles.Currency);
 
-                        bool isAdded = NegocioComun.InsertApartment(currency.ToString(), NegocioComun.GetIdComunaByName(TbComuna.Content.ToString()).ToString(), tbDireccion.Text, TDescripcion.Text, su.ImagePathToBytes(fileName), TTitulo.Text);
+                        Departamento d = new()
+                        {
+                            IdDepartamento = NegocioComun.CalculateID("IDDEPARTAMENTO", "DEPARTAMENTO"),
+                            Banos = Convert.ToInt32(tbBanos.Text),
+                            Capacidad = Convert.ToInt32(tbCapacidad.Text),
+                            IdComunaDep = NegocioComun.GetIdComunaByName(TbComuna.Content.ToString()),
+                            DescripcionDep = TDescripcion.Text,
+                            IdTarifaDep = NegocioComun.GetTarifaIdFromTarifaPrice(currency),
+                            TituloDepartamento = TTitulo.Text,
+                            Estado = cbEstado.SelectedIndex + 1,
+                            Dormitorio = Convert.ToInt32(tbDorms.Text),
+                            DireccionDep = tbDireccion.Text
+
+                            
+                        };
+
+
+                        bool isAdded = NegocioComun.NewInsertApartment(d, su.ImagePathToBytes(fileName));
 
 
                         if (isAdded)
@@ -389,7 +406,7 @@ namespace DepartamentoApp
 
             }
 
-            if (cbEstado.SelectedIndex != -1)
+            if (cbEstado.SelectedIndex == -1)
             {
                 EmptyFields++;
 
@@ -454,7 +471,7 @@ namespace DepartamentoApp
                 var SelectedInvCasted = (Inventario)SelectedInv;
 
 
-                if (SelectedInvCasted.Items.Count != 0)
+                if (SelectedInvCasted.Items != null)
                 {
                     foreach (var item in SelectedInvCasted.Items)
                     {
@@ -622,6 +639,8 @@ namespace DepartamentoApp
                 InsertInvDep(SelectedInvCasted);
 
 
+
+
                 gridDetail.IsEnabled = true;
             }
 
@@ -654,11 +673,14 @@ namespace DepartamentoApp
 
                 foreach (Item item in invv.Items)
                 {
-                    DetalleInventario di = new() { Cantidad = item.Cantidad, IdDetalleInventario = NegocioComun.CalculateID("DETALLE_INVENTARIO", "IDDETALLE_INVENTARIO"), INVENTARIO_IDINVENTARIO = invv.IdInventario, Item_IdItem = item.IdItem };
+                    DetalleInventario di = new() { Cantidad = item.Cantidad, IdDetalleInventario = NegocioComun.CalculateID("IDDETALLE_INVENTARIO", "DETALLE_INVENTARIO"), INVENTARIO_IDINVENTARIO = invv.IdInventario, Item_IdItem = item.IdItem };
 
                     NegocioComun.CreateDetailInventory(di);
 
                 }
+
+                MessageBox.Show("Se ha guardado el inventario correctamente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+
 
 
 
@@ -790,11 +812,14 @@ namespace DepartamentoApp
 
         private void lbInventory_Loaded(object sender, RoutedEventArgs e)
         {
-
-            foreach (var item in NegocioComun.GetInventarioFromDepId(dep_.IdDepartamento))
+            if (!creationMode)
             {
-                lbInventory.Items.Add(item);    
+                foreach (var item in NegocioComun.GetInventarioFromDepId(dep_.IdDepartamento))
+                {
+                    lbInventory.Items.Add(item);
+                }
             }
+            
 
 
             
