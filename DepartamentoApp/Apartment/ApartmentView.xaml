@@ -24,6 +24,7 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="btnSaveChanges" ToolTip="Guardar Todo" Style="{StaticResource MaterialDesignIconButton}" Content="{materialDesign:PackIcon Kind=ContentSaveAll}" HorizontalAlignment="Right" Margin="20" Grid.Column="0" Click="btnSaveChanges_Click"/>
             <Button x:Name="cbEditMode" ToolTip="Modo Edición" Style="{StaticResource MaterialDesignIconButton}" Content="{materialDesign:PackIcon Kind=MonitorEdit}" HorizontalAlignment="Left" Margin="20" Grid.Column="1" Click="cbEditMode_Click"/>
+            <Button x:Name="btnBack" Grid.Column="1" HorizontalAlignment="Right" Margin="20" Content="{materialDesign:PackIcon Kind=ArrowLeft}" Style="{StaticResource MaterialDesignIconButton}" Click="btnBack_Click"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid>
@@ -69,7 +70,7 @@
                                         <TextBox x:Name="tbDorms" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Dorms." Margin="10" Grid.Column="2" MaxLength="3" Foreground="{StaticResource MaterialDesignDarkForeground}" HorizontalContentAlignment="Center" Cursor="IBeam"/>
 
                                     </Grid>
-                                    <GroupBox Header="Reservas" Margin="10,15,10,10">
+                                    <GroupBox x:Name="GroupBookings" Header="Reservas" Margin="10,15,10,10">
                                         <Button Style="{StaticResource MaterialDesignIconButton}" Content="{materialDesign:PackIcon Kind=BookOpenPageVariantOutline,Size=30}"/>
                                     </GroupBox>
                                 </StackPanel>
@@ -78,7 +79,7 @@
                     </GroupBox>
                 </Grid>
                 <Grid Grid.Column="2">
-                    <GroupBox Header="Inventario" Margin="5">
+                    <GroupBox x:Name="GroupInventario" Header="Inventario" Margin="5">
                         <StackPanel >
                             <Grid >
                                 <Grid.RowDefinitions>

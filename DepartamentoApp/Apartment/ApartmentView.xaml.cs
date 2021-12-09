@@ -36,6 +36,10 @@ namespace DepartamentoApp
             InitializeComponent();
             if (creationMode)
             {
+                cbEstado.ItemsSource = new List<string> { "En uso", "En mantención", "Disponible", "Deshabilitado" };
+
+                GroupBookings.Visibility = Visibility.Hidden;
+                GroupInventario.Visibility = Visibility.Hidden; 
                 //Visibility settings
                 //Ccalendario.Visibility = Visibility.Hidden;
                 //lbCalend.Visibility = Visibility.Hidden;
@@ -60,7 +64,7 @@ namespace DepartamentoApp
 
                 TTitulo.Text = String.Empty;
                 TDescripcion.Text = String.Empty;
-                TbComuna.Content = String.Empty;
+                TbComuna.Content = "Seleccionar Comuna";
                 tbDireccion.Text = String.Empty;
                 CbTarifa.SelectedItem = null;
                 CbTarifa.ItemsSource = NegocioComun.GetTarifaList().OrderBy(x => x.Monto_Noche).Select(x => x.Monto_Noche).ToList();
@@ -71,7 +75,10 @@ namespace DepartamentoApp
             }
             else
             {
+                cbEstado.ItemsSource = new List<string> { "En uso", "En mantención", "Disponible", "Deshabilitado" };
+
                 SetValuesDep(dep_);
+                EditModeControls(editMode);
                 //dgInventario.ItemsSource = NegocioComun.GetFamiliaListByDepartamentoID(dep_.IdDepartamento).Select(i => new {i.Descripcion, i.Cantidad}).ToList();
                 //xListReservas.ItemsSource = NegocioComun.GetReservaListByDepID(dep_.IdDepartamento);
             }
@@ -106,6 +113,7 @@ namespace DepartamentoApp
             TbComuna.Content = dd.ComunaDep;
             TTitulo.Text = dd.TituloDepartamento;
             CbTarifa.SelectedIndex = Convert.ToInt32(dd.IdTarifaDep) - 1;
+            cbEstado.SelectedIndex = Convert.ToInt32(dd.Estado) - 1;
             CbTarifa.ItemsSource = NegocioComun.GetTarifaList().OrderBy(x => x.Monto_Noche).Select(x => x.Monto_Noche).ToList();
             TDescripcion.Text = dd.DescripcionDep;
 
@@ -178,13 +186,17 @@ namespace DepartamentoApp
             ImBig.IsEnabled = checkEdit;
             CbTarifa.IsEnabled = checkEdit;
             TbComuna.IsEnabled = checkEdit;
+            cbEstado.IsEnabled = checkEdit;
             TDescripcion.IsEnabled = checkEdit;
+            GroupBookings.IsEnabled = checkEdit;    
+            GroupInventario.IsEnabled = checkEdit;  
             if (checkEdit)
             {
                 btnSaveChanges.Visibility = Visibility.Visible;
                 //Ccalendario.Visibility = Visibility.Visible;
                 btnDelete.Visibility = Visibility.Hidden;
                 //SpMiscControls.Visibility = Visibility.Hidden;
+                
 
             }
             else
@@ -370,6 +382,30 @@ namespace DepartamentoApp
             }
 
             if (fileName == string.Empty)
+            {
+                EmptyFields++;
+
+            }
+
+            if (tbDorms.Text == string.Empty)
+            {
+                EmptyFields++;
+
+            }
+
+            if (tbBanos.Text == string.Empty)
+            {
+                EmptyFields++;
+
+            }
+
+            if (cbEstado.SelectedIndex != -1)
+            {
+                EmptyFields++;
+
+            }
+
+            if (tbCapacidad.Text == String.Empty)
             {
                 EmptyFields++;
 
