@@ -714,5 +714,23 @@ namespace SkyrentObjects
             return result;
         }
 
+        public bool DeleteInventory (int InvID)
+        {
+            string sqlcommand = $"delete from inventario where idInventario = {InvID}";
+            string sqlcommand2 = $"delete from detalle_inventario where idInventario = {InvID}";
+            try
+            {
+                osc.RunOracleNonQuery(sqlcommand);
+                osc.RunOracleNonQuery(sqlcommand2);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+
+            }
+
+        }
+
     }
 }

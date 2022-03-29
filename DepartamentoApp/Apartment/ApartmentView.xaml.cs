@@ -79,7 +79,7 @@ namespace DepartamentoApp
             else
             {
                 cbEstado.ItemsSource = new List<string> { "En uso", "En mantención", "Disponible", "Deshabilitado" };
-
+                GroupBookings.Visibility = Visibility.Hidden;
                 SetValuesDep(dep_);
                 EditModeControls(editMode);
                 //dgInventario.ItemsSource = NegocioComun.GetFamiliaListByDepartamentoID(dep_.IdDepartamento).Select(i => new {i.Descripcion, i.Cantidad}).ToList();
@@ -189,7 +189,7 @@ namespace DepartamentoApp
             TbComuna.IsEnabled = checkEdit;
             cbEstado.IsEnabled = checkEdit;
             TDescripcion.IsEnabled = checkEdit;
-            GroupBookings.IsEnabled = checkEdit;    
+            //GroupBookings.IsEnabled = checkEdit;    
             GroupInventario.IsEnabled = checkEdit;  
             
             if (checkEdit)
@@ -479,7 +479,7 @@ namespace DepartamentoApp
 
                 if (SelectedInvCasted.Items != null)
                 {
-                    foreach (var item in SelectedInvCasted.Items)
+                    foreach (var item in SelectedInvCasted.items)
                     {
                         lbItems2.Items.Add(item);
                     }
@@ -782,8 +782,10 @@ namespace DepartamentoApp
 
         private void lbInventory_Loaded(object sender, RoutedEventArgs e)
         {
+            
             if (!creationMode)
             {
+
                 foreach (var item in NegocioComun.GetInventarioFromDepId(dep_.IdDepartamento))
                 {
                     lbInventory.Items.Add(item);
@@ -839,6 +841,43 @@ namespace DepartamentoApp
                 cbComuna.IsEnabled = false;
 
                 cbRegion.ItemsSource = NegocioComun.GetRegionList().Select(x => x.Nombre);
+            }
+        }
+
+        private void btnDeleteInv_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (lbInventory.Items != null)
+            {
+                if (lbInventory.SelectedItem != null)
+                {
+                    var SelectedInv = lbInventory.SelectedItem;
+
+                    var SelectedInvCasted = (Inventario)SelectedInv;
+
+                    if (NegocioComun.DeleteInventory(SelectedInvCasted.IdInventario))
+                    {
+                        MessageBox.Show("Se ha eliminado el inventario exitosamente.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se ha podido eliminar el inventario.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Selecciona un inventario para borrar.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
+            }
+        }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!creationMode)
+            {
+
             }
         }
 

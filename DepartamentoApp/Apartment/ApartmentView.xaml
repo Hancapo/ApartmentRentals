@@ -117,7 +117,7 @@
                                     <RowDefinition Height="318*"/>
                                 </Grid.RowDefinitions>
 
-                                <Grid>
+                                <Grid Loaded="Grid_Loaded">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="77*"/>
                                         <RowDefinition Height="68*"/>
@@ -133,7 +133,7 @@
                                     </ListView>
                                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Height="72" Width="214">
                                         <Button Style="{StaticResource MaterialDesignPaperDarkButton}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" x:Name="btnCreateInv" Content="Crear" Margin="5" Width="100" Click="btnCreateInv_Click" Cursor="Hand"/>
-                                        <Button Style="{StaticResource MaterialDesignPaperDarkButton}" VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" x:Name="btnDeleteInv" Content="Eliminar" Width="100"/>
+                                        <Button Style="{StaticResource MaterialDesignPaperDarkButton}" VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" x:Name="btnDeleteInv" Content="Eliminar" Width="100" Click="btnDeleteInv_Click_1"/>
                                     </StackPanel>
                                 </Grid>
 
